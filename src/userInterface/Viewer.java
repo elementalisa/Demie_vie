@@ -57,15 +57,15 @@ public class Viewer implements ViewerService, RequireReadService{
     
     //TODO: replace the following with XML loader
     //heroesAvatarViewports.add(new Rectangle2D(301,386,95,192));
-    heroesAvatarViewports.add(new Rectangle2D(570,194,115,190));
-    heroesAvatarViewports.add(new Rectangle2D(398,386,133,192));
-    heroesAvatarViewports.add(new Rectangle2D(155,194,147,190));
-    heroesAvatarViewports.add(new Rectangle2D(785,386,127,194));
-    heroesAvatarViewports.add(new Rectangle2D(127,582,135,198));
-    heroesAvatarViewports.add(new Rectangle2D(264,582,111,200));
-    heroesAvatarViewports.add(new Rectangle2D(2,582,123,198));
-    heroesAvatarViewports.add(new Rectangle2D(533,386,115,192));
-    //heroesAvatarViewports.add(new Rectangle2D(204,386,95,192));
+    heroesAvatarViewports.add(new Rectangle2D(20,207,23,47));
+    heroesAvatarViewports.add(new Rectangle2D(84,208,25,46));
+    heroesAvatarViewports.add(new Rectangle2D(148,207,23,46));
+    heroesAvatarViewports.add(new Rectangle2D(211,207,25,47));
+    heroesAvatarViewports.add(new Rectangle2D(274,207,28,46));
+    heroesAvatarViewports.add(new Rectangle2D(336,207,25,47));
+    heroesAvatarViewports.add(new Rectangle2D(402,207,24,47));
+    heroesAvatarViewports.add(new Rectangle2D(467,207,25,47));
+    //heroesAvatarViewports.add(new Rectangle2D(532,207,554,253));
 
     //heroesAvatarXModifiers.add(10);heroesAvatarYModifiers.add(-7);
     heroesAvatarXModifiers.add(6);heroesAvatarYModifiers.add(-6);
