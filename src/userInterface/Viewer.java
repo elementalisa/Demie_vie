@@ -82,6 +82,8 @@ public class Viewer implements ViewerService, RequireReadService{
 
   @Override
   public Parent getPanel(){
+
+	Image camembert_img = new Image("images/briquesplus.png");
     //Yucky hard-conding
     Rectangle map = new Rectangle(HardCodedParameters.defaultWidth-10,-100+HardCodedParameters.defaultHeight);
     map.setFill(Color.WHITE);
@@ -98,10 +100,8 @@ public class Viewer implements ViewerService, RequireReadService{
     obstacle1.setStrokeWidth(0.1);
     obstacle1.setTranslateX(50);
     obstacle1.setTranslateY(60);
-    //Image camembert_img = new Image("images/briquesplus.png");
-    //obstacle1.setFill(new ImagePattern(camembert_img));
-    //Image img5 = new Image("images/flasche.jpg");
-    //obstacle1.setFill(new ImagePattern(img5));
+//    Image img5 = new Image("images/flasche.jpg");
+//    obstacle1.setFill(new ImagePattern(img5));
     
     Rectangle obstacle2 = new Rectangle(100,380);
     obstacle2.setFill(Color.WHITE);
@@ -179,6 +179,19 @@ public class Viewer implements ViewerService, RequireReadService{
     obstacle7b.setTranslateX(920);
     obstacle7b.setTranslateY(280);
     
+
+    obstacle1.setFill(new ImagePattern(camembert_img));
+    obstacle2.setFill(new ImagePattern(camembert_img));
+//    obstacle2b.setFill(new ImagePattern(camembert_img));
+//    obstacle3.setFill(new ImagePattern(camembert_img));
+//    obstacle3b.setFill(new ImagePattern(camembert_img));
+//    obstacle4.setFill(new ImagePattern(camembert_img));
+//    obstacle4a.setFill(new ImagePattern(camembert_img));
+//    obstacle5.setFill(new ImagePattern(camembert_img));
+//    obstacle5b.setFill(new ImagePattern(camembert_img));
+//    obstacle6.setFill(new ImagePattern(camembert_img));
+//    obstacle7.setFill(new ImagePattern(camembert_img));
+//    obstacle7b.setFill(new ImagePattern(camembert_img));
     
     Text greets = new Text(-100+HardCodedParameters.defaultWidth/2.,-40+HardCodedParameters.defaultHeight, "Round 1");
     greets.setFont(new Font(50));
