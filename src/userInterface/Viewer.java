@@ -211,6 +211,14 @@ public class Viewer implements ViewerService, RequireReadService{
     panel.getChildren().addAll(map,obstacle1,obstacle2,obstacle2b,obstacle3,obstacle3b,
     		obstacle4,obstacle5,obstacle5b,obstacle6,obstacle4a,obstacle7,obstacle7b,greets,heroesAvatar);
 
+    for (PhantomService p:data.getPhantoms()){
+      Circle phantomAvatar = new Circle(10,  Color.rgb(255,156,156));
+      phantomAvatar.setEffect(new Lighting());
+      phantomAvatar.setTranslateX(p.getPosition().x);
+      phantomAvatar.setTranslateY(p.getPosition().y);
+      panel.getChildren().add(phantomAvatar);
+    }
+
     return panel;
   }
 }

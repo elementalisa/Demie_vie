@@ -72,6 +72,29 @@ public class Engine implements EngineService, RequireDataService{
         		heroesMoveDown();
         	}
         }
+        System.out.println("Game step #"+data.getStepNumber()+": checked.");
+        if (gen.nextInt(100)<3) spawnPhantom();
+
+        for (PhantomService p:data.getPhantoms()){
+        	switch (gen.nextInt(4)){
+            case 0:
+              moveRight(p);
+              break;
+            case 1:
+              moveLeft(p);
+              break;
+            case 2:
+              moveDown(p);
+              break;
+            default:
+              moveUp(p);
+              break;
+          }
+        }
+        if (command==User.COMMAND.LEFT) heroesMoveLeft();
+        if (command==User.COMMAND.RIGHT) heroesMoveRight();
+        if (command==User.COMMAND.UP) heroesMoveUp();
+        if (command==User.COMMAND.DOWN) heroesMoveDown();
         command = User.COMMAND.NONE;
         System.out.println(" X " + data.getHeroesPosition().x + " Y : " + data.getHeroesPosition().y);
         data.setStepNumber(data.getStepNumber()+1);
@@ -99,7 +122,7 @@ public class Engine implements EngineService, RequireDataService{
 //      		return true;
 //      	}
 //      	if(data.getHeroesPosition().y >= p.getPosition().getMinY() && data.getHeroesPosition().x == p.getPosition().getMinX() +10 && data.getHeroesPosition().y <= p.getPosition().getMaxY()){
-//      		System.out.println("Il est à gauche!!!!!");
+//      		System.out.println("Il est ï¿½ gauche!!!!!");
 //      		return true;
 //      	}
 //      	if(data.getHeroesPosition().x >= p.getPosition().getMinX() && data.getHeroesPosition().x <= p.getPosition().getMaxX() && data.getHeroesPosition().y == p.getPosition().getMaxY() +10){
@@ -107,7 +130,7 @@ public class Engine implements EngineService, RequireDataService{
 //      		return true;
 //      	}
 //      	if(data.getHeroesPosition().x == p.getPosition().getMaxX() +10 && data.getHeroesPosition().y >= p.getPosition().getMinY() && data.getHeroesPosition().y <= p.getPosition().getMaxY()){
-//      		System.out.println("Il est à droite");
+//      		System.out.println("Il est ï¿½ droite");
 //      		return true;
 //      	}
 //      }
@@ -127,7 +150,7 @@ public class Engine implements EngineService, RequireDataService{
   private boolean wallCollisionRight(){
       for(Wall p: data.getWalls()){
       	if(data.getHeroesPosition().y >= p.getPosition().getMinY() && data.getHeroesPosition().x == p.getPosition().getMinX() -10 && data.getHeroesPosition().y <= p.getPosition().getMaxY()){
-      		System.out.println("Il est à gauche!!!!!");
+      		System.out.println("Il est ï¿½ gauche!!!!!");
       		return true;
       	}
       }
@@ -147,7 +170,7 @@ public class Engine implements EngineService, RequireDataService{
   private boolean wallCollisionLeft(){
       for(Wall p: data.getWalls()){
       	if(data.getHeroesPosition().x == p.getPosition().getMaxX() +10 && data.getHeroesPosition().y >= p.getPosition().getMinY() && data.getHeroesPosition().y <= p.getPosition().getMaxY()){
-      		System.out.println("Il est à droite");
+      		System.out.println("Il est ï¿½ droite");
       		return true;
       	}
       }
