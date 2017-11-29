@@ -9,6 +9,7 @@ package userInterface;
 import tools.HardCodedParameters;
 
 import specifications.ViewerService;
+import sun.rmi.runtime.Log;
 import specifications.ReadService;
 import specifications.RequireReadService;
 import specifications.PhantomService;
