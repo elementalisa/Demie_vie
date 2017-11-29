@@ -91,6 +91,7 @@ public class Engine implements EngineService, RequireDataService{
               break;
           }
         }
+
         command = User.COMMAND.NONE;
         System.out.println(" X " + data.getHeroesPosition().x + " Y : " + data.getHeroesPosition().y);
         data.setStepNumber(data.getStepNumber()+1);
