@@ -5,10 +5,9 @@
  * $Id: alpha/Main.java 2015-03-11 buixuan.
  * ******************************************************/
 package alpha;
-
+// Hello It's me!
 import tools.HardCodedParameters;
 import tools.User;
-import tools.Sound;
 
 import specifications.DataService;
 import specifications.EngineService;
@@ -28,12 +27,6 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.paint.Color;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 
 public class Main extends Application{
   //---HARD-CODED-PARAMETERS---//
@@ -59,14 +52,12 @@ public class Main extends Application{
     data.init();
     engine.init();
     viewer.init();
-    
+
     launch(args);
   }
 
   @Override public void start(Stage stage) {
     final Scene scene = new Scene(((Viewer)viewer).getPanel());
-
-    scene.setFill(Color.CORNFLOWERBLUE);
     scene.setOnKeyPressed(new EventHandler<KeyEvent>(){
       @Override
         public void handle(KeyEvent event) {
@@ -77,56 +68,29 @@ public class Main extends Application{
           event.consume();
         }
     });
-    scene.setOnKeyReleased(new EventHandler<KeyEvent>(){
-      @Override
-        public void handle(KeyEvent event) {
-          if (event.getCode()==KeyCode.LEFT) engine.releaseHeroesCommand(User.COMMAND.LEFT);
-          if (event.getCode()==KeyCode.RIGHT) engine.releaseHeroesCommand(User.COMMAND.RIGHT);
-          if (event.getCode()==KeyCode.UP) engine.releaseHeroesCommand(User.COMMAND.UP);
-          if (event.getCode()==KeyCode.DOWN) engine.releaseHeroesCommand(User.COMMAND.DOWN);
-          event.consume();
-        }
-    });
-    scene.widthProperty().addListener(new ChangeListener<Number>() {
-        @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) {
-          viewer.setMainWindowWidth(newSceneWidth.doubleValue());
-        }
-    });
-    scene.heightProperty().addListener(new ChangeListener<Number>() {
-        @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneHeight, Number newSceneHeight) {
-          viewer.setMainWindowHeight(newSceneHeight.doubleValue());
-        }
-    });
     
     stage.setScene(scene);
     stage.setWidth(HardCodedParameters.defaultWidth);
     stage.setHeight(HardCodedParameters.defaultHeight);
     stage.setOnShown(new EventHandler<WindowEvent>() {
-      @Override public void handle(WindowEvent event) {
-        engine.start();
-      }
+      @Override
+        public void handle(WindowEvent event) {
+          engine.start();
+        }
     });
     stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-      @Override public void handle(WindowEvent event) {
-        engine.stop();
-      }
+      @Override
+        public void handle(WindowEvent event) {
+          engine.stop();
+        }
     });
     stage.show();
     
     timer = new AnimationTimer() {
-      @Override public void handle(long l) {
-        scene.setRoot(((Viewer)viewer).getPanel());
-        switch (data.getSoundEffect()){
-          case PhantomDestroyed:
-            new MediaPlayer(new Media(getHostServices().getDocumentBase()+"src/sound/waterdrip.mp3")).play();
-            break;
-          case HeroesGotHit:
-            new MediaPlayer(new Media(getHostServices().getDocumentBase()+"src/sound/waterdrip.mp3")).play();
-            break;
-          default:
-            break;
+      @Override
+        public void handle(long l) {
+          scene.setRoot(((Viewer)viewer).getPanel());
         }
-      }
     };
     timer.start();
   }

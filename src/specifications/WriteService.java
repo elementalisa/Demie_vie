@@ -7,15 +7,9 @@
 package specifications;
 
 import tools.Position;
-import tools.Sound;
-
-import java.util.ArrayList;
 
 public interface WriteService {
   public void setHeroesPosition(Position p);
   public void setStepNumber(int n);
   public void addPhantom(Position p);
-  public void setPhantoms(ArrayList<PhantomService> phantoms);
-  public void setSoundEffect(Sound.SOUND s);
-  public void addScore(int score);
 }
