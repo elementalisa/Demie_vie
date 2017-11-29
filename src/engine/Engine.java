@@ -8,6 +8,7 @@ package engine;
 
 import tools.HardCodedParameters;
 import tools.User;
+import userInterface.Viewer;
 import tools.Position;
 
 import specifications.EngineService;
@@ -67,19 +68,29 @@ public class Engine implements EngineService, RequireDataService{
   }
 
   private void heroesMoveLeft(){
-    data.setHeroesPosition(new Position(data.getHeroesPosition().x-10,data.getHeroesPosition().y));
+	  if(data.getHeroesPosition().x >= 20){
+		  //if(data.getHeroesPosition().equals(Viewer.class.getMethod(sc, parameterTypes))){
+			  data.setHeroesPosition(new Position(data.getHeroesPosition().x-10,data.getHeroesPosition().y));
+		  //}
+	  }
   }
   
   private void heroesMoveRight(){
-    data.setHeroesPosition(new Position(data.getHeroesPosition().x+10,data.getHeroesPosition().y));
+	  if(data.getHeroesPosition().x <= 1080){
+		  data.setHeroesPosition(new Position(data.getHeroesPosition().x+10,data.getHeroesPosition().y));
+	  }
   }
   
   private void heroesMoveUp(){
-    data.setHeroesPosition(new Position(data.getHeroesPosition().x,data.getHeroesPosition().y-10));
+	  if(data.getHeroesPosition().y >= 30){
+		  data.setHeroesPosition(new Position(data.getHeroesPosition().x,data.getHeroesPosition().y-10));
+	  }
   }
   
   private void heroesMoveDown(){
-    data.setHeroesPosition(new Position(data.getHeroesPosition().x,data.getHeroesPosition().y+10));
+	  if(data.getHeroesPosition().y <= 680){
+		  data.setHeroesPosition(new Position(data.getHeroesPosition().x,data.getHeroesPosition().y+10));
+	  }
   }
 
   private void spawnPhantom(){

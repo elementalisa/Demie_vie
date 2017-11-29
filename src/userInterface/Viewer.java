@@ -83,7 +83,7 @@ public class Viewer implements ViewerService, RequireReadService{
   @Override
   public Parent getPanel(){
 
-	Image camembert_img = new Image("images/briquesplus.png");
+	Image camembert_img = new Image("file:src/images/briquesplus.png");
     //Yucky hard-conding
     Rectangle map = new Rectangle(HardCodedParameters.defaultWidth-10,-100+HardCodedParameters.defaultHeight);
     map.setFill(Color.WHITE);
@@ -93,6 +93,8 @@ public class Viewer implements ViewerService, RequireReadService{
     map.setArcHeight(20);
     map.setTranslateX(5);
     map.setTranslateY(5);
+	Image back_img = new Image("file:src/images/background.png");
+    map.setFill(new ImagePattern(back_img, 1, 1, 0.7, 0.9, false));
     
     Rectangle obstacle1 = new Rectangle(100,120);
     obstacle1.setFill(Color.WHITE);
@@ -180,18 +182,18 @@ public class Viewer implements ViewerService, RequireReadService{
     obstacle7b.setTranslateY(280);
     
 
-    obstacle1.setFill(new ImagePattern(camembert_img));
-    obstacle2.setFill(new ImagePattern(camembert_img));
-//    obstacle2b.setFill(new ImagePattern(camembert_img));
-//    obstacle3.setFill(new ImagePattern(camembert_img));
-//    obstacle3b.setFill(new ImagePattern(camembert_img));
-//    obstacle4.setFill(new ImagePattern(camembert_img));
-//    obstacle4a.setFill(new ImagePattern(camembert_img));
-//    obstacle5.setFill(new ImagePattern(camembert_img));
-//    obstacle5b.setFill(new ImagePattern(camembert_img));
-//    obstacle6.setFill(new ImagePattern(camembert_img));
-//    obstacle7.setFill(new ImagePattern(camembert_img));
-//    obstacle7b.setFill(new ImagePattern(camembert_img));
+    obstacle1.setFill(new ImagePattern(camembert_img, 1, 1, 0.7, 0.9, false));
+    obstacle2.setFill(new ImagePattern(camembert_img, 1, 1, 0.7, 0.9, false));
+    obstacle2b.setFill(new ImagePattern(camembert_img, 1, 1, 0.7, 0.9, false));
+    obstacle3.setFill(new ImagePattern(camembert_img, 1, 1, 0.7, 0.9, false));
+    obstacle3b.setFill(new ImagePattern(camembert_img, 1, 1, 0.7, 0.9, false));
+    obstacle4.setFill(new ImagePattern(camembert_img, 1, 1, 0.7, 0.9, false));
+    obstacle4a.setFill(new ImagePattern(camembert_img, 1, 1, 0.7, 0.9, false));
+    obstacle5.setFill(new ImagePattern(camembert_img, 1, 1, 0.7, 0.9, false));
+    obstacle5b.setFill(new ImagePattern(camembert_img, 1, 1, 0.7, 0.9, false));
+    obstacle6.setFill(new ImagePattern(camembert_img, 1, 1, 0.7, 0.9, false));
+    obstacle7.setFill(new ImagePattern(camembert_img, 1, 1, 0.7, 0.9, false));
+    obstacle7b.setFill(new ImagePattern(camembert_img, 1, 1, 0.7, 0.9, false));
     
     Text greets = new Text(-100+HardCodedParameters.defaultWidth/2.,-40+HardCodedParameters.defaultHeight, "Round 1");
     greets.setFont(new Font(50));
