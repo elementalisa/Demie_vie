@@ -91,10 +91,6 @@ public class Engine implements EngineService, RequireDataService{
               break;
           }
         }
-        if (command==User.COMMAND.LEFT) heroesMoveLeft();
-        if (command==User.COMMAND.RIGHT) heroesMoveRight();
-        if (command==User.COMMAND.UP) heroesMoveUp();
-        if (command==User.COMMAND.DOWN) heroesMoveDown();
         command = User.COMMAND.NONE;
         System.out.println(" X " + data.getHeroesPosition().x + " Y : " + data.getHeroesPosition().y);
         data.setStepNumber(data.getStepNumber()+1);
