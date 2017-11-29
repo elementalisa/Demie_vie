@@ -12,4 +12,5 @@ public interface WriteService {
   public void setHeroesPosition(Position p);
   public void setStepNumber(int n);
   public void addPhantom(Position p);
+  public void initWalls();
 }

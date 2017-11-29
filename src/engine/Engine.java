@@ -8,6 +8,7 @@ package engine;
 
 import tools.HardCodedParameters;
 import tools.User;
+import tools.Wall;
 import userInterface.Viewer;
 import tools.Position;
 
@@ -38,23 +39,47 @@ public class Engine implements EngineService, RequireDataService{
     engineClock = new Timer();
     command = User.COMMAND.NONE;
     gen = new Random();
+    data.initWalls();
   }
 
   @Override
   public void start(){
     engineClock.schedule(new TimerTask(){
       public void run() {
-        System.out.println("Game step #"+data.getStepNumber()+": checked.");
-        
-        if (command==User.COMMAND.LEFT) heroesMoveLeft();
-        if (command==User.COMMAND.RIGHT) heroesMoveRight();
-        if (command==User.COMMAND.UP) heroesMoveUp();
-        if (command==User.COMMAND.DOWN) heroesMoveDown();
+        //System.out.println("Game step #"+data.getStepNumber()+": checked.");
+    	 //System.out.println(data.getWalls().size() + "SIZE !");
+    	System.out.println("Hero X position : " + data.getHeroesPosition().x + "Hero Y position : " + data.getHeroesPosition().y);
+    	
+        if (command==User.COMMAND.LEFT){
+	    	if(!wallCollisionLeft()){
+	    		System.out.println("toLeft!!!");
+	    		heroesMoveLeft();
+	    	}
+        }
+        if (command==User.COMMAND.RIGHT){
+        	if(!wallCollisionRight()){
+        	System.out.println("toLeft!!!");
+        	heroesMoveRight();
+        	}
+        }
+        if (command==User.COMMAND.UP){
+        	if(!wallCollisionUp()){
+        	heroesMoveUp();
+        	}
+        }
+        if (command==User.COMMAND.DOWN){
+        	if(!wallCollisionDown()){
+        		heroesMoveDown();
+        	}
+        }
         command = User.COMMAND.NONE;
-
+        System.out.println(" X " + data.getHeroesPosition().x + " Y : " + data.getHeroesPosition().y);
         data.setStepNumber(data.getStepNumber()+1);
+        
+        
+        
       }
-    },0,HardCodedParameters.enginePaceMillis);
+    },0,80);
   }
 
   @Override
@@ -65,6 +90,68 @@ public class Engine implements EngineService, RequireDataService{
   @Override
   public void setHeroesCommand(User.COMMAND c){
     command=c;
+  }
+  
+//  private boolean wallCollision(){
+//      for(Wall p: data.getWalls()){
+//      	if(data.getHeroesPosition().y == p.getPosition().getMinY() +10 && data.getHeroesPosition().x >= p.getPosition().getMinX() && data.getHeroesPosition().x <= p.getPosition().getMaxX()){
+//      		System.out.println("Il est en haut!!!!!");
+//      		return true;
+//      	}
+//      	if(data.getHeroesPosition().y >= p.getPosition().getMinY() && data.getHeroesPosition().x == p.getPosition().getMinX() +10 && data.getHeroesPosition().y <= p.getPosition().getMaxY()){
+//      		System.out.println("Il est à gauche!!!!!");
+//      		return true;
+//      	}
+//      	if(data.getHeroesPosition().x >= p.getPosition().getMinX() && data.getHeroesPosition().x <= p.getPosition().getMaxX() && data.getHeroesPosition().y == p.getPosition().getMaxY() +10){
+//      		System.out.println("Il est en bas!!!!!");
+//      		return true;
+//      	}
+//      	if(data.getHeroesPosition().x == p.getPosition().getMaxX() +10 && data.getHeroesPosition().y >= p.getPosition().getMinY() && data.getHeroesPosition().y <= p.getPosition().getMaxY()){
+//      		System.out.println("Il est à droite");
+//      		return true;
+//      	}
+//      }
+//      return false;
+//  }
+  
+  private boolean wallCollisionDown(){
+      for(Wall p: data.getWalls()){
+      	if(data.getHeroesPosition().y == p.getPosition().getMinY() -10 && data.getHeroesPosition().x >= p.getPosition().getMinX() && data.getHeroesPosition().x <= p.getPosition().getMaxX()){
+      		System.out.println("Il est en haut!!!!!");
+      		return true;
+      	}
+      }
+      return false;
+  }
+  
+  private boolean wallCollisionRight(){
+      for(Wall p: data.getWalls()){
+      	if(data.getHeroesPosition().y >= p.getPosition().getMinY() && data.getHeroesPosition().x == p.getPosition().getMinX() -10 && data.getHeroesPosition().y <= p.getPosition().getMaxY()){
+      		System.out.println("Il est à gauche!!!!!");
+      		return true;
+      	}
+      }
+      return false;
+  }
+  
+  private boolean wallCollisionUp(){
+      for(Wall p: data.getWalls()){
+      	if(data.getHeroesPosition().x >= p.getPosition().getMinX() && data.getHeroesPosition().x <= p.getPosition().getMaxX() && data.getHeroesPosition().y == p.getPosition().getMaxY() +10){
+      		System.out.println("Il est en bas!!!!!");
+      		return true;
+      	}
+      }
+      return false;
+  }
+  
+  private boolean wallCollisionLeft(){
+      for(Wall p: data.getWalls()){
+      	if(data.getHeroesPosition().x == p.getPosition().getMaxX() +10 && data.getHeroesPosition().y >= p.getPosition().getMinY() && data.getHeroesPosition().y <= p.getPosition().getMaxY()){
+      		System.out.println("Il est à droite");
+      		return true;
+      	}
+      }
+      return false;
   }
 
   private void heroesMoveLeft(){
