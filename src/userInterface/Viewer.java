@@ -34,10 +34,15 @@ public class Viewer implements ViewerService, RequireReadService{
   private ReadService data;
   private ImageView heroesAvatar;
   private Image heroesSpriteSheet;
+  private Image ennemieSpriteSheet;
   private ArrayList<Rectangle2D> heroesAvatarViewports;
+  private ArrayList<Rectangle2D> ennemieAvatarViewports;
   private ArrayList<Integer> heroesAvatarXModifiers;
   private ArrayList<Integer> heroesAvatarYModifiers;
+  private ArrayList<Integer> ennemieAvatarXModifiers;
+  private ArrayList<Integer> ennemieAvatarYModifiers;
   private int heroesAvatarViewportIndex;
+  private int ennemieAvatarViewportIndex;
 
   public Viewer(){}
 
@@ -51,11 +56,18 @@ public class Viewer implements ViewerService, RequireReadService{
     //Yucky hard-conding
     heroesSpriteSheet = new Image("file:src/images/sprite-hero.png");
     heroesAvatar = new ImageView(heroesSpriteSheet);
+    ennemieSpriteSheet = new Image("file:src/images/sprite-ennemie.png");
+    
     heroesAvatarViewports = new ArrayList<Rectangle2D>();
+    ennemieAvatarViewports = new ArrayList<Rectangle2D>();
+    
     heroesAvatarXModifiers = new ArrayList<Integer>();
     heroesAvatarYModifiers = new ArrayList<Integer>();
+    ennemieAvatarXModifiers = new ArrayList<Integer>();
+    ennemieAvatarYModifiers = new ArrayList<Integer>();
 
     heroesAvatarViewportIndex=0;
+    ennemieAvatarViewportIndex= 0;
     
     //TODO: replace the following with XML loader
     //heroesAvatarViewports.add(new Rectangle2D(301,386,95,192));
@@ -68,6 +80,17 @@ public class Viewer implements ViewerService, RequireReadService{
     heroesAvatarViewports.add(new Rectangle2D(402,207,25,47));
     heroesAvatarViewports.add(new Rectangle2D(467,207,25,47));
     heroesAvatarViewports.add(new Rectangle2D(532,207,25,47));
+    
+    //ENNEMIE SPIRITE
+    ennemieAvatarViewports.add(new Rectangle2D(20,207,25,47));
+    ennemieAvatarViewports.add(new Rectangle2D(84,207,25,47));
+    ennemieAvatarViewports.add(new Rectangle2D(148,207,25,47));
+    ennemieAvatarViewports.add(new Rectangle2D(211,207,25,47));
+    ennemieAvatarViewports.add(new Rectangle2D(274,207,25,47));
+    ennemieAvatarViewports.add(new Rectangle2D(336,207,25,47));
+    ennemieAvatarViewports.add(new Rectangle2D(402,207,25,47));
+    ennemieAvatarViewports.add(new Rectangle2D(467,207,25,47));
+    ennemieAvatarViewports.add(new Rectangle2D(532,207,25,47));
 
     //heroesAvatarXModifiers.add(10);heroesAvatarYModifiers.add(-7);
     heroesAvatarXModifiers.add(0);heroesAvatarYModifiers.add(0);
@@ -79,6 +102,17 @@ public class Viewer implements ViewerService, RequireReadService{
     heroesAvatarXModifiers.add(0);heroesAvatarYModifiers.add(0);
     heroesAvatarXModifiers.add(0);heroesAvatarYModifiers.add(0);
     heroesAvatarXModifiers.add(0);heroesAvatarYModifiers.add(0);
+    
+    //ENNEMIE MODIFER
+    ennemieAvatarXModifiers.add(0);ennemieAvatarYModifiers.add(0);
+    ennemieAvatarXModifiers.add(0);ennemieAvatarYModifiers.add(0);
+    ennemieAvatarXModifiers.add(0);ennemieAvatarYModifiers.add(0);
+    ennemieAvatarXModifiers.add(0);ennemieAvatarYModifiers.add(0);
+    ennemieAvatarXModifiers.add(0);ennemieAvatarYModifiers.add(0);
+    ennemieAvatarXModifiers.add(0);ennemieAvatarYModifiers.add(0);
+    ennemieAvatarXModifiers.add(0);ennemieAvatarYModifiers.add(0);
+    ennemieAvatarXModifiers.add(0);ennemieAvatarYModifiers.add(0);
+    ennemieAvatarXModifiers.add(0);ennemieAvatarYModifiers.add(0);
   }
 
   @Override
@@ -206,17 +240,25 @@ public class Viewer implements ViewerService, RequireReadService{
     heroesAvatar.setTranslateX(data.getHeroesPosition().x+(-heroesAvatarViewports.get(index).getWidth()/2.+0.5*heroesAvatarXModifiers.get(index)));
     heroesAvatar.setTranslateY(data.getHeroesPosition().y+(-heroesAvatarViewports.get(index).getHeight()/2.+0.5*heroesAvatarYModifiers.get(index)));
     heroesAvatarViewportIndex=(heroesAvatarViewportIndex+1)%(heroesAvatarViewports.size()*spriteSlowDownRate);
-
+    
     Group panel = new Group();
     panel.getChildren().addAll(map,obstacle1,obstacle2,obstacle2b,obstacle3,obstacle3b,
     		obstacle4,obstacle5,obstacle5b,obstacle6,obstacle4a,obstacle7,obstacle7b,greets,heroesAvatar);
 
     for (PhantomService p:data.getPhantoms()){
-      Circle phantomAvatar = new Circle(10,  Color.rgb(255,156,156));
-      phantomAvatar.setEffect(new Lighting());
-      phantomAvatar.setTranslateX(p.getPosition().x);
-      phantomAvatar.setTranslateY(p.getPosition().y);
-      panel.getChildren().add(phantomAvatar);
+   
+    	//ENNEMIE
+      ImageView ennemieAvatar;
+    	int ennemieIndex=ennemieAvatarViewportIndex/spriteSlowDownRate;
+    	ennemieAvatar = new ImageView(ennemieSpriteSheet);
+        ennemieAvatar.setViewport(heroesAvatarViewports.get(ennemieIndex));
+  	  	ennemieAvatar.setScaleX(0.5);
+  	  	ennemieAvatar.setScaleY(0.5);
+  	  	ennemieAvatar.setTranslateX(p.getPosition().x+(-ennemieAvatarViewports.get(ennemieIndex).getWidth()/2.+0.5*ennemieAvatarXModifiers.get(ennemieIndex)));
+  	  	ennemieAvatar.setTranslateY(p.getPosition().y+(-ennemieAvatarViewports.get(ennemieIndex).getHeight()/2.+0.5*ennemieAvatarXModifiers.get(ennemieIndex)));
+  	  	ennemieAvatarViewportIndex=(ennemieAvatarViewportIndex+1)%(ennemieAvatarViewports.size()*spriteSlowDownRate);
+  	  
+  	  	panel.getChildren().add(ennemieAvatar);
     }
 
     return panel;
