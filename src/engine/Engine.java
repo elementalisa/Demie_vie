@@ -238,7 +238,15 @@ public class Engine implements EngineService, RequireDataService{
         if (p.getPosition().equals(new Position(x,y))) cont=true;
       }
     }
-    data.addPhantom(new Position(100,100),"Down");
+    int tempRandom = (Math.random() <= 0.5) ? 1 : 2;
+	switch (tempRandom){
+	  case 1:
+		 data.addPhantom(new Position(100,100),"Down");
+	    break;
+	  case 2:
+		data.addPhantom(new Position(440,440),"Down");
+	    break;
+	}
   }
   
   private void randomRight(PhantomService p){

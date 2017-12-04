@@ -35,6 +35,8 @@ public class Viewer implements ViewerService, RequireReadService{
   private ImageView heroesAvatar;
   private Image heroesSpriteSheet;
   private Image ennemieSpriteSheet;
+  private Image pile;
+  private ImageView pileView;
   private ArrayList<Rectangle2D> heroesAvatarViewports;
   private ArrayList<Rectangle2D> ennemieAvatarViewports;
   private ArrayList<Integer> heroesAvatarXModifiers;
@@ -57,6 +59,9 @@ public class Viewer implements ViewerService, RequireReadService{
     heroesSpriteSheet = new Image("file:src/images/sprite-hero.png");
     heroesAvatar = new ImageView(heroesSpriteSheet);
     ennemieSpriteSheet = new Image("file:src/images/sprite-ennemie.png");
+
+
+    
     
     heroesAvatarViewports = new ArrayList<Rectangle2D>();
     ennemieAvatarViewports = new ArrayList<Rectangle2D>();
@@ -117,6 +122,14 @@ public class Viewer implements ViewerService, RequireReadService{
 
   @Override
   public Parent getPanel(){
+	  
+    pile = new Image("file:src/images/pile-rouge-2.png");
+    pileView = new ImageView(pile);
+    pileView.setTranslateX(15);
+    pileView.setTranslateY(5);
+    pileView.setFitHeight(25);
+    pileView.setFitWidth(21);
+    
 
 	Image camembert_img = new Image("file:src/images/briquesplus.png");
     //Yucky hard-conding
@@ -284,7 +297,7 @@ public class Viewer implements ViewerService, RequireReadService{
     
     Group panel = new Group();
     panel.getChildren().addAll(map,obstacle1,obstacle2,obstacle2b,obstacle3,obstacle3b,
-    		obstacle4,obstacle5,obstacle5b,obstacle6,obstacle4a,obstacle7,obstacle7b,obstacle8,obstacle9, obstacle10,obstacle11,obstacle12,greets,heroesAvatar);
+    		obstacle4,obstacle5,obstacle5b,obstacle6,obstacle4a,obstacle7,obstacle7b,obstacle8,obstacle9, obstacle10,obstacle11,obstacle12,greets,heroesAvatar, pileView);
 
     for (PhantomService p:data.getPhantoms()){
    
