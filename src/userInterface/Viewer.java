@@ -281,7 +281,7 @@ public class Viewer implements ViewerService, RequireReadService{
     for (PhantomService p:data.getPhantoms()){
    
     	//ENNEMIE
-      ImageView ennemieAvatar;
+    	ImageView ennemieAvatar;
     	int ennemieIndex=ennemieAvatarViewportIndex/spriteSlowDownRate;
     	ennemieAvatar = new ImageView(ennemieSpriteSheet);
         ennemieAvatar.setViewport(heroesAvatarViewports.get(ennemieIndex));

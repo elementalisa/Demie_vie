@@ -57,7 +57,7 @@ public class Engine implements EngineService, RequireDataService{
 				// TODO Auto-generated method stub
 				spawnPhantom();
 			}
-		}, 0,30000);
+		}, 0,2000);
     engineClock.schedule(new TimerTask(){
       public void run() {
         //System.out.println("Game step #"+data.getStepNumber()+": checked.");
@@ -238,7 +238,7 @@ public class Engine implements EngineService, RequireDataService{
         if (p.getPosition().equals(new Position(x,y))) cont=true;
       }
     }
-    data.addPhantom(new Position(500,350),"Left");
+    data.addPhantom(new Position(1090,100),"Down");
   }
   
   private void randomRight(PhantomService p){
@@ -286,7 +286,7 @@ public class Engine implements EngineService, RequireDataService{
   private void randomDown(PhantomService p){
 		switch (gen.nextInt(3)){
         case 0:
-      	  p.setDep("Up");
+      	  p.setDep("Down");
           return;
         case 1:
       	  p.setDep("Left");
@@ -317,7 +317,6 @@ public class Engine implements EngineService, RequireDataService{
 	 
       for(Wall w: data.getWalls()){
       	if(p.getPosition().y >= w.getPosition().getMinY() && p.getPosition().x +10 == w.getPosition().getMinX() && p.getPosition().y <= w.getPosition().getMaxY()){
-      		
       		p.setPosition(new Position(p.getPosition().x - 10, p.getPosition().y));
       		randomRight(p);
       	}
@@ -331,9 +330,11 @@ public class Engine implements EngineService, RequireDataService{
   }
 
   private void moveUp(PhantomService p){
+	  
       for(Wall w: data.getWalls()){
-        	if(p.getPosition().x >= w.getPosition().getMinX() && p.getPosition().x <= w.getPosition().getMaxX() && p.getPosition().y == w.getPosition().getMaxY() +20){
-          		randomUp(p);
+        	if(p.getPosition().x >= w.getPosition().getMinX() && p.getPosition().x <= w.getPosition().getMaxX() && p.getPosition().y == w.getPosition().getMaxY()+10){
+        		p.setPosition(new Position(p.getPosition().x, p.getPosition().y + 10));
+        		randomUp(p);
         	}
         }
 	  if(!(p.getPosition().y >= 30 )){
@@ -346,7 +347,8 @@ public class Engine implements EngineService, RequireDataService{
 
   private void moveDown(PhantomService p){
       for(Wall w: data.getWalls()){
-        	if(p.getPosition().y == w.getPosition().getMinY() -20 && p.getPosition().x >= w.getPosition().getMinX() && p.getPosition().x <= w.getPosition().getMaxX()){
+        	if(p.getPosition().y == w.getPosition().getMinY() -10 && p.getPosition().x >= w.getPosition().getMinX() && p.getPosition().x <= w.getPosition().getMaxX()){
+        		p.setPosition(new Position(p.getPosition().x, p.getPosition().y -10));
         		randomDown(p);
         	}
         }
