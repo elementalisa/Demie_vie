@@ -245,6 +245,13 @@ public class Viewer implements ViewerService, RequireReadService{
     obstacle11.setTranslateX(500);
     obstacle11.setTranslateY(663);
     
+    Rectangle obstacle12 = new Rectangle(20,20);
+    obstacle12.setFill(Color.WHITE);
+    obstacle12.setStroke(Color.DIMGRAY);
+    obstacle12.setStrokeWidth(0.1);
+    obstacle12.setTranslateX(8);
+    obstacle12.setTranslateY(220);
+    
 
     obstacle1.setFill(new ImagePattern(camembert_img, 1, 1, 0.7, 0.9, false));
     obstacle2.setFill(new ImagePattern(camembert_img, 1, 1, 0.7, 0.9, false));
@@ -262,6 +269,7 @@ public class Viewer implements ViewerService, RequireReadService{
     obstacle9.setFill(new ImagePattern(camembert_img, 1, 1, 0.7, 0.9, false));
     obstacle10.setFill(new ImagePattern(camembert_img, 1, 1, 0.7, 0.9, false));
     obstacle11.setFill(new ImagePattern(camembert_img, 1, 1, 0.7, 0.9, false));
+    obstacle12.setFill(new ImagePattern(camembert_img, 1, 1, 0.7, 0.9, false));
     
     Text greets = new Text(-100+HardCodedParameters.defaultWidth/2.,-40+HardCodedParameters.defaultHeight, "Round 1");
     greets.setFont(new Font(50));
@@ -276,7 +284,7 @@ public class Viewer implements ViewerService, RequireReadService{
     
     Group panel = new Group();
     panel.getChildren().addAll(map,obstacle1,obstacle2,obstacle2b,obstacle3,obstacle3b,
-    		obstacle4,obstacle5,obstacle5b,obstacle6,obstacle4a,obstacle7,obstacle7b,obstacle8,obstacle9, obstacle10,obstacle11,greets,heroesAvatar);
+    		obstacle4,obstacle5,obstacle5b,obstacle6,obstacle4a,obstacle7,obstacle7b,obstacle8,obstacle9, obstacle10,obstacle11,obstacle12,greets,heroesAvatar);
 
     for (PhantomService p:data.getPhantoms()){
    

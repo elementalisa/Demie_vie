@@ -57,7 +57,7 @@ public class Engine implements EngineService, RequireDataService{
 				// TODO Auto-generated method stub
 				spawnPhantom();
 			}
-		}, 0,2000);
+		}, 0,10000);
     engineClock.schedule(new TimerTask(){
       public void run() {
         //System.out.println("Game step #"+data.getStepNumber()+": checked.");
@@ -238,7 +238,7 @@ public class Engine implements EngineService, RequireDataService{
         if (p.getPosition().equals(new Position(x,y))) cont=true;
       }
     }
-    data.addPhantom(new Position(1090,100),"Down");
+    data.addPhantom(new Position(100,100),"Down");
   }
   
   private void randomRight(PhantomService p){
@@ -313,7 +313,6 @@ public class Engine implements EngineService, RequireDataService{
   }
 
   private void moveRight(PhantomService p){
-	  //ennemie
 	 
       for(Wall w: data.getWalls()){
       	if(p.getPosition().y >= w.getPosition().getMinY() && p.getPosition().x +10 == w.getPosition().getMinX() && p.getPosition().y <= w.getPosition().getMaxY()){
