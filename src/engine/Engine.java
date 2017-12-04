@@ -23,9 +23,11 @@ import java.util.Random;
 
 public class Engine implements EngineService, RequireDataService{
   private Timer engineClock;
+  private Timer engineClockSpwanEnnemie;
   private DataService data;
   private User.COMMAND command;
   private Random gen;
+  private boolean startMove;
 
   public Engine(){}
 
@@ -44,15 +46,27 @@ public class Engine implements EngineService, RequireDataService{
 
   @Override
   public void start(){
+	  
+	  
+	  
+      engineClockSpwanEnnemie = new Timer();
+      engineClockSpwanEnnemie.schedule(new TimerTask() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				spawnPhantom();
+			}
+		}, 0,30000);
     engineClock.schedule(new TimerTask(){
       public void run() {
         //System.out.println("Game step #"+data.getStepNumber()+": checked.");
     	 //System.out.println(data.getWalls().size() + "SIZE !");
-    	System.out.println("Hero X position : " + data.getHeroesPosition().x + "Hero Y position : " + data.getHeroesPosition().y);
+    	//System.out.println("Hero X position : " + data.getHeroesPosition().x + "Hero Y position : " + data.getHeroesPosition().y);
     	
         if (command==User.COMMAND.LEFT){
 	    	if(!wallCollisionLeft()){
-	    		System.out.println("toLeft!!!");
+	    		System.out.println("toLeft!!!" + data.getHeroesPosition().y);
 	    		heroesMoveLeft();
 	    	}
         }
@@ -72,34 +86,45 @@ public class Engine implements EngineService, RequireDataService{
         		heroesMoveDown();
         	}
         }
-        System.out.println("Game step #"+data.getStepNumber()+": checked.");
-        if (gen.nextInt(100)<3) spawnPhantom();
+        //System.out.println("Game step #"+data.getStepNumber()+": checked.");
+        //if (gen.nextInt(100)<3) spawnPhantom();
 
         for (PhantomService p:data.getPhantoms()){
-        	switch (gen.nextInt(4)){
-            case 0:
-              moveRight(p);
-              break;
-            case 1:
-              moveLeft(p);
-              break;
-            case 2:
-              moveDown(p);
-              break;
-            default:
-              moveUp(p);
-              break;
-          }
+        	
+    		//moveRight(p);
+        	if(p.getDep() == "Right"){
+        		moveRight(p);
+        	}else if(p.getDep() == "Up"){
+        		moveUp(p);
+        	}else if(p.getDep() == "Down"){
+        		moveDown(p);
+        	}else if(p.getDep() == "Left"){
+        		moveLeft(p);
+        	}
+//        	switch (gen.nextInt(4)){
+//            case 0:
+//              moveRight(p);
+//              break;
+//            case 1:
+//              moveLeft(p);
+//              break;
+//            case 2:
+//              moveDown(p);
+//              break;
+//            default:
+//              moveUp(p);
+//              break;
+//          }
         }
 
         command = User.COMMAND.NONE;
-        System.out.println(" X " + data.getHeroesPosition().x + " Y : " + data.getHeroesPosition().y);
+        //System.out.println(" X " + data.getHeroesPosition().x + " Y : " + data.getHeroesPosition().y);
         data.setStepNumber(data.getStepNumber()+1);
         
         
         
       }
-    },0,80);
+    },0,90);
   }
 
   @Override
@@ -153,6 +178,8 @@ public class Engine implements EngineService, RequireDataService{
       }
       return false;
   }
+  
+
   
   private boolean wallCollisionUp(){
       for(Wall p: data.getWalls()){
@@ -211,22 +238,122 @@ public class Engine implements EngineService, RequireDataService{
         if (p.getPosition().equals(new Position(x,y))) cont=true;
       }
     }
-    data.addPhantom(new Position(x,y));
+    data.addPhantom(new Position(500,350),"Left");
+  }
+  
+  private void randomRight(PhantomService p){
+		switch (gen.nextInt(3)){
+        case 0:
+      	  p.setDep("Up");
+          return;
+        case 1:
+      	  p.setDep("Left");
+          return;
+        default:
+      	  p.setDep("Down");
+          return;
+		}
+  }
+  
+  private void randomLeft(PhantomService p){
+		switch (gen.nextInt(3)){
+        case 0:
+      	  p.setDep("Up");
+          return;
+        case 1:
+      	  p.setDep("Right");
+          return;
+        default:
+      	  p.setDep("Down");
+          return;
+		}
+  }
+  
+  private void randomUp(PhantomService p){
+		switch (gen.nextInt(3)){
+        case 0:
+      	  p.setDep("Right");
+          return;
+        case 1:
+      	  p.setDep("Left");
+          return;
+        default:
+      	  p.setDep("Down");
+          return;
+		}
+  }
+  
+  private void randomDown(PhantomService p){
+		switch (gen.nextInt(3)){
+        case 0:
+      	  p.setDep("Up");
+          return;
+        case 1:
+      	  p.setDep("Left");
+          return;
+        default:
+      	  p.setDep("Right");
+          return;
+		}
   }
 
   private void moveLeft(PhantomService p){
-    p.setPosition(new Position(p.getPosition().x-10,p.getPosition().y));
+	  for(Wall w: data.getWalls()){
+	    	if(p.getPosition().x == w.getPosition().getMaxX() +10 && p.getPosition().y >= w.getPosition().getMinY() && p.getPosition().y <= w.getPosition().getMaxY()){
+	    		p.setPosition(new Position(p.getPosition().x + 10, p.getPosition().y));
+	      		randomLeft(p);
+	    	}
+	    }
+      
+	  if(!(p.getPosition().x >= 20)){
+		  randomLeft(p);
+	  }else{
+		  p.setPosition(new Position(p.getPosition().x-10,p.getPosition().y));
+	  }
   }
 
   private void moveRight(PhantomService p){
-    p.setPosition(new Position(p.getPosition().x+10,p.getPosition().y));
+	  //ennemie
+	 
+      for(Wall w: data.getWalls()){
+      	if(p.getPosition().y >= w.getPosition().getMinY() && p.getPosition().x +10 == w.getPosition().getMinX() && p.getPosition().y <= w.getPosition().getMaxY()){
+      		
+      		p.setPosition(new Position(p.getPosition().x - 10, p.getPosition().y));
+      		randomRight(p);
+      	}
+      }
+	  if(!(p.getPosition().x <= 1080)){
+		  randomRight(p);
+		  
+	  }else{
+		  p.setPosition(new Position(p.getPosition().x+10,p.getPosition().y));
+	  }
   }
 
   private void moveUp(PhantomService p){
-    p.setPosition(new Position(p.getPosition().x,p.getPosition().y-10));
+      for(Wall w: data.getWalls()){
+        	if(p.getPosition().x >= w.getPosition().getMinX() && p.getPosition().x <= w.getPosition().getMaxX() && p.getPosition().y == w.getPosition().getMaxY() +20){
+          		randomUp(p);
+        	}
+        }
+	  if(!(p.getPosition().y >= 30 )){
+		  randomUp(p);
+	  }else{
+		  p.setPosition(new Position(p.getPosition().x,p.getPosition().y-10));
+	  }
+    
   }
 
   private void moveDown(PhantomService p){
-    p.setPosition(new Position(p.getPosition().x,p.getPosition().y+10));
+      for(Wall w: data.getWalls()){
+        	if(p.getPosition().y == w.getPosition().getMinY() -20 && p.getPosition().x >= w.getPosition().getMinX() && p.getPosition().x <= w.getPosition().getMaxX()){
+        		randomDown(p);
+        	}
+        }
+	  if(!(p.getPosition().y  <= 680 )){
+		  randomDown(p);
+	  }else{
+		  p.setPosition(new Position(p.getPosition().x,p.getPosition().y+10));
+	  }
   }
 }

@@ -216,6 +216,35 @@ public class Viewer implements ViewerService, RequireReadService{
     obstacle7b.setTranslateX(920);
     obstacle7b.setTranslateY(280);
     
+    
+    Rectangle obstacle8 = new Rectangle(80,40);
+    obstacle8.setFill(Color.WHITE);
+    obstacle8.setStroke(Color.DIMGRAY);
+    obstacle8.setStrokeWidth(0.1);
+    obstacle8.setTranslateX(250);
+    obstacle8.setTranslateY(7);
+    
+    Rectangle obstacle9 = new Rectangle(60,40);
+    obstacle9.setFill(Color.WHITE);
+    obstacle9.setStroke(Color.DIMGRAY);
+    obstacle9.setStrokeWidth(0.1);
+    obstacle9.setTranslateX(950);
+    obstacle9.setTranslateY(7);
+    
+    Rectangle obstacle10 = new Rectangle(50,400);
+    obstacle10.setFill(Color.WHITE);
+    obstacle10.setStroke(Color.DIMGRAY);
+    obstacle10.setStrokeWidth(0.1);
+    obstacle10.setTranslateX(1043);
+    obstacle10.setTranslateY(200);
+    
+    Rectangle obstacle11 = new Rectangle(20,40);
+    obstacle11.setFill(Color.WHITE);
+    obstacle11.setStroke(Color.DIMGRAY);
+    obstacle11.setStrokeWidth(0.1);
+    obstacle11.setTranslateX(500);
+    obstacle11.setTranslateY(663);
+    
 
     obstacle1.setFill(new ImagePattern(camembert_img, 1, 1, 0.7, 0.9, false));
     obstacle2.setFill(new ImagePattern(camembert_img, 1, 1, 0.7, 0.9, false));
@@ -229,6 +258,10 @@ public class Viewer implements ViewerService, RequireReadService{
     obstacle6.setFill(new ImagePattern(camembert_img, 1, 1, 0.7, 0.9, false));
     obstacle7.setFill(new ImagePattern(camembert_img, 1, 1, 0.7, 0.9, false));
     obstacle7b.setFill(new ImagePattern(camembert_img, 1, 1, 0.7, 0.9, false));
+    obstacle8.setFill(new ImagePattern(camembert_img, 1, 1, 0.7, 0.9, false));
+    obstacle9.setFill(new ImagePattern(camembert_img, 1, 1, 0.7, 0.9, false));
+    obstacle10.setFill(new ImagePattern(camembert_img, 1, 1, 0.7, 0.9, false));
+    obstacle11.setFill(new ImagePattern(camembert_img, 1, 1, 0.7, 0.9, false));
     
     Text greets = new Text(-100+HardCodedParameters.defaultWidth/2.,-40+HardCodedParameters.defaultHeight, "Round 1");
     greets.setFont(new Font(50));
@@ -243,7 +276,7 @@ public class Viewer implements ViewerService, RequireReadService{
     
     Group panel = new Group();
     panel.getChildren().addAll(map,obstacle1,obstacle2,obstacle2b,obstacle3,obstacle3b,
-    		obstacle4,obstacle5,obstacle5b,obstacle6,obstacle4a,obstacle7,obstacle7b,greets,heroesAvatar);
+    		obstacle4,obstacle5,obstacle5b,obstacle6,obstacle4a,obstacle7,obstacle7b,obstacle8,obstacle9, obstacle10,obstacle11,greets,heroesAvatar);
 
     for (PhantomService p:data.getPhantoms()){
    

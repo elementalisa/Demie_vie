@@ -55,6 +55,12 @@ public class Data implements DataService{
   @Override
   public void addPhantom(Position p) { phantoms.add(new MoveLeftPhantom(p)); }
   
+  @Override
+  public void addPhantom(Position p, String d) {
+	  phantoms.add(new MoveLeftPhantom(p,d));
+  	
+  }
+  
   public ArrayList<Wall> getWalls(){
 	  return walls;
   }
@@ -72,6 +78,10 @@ public class Data implements DataService{
 	  Wall wall4a = new Wall(new WallPosition(650, 730, 580, 660));
 	  Wall wall7 = new Wall(new WallPosition(780, 950, 480, 660));
 	  Wall wall7b = new Wall(new WallPosition(920, 950, 280, 660));
+	  Wall wall8 = new Wall(new WallPosition(250, 330, 7, 50));
+	  Wall wall9 = new Wall(new WallPosition(950, 1010, 7, 50));
+	  Wall wall10 = new Wall(new WallPosition(1040, 1090, 200, 600));
+	  Wall wall11 = new Wall(new WallPosition(500, 520, 660, 700));
 	  
 	  
 	  walls.add(wall1);
@@ -94,6 +104,13 @@ public class Data implements DataService{
 	  walls.add(wall7);
 	  walls.add(wall7b);
 	  
+	  walls.add(wall8);
+	  
+	  walls.add(wall9);
+	  walls.add(wall10);
+	  walls.add(wall11);
 	  
   }
+
+
 }
