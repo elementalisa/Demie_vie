@@ -125,11 +125,10 @@ public class Viewer implements ViewerService, RequireReadService{
 	  
     pile = new Image("file:src/images/pile-rouge-2.png");
     pileView = new ImageView(pile);
-    pileView.setTranslateX(15);
-    pileView.setTranslateY(5);
+    pileView.setTranslateX(data.getBatteryEnnemiePosition().x);
+    pileView.setTranslateY(data.getBatteryEnnemiePosition().y);
     pileView.setFitHeight(25);
     pileView.setFitWidth(21);
-    
 
 	Image camembert_img = new Image("file:src/images/briquesplus.png");
     //Yucky hard-conding

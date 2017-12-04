@@ -14,4 +14,5 @@ public interface WriteService {
   public void addPhantom(Position p);
   public void addPhantom(Position p, String d);
   public void initWalls();
+  public void setBatteryEnnemiePosition(Position p);
 }

@@ -16,4 +16,5 @@ public interface ReadService {
   public int getStepNumber();
   public ArrayList<PhantomService> getPhantoms();
   public ArrayList<Wall> getWalls();
+  public Position getBatteryEnnemiePosition();
 }

@@ -21,6 +21,7 @@ public class Data implements DataService{
 	
   //private Heroes hercules;
   Position heroesPosition;
+  Position ennemiePosition;
   int stepNumber;
   ArrayList<PhantomService> phantoms;
   ArrayList<Wall> walls;
@@ -30,6 +31,7 @@ public class Data implements DataService{
   @Override
   public void init(){
     //hercules = new Heroes;
+	ennemiePosition = new Position(15, 5);
     heroesPosition = new Position(HardCodedParameters.heroesStartX,HardCodedParameters.heroesStartY);
     phantoms = new ArrayList<PhantomService>();
     walls = new ArrayList<Wall>();
@@ -112,6 +114,17 @@ public class Data implements DataService{
 	  walls.add(wall11);
 	  walls.add(wall12);
   }
+
+@Override
+public Position getBatteryEnnemiePosition() {
+	return ennemiePosition;
+}
+
+@Override
+public void setBatteryEnnemiePosition(Position p) {
+	this.ennemiePosition = p;
+	
+}
 
 
 }

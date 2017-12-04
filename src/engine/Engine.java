@@ -210,6 +210,7 @@ public class Engine implements EngineService, RequireDataService{
   }
   
   private void heroesMoveRight(){
+	  data.setBatteryEnnemiePosition(new Position(50, 100));
 	  if(data.getHeroesPosition().x <= 1080){
 		  data.setHeroesPosition(new Position(data.getHeroesPosition().x+10,data.getHeroesPosition().y));
 	  }
