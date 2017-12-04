@@ -9,6 +9,7 @@ package engine;
 import tools.HardCodedParameters;
 import tools.User;
 import userInterface.Viewer;
+import userInterface.start;
 import tools.Position;
 
 import specifications.EngineService;
@@ -44,7 +45,7 @@ public class Engine implements EngineService, RequireDataService{
   public void start(){
     engineClock.schedule(new TimerTask(){
       public void run() {
-        System.out.println("Game step #"+data.getStepNumber()+": checked.");
+       // System.out.println("Game step #"+data.getStepNumber()+": checked.");
         
         if (command==User.COMMAND.LEFT) heroesMoveLeft();
         if (command==User.COMMAND.RIGHT) heroesMoveRight();
@@ -106,6 +107,10 @@ public class Engine implements EngineService, RequireDataService{
     }
     data.addPhantom(new Position(x,y));
   }
+  
+  
+  
+  
 
   private void moveLeft(PhantomService p){
     p.setPosition(new Position(p.getPosition().x-10,p.getPosition().y));
