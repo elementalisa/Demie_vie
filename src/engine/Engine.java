@@ -63,16 +63,14 @@ public class Engine implements EngineService, RequireDataService{
         //System.out.println("Game step #"+data.getStepNumber()+": checked.");
     	 //System.out.println(data.getWalls().size() + "SIZE !");
     	//System.out.println("Hero X position : " + data.getHeroesPosition().x + "Hero Y position : " + data.getHeroesPosition().y);
-    	
+    	testChoc();
         if (command==User.COMMAND.LEFT){
 	    	if(!wallCollisionLeft()){
-	    		System.out.println("toLeft!!!" + data.getHeroesPosition().y);
 	    		heroesMoveLeft();
 	    	}
         }
         if (command==User.COMMAND.RIGHT){
         	if(!wallCollisionRight()){
-        	System.out.println("toLeft!!!");
         	heroesMoveRight();
         	}
         }
@@ -131,7 +129,15 @@ public class Engine implements EngineService, RequireDataService{
   public void stop(){
     engineClock.cancel();
   }
-
+  
+  public void testChoc(){
+        if (data.getBatteryEnnemiePosition().x-5 < data.getHeroesPosition().x && data.getBatteryEnnemiePosition().x+25 > data.getHeroesPosition().x){
+        	if(data.getBatteryEnnemiePosition().y < data.getHeroesPosition().y+50 && data.getBatteryEnnemiePosition().y > data.getHeroesPosition().y-30){
+        		  data.setBatteryEnnemiePosition(new Position(50, 100));
+        	}
+        }
+  }
+  
   @Override
   public void setHeroesCommand(User.COMMAND c){
     command=c;
@@ -162,7 +168,6 @@ public class Engine implements EngineService, RequireDataService{
   private boolean wallCollisionDown(){
       for(Wall p: data.getWalls()){
       	if(data.getHeroesPosition().y == p.getPosition().getMinY() -10 && data.getHeroesPosition().x >= p.getPosition().getMinX() && data.getHeroesPosition().x <= p.getPosition().getMaxX()){
-      		System.out.println("Il est en haut!!!!!");
       		return true;
       	}
       }
@@ -172,7 +177,6 @@ public class Engine implements EngineService, RequireDataService{
   private boolean wallCollisionRight(){
       for(Wall p: data.getWalls()){
       	if(data.getHeroesPosition().y >= p.getPosition().getMinY() && data.getHeroesPosition().x == p.getPosition().getMinX() -10 && data.getHeroesPosition().y <= p.getPosition().getMaxY()){
-      		System.out.println("Il est � gauche!!!!!");
       		return true;
       	}
       }
@@ -184,7 +188,6 @@ public class Engine implements EngineService, RequireDataService{
   private boolean wallCollisionUp(){
       for(Wall p: data.getWalls()){
       	if(data.getHeroesPosition().x >= p.getPosition().getMinX() && data.getHeroesPosition().x <= p.getPosition().getMaxX() && data.getHeroesPosition().y == p.getPosition().getMaxY() +10){
-      		System.out.println("Il est en bas!!!!!");
       		return true;
       	}
       }
@@ -194,7 +197,6 @@ public class Engine implements EngineService, RequireDataService{
   private boolean wallCollisionLeft(){
       for(Wall p: data.getWalls()){
       	if(data.getHeroesPosition().x == p.getPosition().getMaxX() +10 && data.getHeroesPosition().y >= p.getPosition().getMinY() && data.getHeroesPosition().y <= p.getPosition().getMaxY()){
-      		System.out.println("Il est � droite");
       		return true;
       	}
       }
@@ -210,7 +212,6 @@ public class Engine implements EngineService, RequireDataService{
   }
   
   private void heroesMoveRight(){
-	  data.setBatteryEnnemiePosition(new Position(50, 100));
 	  if(data.getHeroesPosition().x <= 1080){
 		  data.setHeroesPosition(new Position(data.getHeroesPosition().x+10,data.getHeroesPosition().y));
 	  }

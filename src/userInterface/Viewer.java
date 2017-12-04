@@ -128,7 +128,7 @@ public class Viewer implements ViewerService, RequireReadService{
     pileView.setTranslateX(data.getBatteryEnnemiePosition().x);
     pileView.setTranslateY(data.getBatteryEnnemiePosition().y);
     pileView.setFitHeight(25);
-    pileView.setFitWidth(21);
+    pileView.setFitWidth(19);
 
 	Image camembert_img = new Image("file:src/images/briquesplus.png");
     //Yucky hard-conding
@@ -310,8 +310,18 @@ public class Viewer implements ViewerService, RequireReadService{
   	  	ennemieAvatar.setTranslateX(p.getPosition().x+(-ennemieAvatarViewports.get(ennemieIndex).getWidth()/2.+0.5*ennemieAvatarXModifiers.get(ennemieIndex)));
   	  	ennemieAvatar.setTranslateY(p.getPosition().y+(-ennemieAvatarViewports.get(ennemieIndex).getHeight()/2.+0.5*ennemieAvatarXModifiers.get(ennemieIndex)));
   	  	ennemieAvatarViewportIndex=(ennemieAvatarViewportIndex+1)%(ennemieAvatarViewports.size()*spriteSlowDownRate);
-  	  
+
   	  	panel.getChildren().add(ennemieAvatar);
+  	  Circle cercleDanger = new Circle();
+  	cercleDanger.setCenterX(p.getPosition().x);
+  	cercleDanger.setCenterY(p.getPosition().y);
+  	cercleDanger.setRadius(50);
+  	cercleDanger.setFill(Color.RED);
+  	cercleDanger.setStroke(Color.YELLOW);
+  	cercleDanger.setStrokeWidth(5);
+  	cercleDanger.setOpacity(0.2);
+  	  
+  	  	panel.getChildren().add(cercleDanger);
     }
 
     return panel;
