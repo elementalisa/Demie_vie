@@ -10,6 +10,7 @@ import tools.HardCodedParameters;
 
 import specifications.ViewerService;
 import sun.rmi.runtime.Log;
+import specifications.PhantomService;
 import specifications.ReadService;
 import specifications.RequireReadService;
 
@@ -308,7 +309,7 @@ Image camembert_img = new Image("file:src/images/briquesplus.png");
     
     Group panel = new Group();
     panel.getChildren().addAll(map,obstacle1,obstacle2,obstacle2b,obstacle3,obstacle3b,
-    		obstacle4,obstacle5,obstacle5b,obstacle6,obstacle4a,obstacle7,obstacle7b,greets,heroesAvatar);
+    		obstacle4,obstacle5,obstacle5b,obstacle6,obstacle4a,obstacle7,obstacle7b,greets,map2,heroesAvatar);
 
     for (PhantomService p:data.getPhantoms()){
    
@@ -326,17 +327,13 @@ Image camembert_img = new Image("file:src/images/briquesplus.png");
   	  	panel.getChildren().add(ennemieAvatar);
     }
 
-    return panel;
+    if(pnl==0)
+    { return panel1;}
+      else {return panel;}
+      
+      
+      
+      }
   }
     
-  if(pnl==0)
-  { return panel1;}
-    else {return panel;}
-    
-    
-    
-    }
-  
-  
- 
-}
+
