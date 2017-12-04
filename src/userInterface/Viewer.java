@@ -1,8 +1,8 @@
 /* ******************************************************
- * Project alpha - Composants logiciels 2015.
+ * Project alpha - Composants logiciels 2017.
  * Copyright (C) 2015 <Binh-Minh.Bui-Xuan@ens-lyon.org>.
  * GPL version>=3 <http://www.gnu.org/licenses/>.
- * $Id: userInterface/Viewer.java 2015-03-11 buixuan.
+ * $Id: userInterface/Viewer.java 2017-03-11 buixuan.
  * ******************************************************/
 package userInterface;
 
@@ -12,19 +12,23 @@ import specifications.ViewerService;
 import sun.rmi.runtime.Log;
 import specifications.ReadService;
 import specifications.RequireReadService;
-import specifications.PhantomService;
+
 
 import javafx.scene.Group;
 import javafx.scene.Parent;
-import javafx.scene.effect.Lighting;
+import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
+
 import javafx.scene.paint.ImagePattern;
-import javafx.scene.shape.Circle;
+
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.Font;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
 
 import java.util.ArrayList;
@@ -42,6 +46,10 @@ public class Viewer implements ViewerService, RequireReadService{
   private ArrayList<Integer> ennemieAvatarXModifiers;
   private ArrayList<Integer> ennemieAvatarYModifiers;
   private int heroesAvatarViewportIndex;
+  Button btn1 ;
+  Group panel; 
+  private static int pnl;
+  EventHandler<MouseEvent> mouseHandler;
   private int ennemieAvatarViewportIndex;
 
   public Viewer(){}
@@ -63,13 +71,19 @@ public class Viewer implements ViewerService, RequireReadService{
     
     heroesAvatarXModifiers = new ArrayList<Integer>();
     heroesAvatarYModifiers = new ArrayList<Integer>();
+    btn1 = new Button("START");
+    btn1.setPrefSize(180, 80);
+    btn1.setTranslateX(450);
+    btn1.setTranslateY(400);
+    btn1.setTextFill(Color.RED);
+    pnl=0;
     ennemieAvatarXModifiers = new ArrayList<Integer>();
     ennemieAvatarYModifiers = new ArrayList<Integer>();
 
     heroesAvatarViewportIndex=0;
     ennemieAvatarViewportIndex= 0;
     
-    //TODO: replace the following with XML loader
+ 
     //heroesAvatarViewports.add(new Rectangle2D(301,386,95,192));
     heroesAvatarViewports.add(new Rectangle2D(20,207,25,47));
     heroesAvatarViewports.add(new Rectangle2D(84,207,25,47));
@@ -101,6 +115,7 @@ public class Viewer implements ViewerService, RequireReadService{
     heroesAvatarXModifiers.add(0);heroesAvatarYModifiers.add(0);
     heroesAvatarXModifiers.add(0);heroesAvatarYModifiers.add(0);
     heroesAvatarXModifiers.add(0);heroesAvatarYModifiers.add(0);
+    
     heroesAvatarXModifiers.add(0);heroesAvatarYModifiers.add(0);
     
     //ENNEMIE MODIFER
@@ -117,10 +132,48 @@ public class Viewer implements ViewerService, RequireReadService{
 
   @Override
   public Parent getPanel(){
+	  
+	  Rectangle map1 = new Rectangle(HardCodedParameters.defaultWidth-50,-200+HardCodedParameters.defaultHeight);
+	   
+	    map1.setFill(Color.WHITE);
+	    map1.setStroke(Color.DIMGRAY);
+	    map1.setStrokeWidth(5);
+	    map1.setArcWidth(20);
 
-	Image camembert_img = new Image("file:src/images/briquesplus.png");
+  map1.setTranslateX(5);
+	    map1.setTranslateY(5);
+	    map1.setFill(Color.DIMGRAY);
+	   
+	  btn1.setOnMousePressed(mouseHandler);
+	   
+	 // EventHandler<MouseEvent> 
+	  mouseHandler = new EventHandler<MouseEvent>() {
+		  
+	        @Override
+	        public void handle(MouseEvent mouseEvent) {
+	        	if (mouseEvent.getEventType() == MouseEvent.MOUSE_PRESSED) {
+		          
+	        		pnl=1;
+	        	}
+	        }
+	      };
+	  
+	  Text text1 = new Text(120, 220, "Bienvenue au jeux de plateforme de Survie");
+      text1.setFont(new Font(45));
+      text1.setFill(Color.BLACK);
+      
+      
+     
+	    Group panel1 = new Group();
+	    panel1.getChildren().addAll(map1,btn1,text1);
+	    
+	   // return panel1;
+		
+
+Image camembert_img = new Image("file:src/images/briquesplus.png");
     //Yucky hard-conding
     Rectangle map = new Rectangle(HardCodedParameters.defaultWidth-10,-100+HardCodedParameters.defaultHeight);
+   
     map.setFill(Color.WHITE);
     map.setStroke(Color.DIMGRAY);
     map.setStrokeWidth(5);
@@ -128,7 +181,9 @@ public class Viewer implements ViewerService, RequireReadService{
     map.setArcHeight(20);
     map.setTranslateX(5);
     map.setTranslateY(5);
+
 	Image back_img = new Image("file:src/images/background.png");
+	
     map.setFill(new ImagePattern(back_img, 1, 1, 0.7, 0.9, false));
     
     Rectangle obstacle1 = new Rectangle(100,120);
@@ -232,7 +287,17 @@ public class Viewer implements ViewerService, RequireReadService{
     
     Text greets = new Text(-100+HardCodedParameters.defaultWidth/2.,-40+HardCodedParameters.defaultHeight, "Round 1");
     greets.setFont(new Font(50));
-    
+   
+    // console log
+    Rectangle map2 = new Rectangle(260,700);
+    map2.setTranslateX(1100);
+    map2.setTranslateY(5);
+    map2.setFill(Color.rgb(215, 217, 224));
+    map2.setStroke(Color.DIMGRAY);
+    map2.setStrokeWidth(5);
+    map2.setArcWidth(18);
+    map2.setArcHeight(18);
+   
     int index=heroesAvatarViewportIndex/spriteSlowDownRate;
     heroesAvatar.setViewport(heroesAvatarViewports.get(index));
     heroesAvatar.setScaleX(0.5);
@@ -263,4 +328,15 @@ public class Viewer implements ViewerService, RequireReadService{
 
     return panel;
   }
+    
+  if(pnl==0)
+  { return panel1;}
+    else {return panel;}
+    
+    
+    
+    }
+  
+  
+ 
 }

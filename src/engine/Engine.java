@@ -10,6 +10,7 @@ import tools.HardCodedParameters;
 import tools.User;
 import tools.Wall;
 import userInterface.Viewer;
+import userInterface.start;
 import tools.Position;
 
 import specifications.EngineService;
@@ -212,6 +213,10 @@ public class Engine implements EngineService, RequireDataService{
     }
     data.addPhantom(new Position(x,y));
   }
+  
+  
+  
+  
 
   private void moveLeft(PhantomService p){
     p.setPosition(new Position(p.getPosition().x-10,p.getPosition().y));

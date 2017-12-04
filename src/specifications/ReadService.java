@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 public interface ReadService {
   public Position getHeroesPosition();
+ 
   public int getStepNumber();
   public ArrayList<PhantomService> getPhantoms();
   public ArrayList<Wall> getWalls();

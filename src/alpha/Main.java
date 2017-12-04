@@ -5,18 +5,20 @@
  * $Id: alpha/Main.java 2015-03-11 buixuan.
  * ******************************************************/
 package alpha;
-// Hello It's me!
+
 import tools.HardCodedParameters;
 import tools.User;
 
 import specifications.DataService;
 import specifications.EngineService;
+import specifications.StartService;
 import specifications.ViewerService;
 import specifications.AlgorithmService;
 
 import data.Data;
 import engine.Engine;
 import userInterface.Viewer;
+import userInterface.start;
 //import algorithm.RandomWalker;
 
 import javafx.application.Application;
@@ -37,6 +39,7 @@ public class Main extends Application{
   private static EngineService engine;
   private static ViewerService viewer;
   private static AnimationTimer timer;
+ 
 
   //---EXECUTABLE---//
   public static void main(String[] args) {
@@ -45,51 +48,61 @@ public class Main extends Application{
     data = new Data();
     engine = new Engine();
     viewer = new Viewer();
+  
 
     ((Engine)engine).bindDataService(data);
     ((Viewer)viewer).bindReadService(data);
+    
+   
 
     data.init();
     engine.init();
-    viewer.init();
-
+   viewer.init();
+   
+   
+    /******************************/
+    
+    
+    /******************************/
     launch(args);
   }
 
   @Override public void start(Stage stage) {
-    final Scene scene = new Scene(((Viewer)viewer).getPanel());
-    scene.setOnKeyPressed(new EventHandler<KeyEvent>(){
-      @Override
-        public void handle(KeyEvent event) {
-          if (event.getCode()==KeyCode.LEFT) engine.setHeroesCommand(User.COMMAND.LEFT);
-          if (event.getCode()==KeyCode.RIGHT) engine.setHeroesCommand(User.COMMAND.RIGHT);
-          if (event.getCode()==KeyCode.UP) engine.setHeroesCommand(User.COMMAND.UP);
-          if (event.getCode()==KeyCode.DOWN) engine.setHeroesCommand(User.COMMAND.DOWN);
-          event.consume();
-        }
-    });
+   final Scene scene = new Scene(((Viewer)viewer).getPanel());
     
+//    scene.setOnKeyPressed(new EventHandler<KeyEvent>(){
+//      @Override
+//        public void handle(KeyEvent event) {
+//          if (event.getCode()==KeyCode.LEFT) engine.setHeroesCommand(User.COMMAND.LEFT);
+//          if (event.getCode()==KeyCode.RIGHT) engine.setHeroesCommand(User.COMMAND.RIGHT);
+//          if (event.getCode()==KeyCode.UP) engine.setHeroesCommand(User.COMMAND.UP);
+//          if (event.getCode()==KeyCode.DOWN) engine.setHeroesCommand(User.COMMAND.DOWN);
+//          event.consume();
+//        }
+//    });
+    stage.setTitle("Jeux de Survie");
     stage.setScene(scene);
     stage.setWidth(HardCodedParameters.defaultWidth);
     stage.setHeight(HardCodedParameters.defaultHeight);
-    stage.setOnShown(new EventHandler<WindowEvent>() {
-      @Override
-        public void handle(WindowEvent event) {
-          engine.start();
-        }
-    });
-    stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-      @Override
-        public void handle(WindowEvent event) {
-          engine.stop();
-        }
-    });
+//    stage.setOnShown(new EventHandler<WindowEvent>() {
+//      @Override
+//        public void handle(WindowEvent event) {
+//          engine.start();
+//        }
+//    });
+//    stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+//      @Override
+//        public void handle(WindowEvent event) {
+//          engine.stop();
+//        }
+//    });
     stage.show();
     
     timer = new AnimationTimer() {
       @Override
         public void handle(long l) {
           scene.setRoot(((Viewer)viewer).getPanel());
+    	 
         }
     };
     timer.start();
