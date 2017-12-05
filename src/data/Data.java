@@ -85,7 +85,7 @@ public class Data implements DataService{
 	  Wall wall4 = new Wall(new WallPosition(400, 480, 400, 480));
 	  Wall wall5 = new Wall(new WallPosition(280, 560, 530, 610));
 	  Wall wall5b = new Wall(new WallPosition(280, 370, 530, 670));
-	  Wall wall6 = new Wall(new WallPosition(650, 820, 60, 430));
+	  Wall wall6 = new Wall(new WallPosition(660, 830, 60, 430));
 	  Wall wall4a = new Wall(new WallPosition(650, 730, 580, 660));
 	  Wall wall7 = new Wall(new WallPosition(780, 950, 480, 660));
 	  Wall wall7b = new Wall(new WallPosition(920, 950, 280, 660));
@@ -94,6 +94,7 @@ public class Data implements DataService{
 	  Wall wall10 = new Wall(new WallPosition(1040, 1090, 200, 600));
 	  Wall wall11 = new Wall(new WallPosition(500, 520, 660, 700));
 	  Wall wall12 = new Wall(new WallPosition(8, 28, 220, 240));
+	  Wall wall13 = new Wall(new WallPosition(180, 200, 530, 550));
 	  
 	  
 	  walls.add(wall1);
@@ -122,6 +123,7 @@ public class Data implements DataService{
 	  walls.add(wall10);
 	  walls.add(wall11);
 	  walls.add(wall12);
+	  walls.add(wall13);
   }
 
 @Override

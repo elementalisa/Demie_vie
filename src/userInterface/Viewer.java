@@ -158,7 +158,7 @@ public class Viewer implements ViewerService, RequireReadService{
     greenGateView2.setFitHeight(35);
     greenGateView2.setFitWidth(35);
 
-	Image camembert_img = new Image("file:src/images/briquesplus.png");
+	Image brique = new Image("file:src/images/briquesplus.png");
     //Yucky hard-conding
     Rectangle map = new Rectangle(HardCodedParameters.defaultWidth-10,-100+HardCodedParameters.defaultHeight);
     map.setFill(Color.WHITE);
@@ -233,7 +233,7 @@ public class Viewer implements ViewerService, RequireReadService{
     obstacle6.setFill(Color.WHITE);
     obstacle6.setStroke(Color.DIMGRAY);
     obstacle6.setStrokeWidth(0.1);
-    obstacle6.setTranslateX(650);
+    obstacle6.setTranslateX(660);
     obstacle6.setTranslateY(60);
     
     Rectangle obstacle4a = new Rectangle(80,80);
@@ -293,23 +293,32 @@ public class Viewer implements ViewerService, RequireReadService{
     obstacle12.setTranslateY(220);
     
 
-    obstacle1.setFill(new ImagePattern(camembert_img, 1, 1, 0.7, 0.9, false));
-    obstacle2.setFill(new ImagePattern(camembert_img, 1, 1, 0.7, 0.9, false));
-    obstacle2b.setFill(new ImagePattern(camembert_img, 1, 1, 0.7, 0.9, false));
-    obstacle3.setFill(new ImagePattern(camembert_img, 1, 1, 0.7, 0.9, false));
-    obstacle3b.setFill(new ImagePattern(camembert_img, 1, 1, 0.7, 0.9, false));
-    obstacle4.setFill(new ImagePattern(camembert_img, 1, 1, 0.7, 0.9, false));
-    obstacle4a.setFill(new ImagePattern(camembert_img, 1, 1, 0.7, 0.9, false));
-    obstacle5.setFill(new ImagePattern(camembert_img, 1, 1, 0.7, 0.9, false));
-    obstacle5b.setFill(new ImagePattern(camembert_img, 1, 1, 0.7, 0.9, false));
-    obstacle6.setFill(new ImagePattern(camembert_img, 1, 1, 0.7, 0.9, false));
-    obstacle7.setFill(new ImagePattern(camembert_img, 1, 1, 0.7, 0.9, false));
-    obstacle7b.setFill(new ImagePattern(camembert_img, 1, 1, 0.7, 0.9, false));
-    obstacle8.setFill(new ImagePattern(camembert_img, 1, 1, 0.7, 0.9, false));
-    obstacle9.setFill(new ImagePattern(camembert_img, 1, 1, 0.7, 0.9, false));
-    obstacle10.setFill(new ImagePattern(camembert_img, 1, 1, 0.7, 0.9, false));
-    obstacle11.setFill(new ImagePattern(camembert_img, 1, 1, 0.7, 0.9, false));
-    obstacle12.setFill(new ImagePattern(camembert_img, 1, 1, 0.7, 0.9, false));
+    Rectangle obstacle13 = new Rectangle(20,20);
+    obstacle13.setFill(Color.WHITE);
+    obstacle13.setStroke(Color.DIMGRAY);
+    obstacle13.setStrokeWidth(0.1);
+    obstacle13.setTranslateX(180);
+    obstacle13.setTranslateY(531);
+    
+
+    obstacle1.setFill(new ImagePattern(brique, 1, 1, 0.7, 0.9, false));
+    obstacle2.setFill(new ImagePattern(brique, 1, 1, 0.7, 0.9, false));
+    obstacle2b.setFill(new ImagePattern(brique, 1, 1, 0.7, 0.9, false));
+    obstacle3.setFill(new ImagePattern(brique, 1, 1, 0.7, 0.9, false));
+    obstacle3b.setFill(new ImagePattern(brique, 1, 1, 0.7, 0.9, false));
+    obstacle4.setFill(new ImagePattern(brique, 1, 1, 0.7, 0.9, false));
+    obstacle4a.setFill(new ImagePattern(brique, 1, 1, 0.7, 0.9, false));
+    obstacle5.setFill(new ImagePattern(brique, 1, 1, 0.7, 0.9, false));
+    obstacle5b.setFill(new ImagePattern(brique, 1, 1, 0.7, 0.9, false));
+    obstacle6.setFill(new ImagePattern(brique, 1, 1, 0.7, 0.9, false));
+    obstacle7.setFill(new ImagePattern(brique, 1, 1, 0.7, 0.9, false));
+    obstacle7b.setFill(new ImagePattern(brique, 1, 1, 0.7, 0.9, false));
+    obstacle8.setFill(new ImagePattern(brique, 1, 1, 0.7, 0.9, false));
+    obstacle9.setFill(new ImagePattern(brique, 1, 1, 0.7, 0.9, false));
+    obstacle10.setFill(new ImagePattern(brique, 1, 1, 0.7, 0.9, false));
+    obstacle11.setFill(new ImagePattern(brique, 1, 1, 0.7, 0.9, false));
+    obstacle12.setFill(new ImagePattern(brique, 1, 1, 0.7, 0.9, false));
+    obstacle13.setFill(new ImagePattern(brique, 1, 1, 0.7, 0.9, false));
     
     Text greets = new Text(-100+HardCodedParameters.defaultWidth/2.,-40+HardCodedParameters.defaultHeight, "Round 1");
     greets.setFont(new Font(50));
@@ -324,7 +333,8 @@ public class Viewer implements ViewerService, RequireReadService{
     
     Group panel = new Group();
     panel.getChildren().addAll(map,obstacle1,obstacle2,obstacle2b,obstacle3,obstacle3b,
-    		obstacle4,obstacle5,obstacle5b,obstacle6,obstacle4a,obstacle7,obstacle7b,obstacle8,obstacle9, obstacle10,obstacle11,obstacle12,greets,heroesAvatar, pileRougeView, pileVerteView, greenGateView, greenGateView2);
+    		obstacle4,obstacle5,obstacle5b,obstacle6,obstacle4a,obstacle7,obstacle7b,obstacle8,
+    		obstacle9, obstacle10,obstacle11,obstacle12,obstacle13,greets,heroesAvatar, pileRougeView, pileVerteView, greenGateView, greenGateView2);
 
     for (PhantomService p:data.getPhantoms()){
    
