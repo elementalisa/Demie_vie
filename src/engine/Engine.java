@@ -31,6 +31,8 @@ public class Engine implements EngineService, RequireDataService{
   private boolean startMove;
   private int batteryEnnemieIncr;
   private int batteryHealIncr;
+  private int spawn;
+  private int itineration;
 
   public Engine(){}
 
@@ -47,6 +49,8 @@ public class Engine implements EngineService, RequireDataService{
     command = User.COMMAND.NONE;
     gen = new Random();
     data.initWalls();
+    spawn = 20000;
+    itineration = 0;
   }
 
   @Override
@@ -62,14 +66,19 @@ public class Engine implements EngineService, RequireDataService{
 				// TODO Auto-generated method stub
 				spawnPhantom();
 			}
-		}, 0,20000);
+		}, 0,spawn);
     engineClock.schedule(new TimerTask(){
       public void run() {
-        //System.out.println("Game step #"+data.getStepNumber()+": checked.");
+
+          itineration +=1;
     	 //System.out.println(data.getWalls().size() + "SIZE !");
     	//System.out.println("Hero X position : " + data.getHeroesPosition().x + "Hero Y position : " + data.getHeroesPosition().y);
     	testChocBatterie();
     	testContactZoneRadiation();
+    	System.out.println(data.getScore());
+    	if(data.getHeroesResistance() >=300){
+			data.setHeroesResistance(300);
+		}
         if (command==User.COMMAND.LEFT){
 	    	if(!wallCollisionLeft()){
 	    		heroesMoveLeft();
@@ -124,6 +133,10 @@ public class Engine implements EngineService, RequireDataService{
         command = User.COMMAND.NONE;
         //System.out.println(" X " + data.getHeroesPosition().x + " Y : " + data.getHeroesPosition().y);
         data.setStepNumber(data.getStepNumber()+1);
+        if(itineration == 10){
+        	data.setScore(data.getScore()+1);
+        }
+        
         
         
         
@@ -140,22 +153,32 @@ public class Engine implements EngineService, RequireDataService{
       if (data.getBatteryEnnemiePosition().x-5 < data.getHeroesPosition().x && data.getBatteryEnnemiePosition().x+25 > data.getHeroesPosition().x){
       	if(data.getBatteryEnnemiePosition().y < data.getHeroesPosition().y+10 && data.getBatteryEnnemiePosition().y > data.getHeroesPosition().y-30){
       		changeBatteryEnnemiePosition();
+			data.setScore(data.getScore()+5);
+  			int sizetpm = data.getPhantoms().size() ;
+  			if(!(data.getPhantoms().isEmpty())){
+  				data.setScore(data.getScore()+20);
+  	  			int randomTpm = gen.nextInt(sizetpm);
+  	  			PhantomService ennemie = data.getPhantoms().get(randomTpm);
+  	  			data.getPhantoms().remove(ennemie);
+  			}else{
+  				
+  			}
       	}
       }
       if (data.getBatteryHealPosition().x-5 < data.getHeroesPosition().x && data.getBatteryHealPosition().x+25 > data.getHeroesPosition().x){
         	if(data.getBatteryHealPosition().y < data.getHeroesPosition().y+10 && data.getBatteryHealPosition().y > data.getHeroesPosition().y-30){
         		changeBatteryHealPosition();
+        		data.setHeroesResistance(data.getHeroesResistance()+50);
+  				data.setScore(data.getScore()+20);
         	}
         }
 }
   
   public void testContactZoneRadiation(){
-	  for (PhantomService p:data.getPhantoms()){}
 	  for (int i = 0; i<data.getPhantoms().size(); i++){
 	        if (data.getPhantoms().get(i).getPosition().x-60 < data.getHeroesPosition().x && data.getPhantoms().get(i).getPosition().x+60 > data.getHeroesPosition().x){
 	        	if(data.getPhantoms().get(i).getPosition().y-60 < data.getHeroesPosition().y && data.getPhantoms().get(i).getPosition().y+60 > data.getHeroesPosition().y){
 		            data.setHeroesResistance(data.getHeroesResistance()-1);
-		            System.out.println(data.getHeroesResistance());
 	        	}
 	        }
 	      }
@@ -165,28 +188,6 @@ public class Engine implements EngineService, RequireDataService{
   public void setHeroesCommand(User.COMMAND c){
     command=c;
   }
-  
-//  private boolean wallCollision(){
-//      for(Wall p: data.getWalls()){
-//      	if(data.getHeroesPosition().y == p.getPosition().getMinY() +10 && data.getHeroesPosition().x >= p.getPosition().getMinX() && data.getHeroesPosition().x <= p.getPosition().getMaxX()){
-//      		System.out.println("Il est en haut!!!!!");
-//      		return true;
-//      	}
-//      	if(data.getHeroesPosition().y >= p.getPosition().getMinY() && data.getHeroesPosition().x == p.getPosition().getMinX() +10 && data.getHeroesPosition().y <= p.getPosition().getMaxY()){
-//      		System.out.println("Il est � gauche!!!!!");
-//      		return true;
-//      	}
-//      	if(data.getHeroesPosition().x >= p.getPosition().getMinX() && data.getHeroesPosition().x <= p.getPosition().getMaxX() && data.getHeroesPosition().y == p.getPosition().getMaxY() +10){
-//      		System.out.println("Il est en bas!!!!!");
-//      		return true;
-//      	}
-//      	if(data.getHeroesPosition().x == p.getPosition().getMaxX() +10 && data.getHeroesPosition().y >= p.getPosition().getMinY() && data.getHeroesPosition().y <= p.getPosition().getMaxY()){
-//      		System.out.println("Il est � droite");
-//      		return true;
-//      	}
-//      }
-//      return false;
-//  }
   
   private boolean wallCollisionDown(){
       for(Wall p: data.getWalls()){
@@ -228,9 +229,7 @@ public class Engine implements EngineService, RequireDataService{
 
   private void heroesMoveLeft(){
 	  if(data.getHeroesPosition().x >= 20){
-		  //if(data.getHeroesPosition().equals(Viewer.class.getMethod(sc, parameterTypes))){
 			  data.setHeroesPosition(new Position(data.getHeroesPosition().x-10,data.getHeroesPosition().y));
-		  //}
 	  }
   }
   

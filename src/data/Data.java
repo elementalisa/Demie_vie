@@ -28,6 +28,7 @@ public class Data implements DataService{
   ArrayList<PhantomService> phantoms;
   ArrayList<Wall> walls;
   int heroesResistance;
+  int Score;
   ArrayList<Position> positionBattEnnemieList;
   ArrayList<Position> positionHealEnnemieList;
 
@@ -44,6 +45,7 @@ public class Data implements DataService{
     initWalls();
     stepNumber = 0;
     heroesResistance = 200;
+    Score = 0;
   }
 
   @Override
@@ -140,6 +142,15 @@ public int getHeroesResistance() {
 @Override
 public int setHeroesResistance(int i) {
 	return heroesResistance = i;
+}
+@Override
+public int getScore() {
+	return Score;
+}
+
+@Override
+public int setScore(int i) {
+	return Score = i;
 }
 @Override
 public ArrayList<Position> getAllBatterysEnnemiePosition() {

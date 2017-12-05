@@ -22,4 +22,5 @@ int getHeroesResistance();
   public ArrayList<Position> getAllBatterysEnnemiePosition();
   public ArrayList<Position> getAllBatterysHealPosition();
   public Position getBatteryHealPosition();
+int getScore();
 }
