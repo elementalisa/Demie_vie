@@ -32,7 +32,8 @@ public class Engine implements EngineService, RequireDataService{
   private int batteryEnnemieIncr;
   private int batteryHealIncr;
   private int spawn;
-  private int itineration;
+  private int scoreIteration;
+  private int niveauIteration;
 
   public Engine(){}
 
@@ -43,39 +44,46 @@ public class Engine implements EngineService, RequireDataService{
   
   @Override
   public void init(){
-	  batteryEnnemieIncr = 0;
-	  batteryHealIncr = 0;
-    engineClock = new Timer();
-    command = User.COMMAND.NONE;
-    gen = new Random();
-    data.initWalls();
-    spawn = 20000;
-    itineration = 0;
+	batteryEnnemieIncr = 0;
+	batteryHealIncr = 0;
+	engineClock = new Timer();
+	command = User.COMMAND.NONE;
+	gen = new Random();
+	data.initWalls();
+	spawn = 20000;
+	scoreIteration = 0;
+	niveauIteration = 1;
   }
 
   @Override
   public void start(){
 	  
-	  
-	  
-      engineClockSpwanEnnemie = new Timer();
-      engineClockSpwanEnnemie.schedule(new TimerTask() {
-			
+	engineClockSpwanEnnemie = new Timer();
+	  	engineClockSpwanEnnemie.schedule(new TimerTask() {
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				spawnPhantom();
-			}
-		}, 0,spawn);
+			spawnPhantom();
+		}
+	}, 0,spawn);
+	
+	engineClockSpwanEnnemie.schedule(new TimerTask() {
+		@Override
+		public void run() {
+			niveauIteration ++;
+			data.setNiveau(niveauIteration);
+			System.out.println("NIVEAU = " + niveauIteration);
+		}
+	}, 0,10000);
+	
+	
     engineClock.schedule(new TimerTask(){
       public void run() {
 
-          itineration +=1;
-    	 //System.out.println(data.getWalls().size() + "SIZE !");
-    	//System.out.println("Hero X position : " + data.getHeroesPosition().x + "Hero Y position : " + data.getHeroesPosition().y);
-    	testChocBatterie();
+    	data.setScore(data.getScore()+1);
+    	System.out.println("Score" + data.getScore());
+    	batteryCollision();
     	testContactZoneRadiation();
-    	System.out.println(data.getScore());
     	if(data.getHeroesResistance() >=300){
 			data.setHeroesResistance(300);
 		}
@@ -133,13 +141,6 @@ public class Engine implements EngineService, RequireDataService{
         command = User.COMMAND.NONE;
         //System.out.println(" X " + data.getHeroesPosition().x + " Y : " + data.getHeroesPosition().y);
         data.setStepNumber(data.getStepNumber()+1);
-        if(itineration == 10){
-        	data.setScore(data.getScore()+1);
-        }
-        
-        
-        
-        
       }
     },0,90);
   }
@@ -149,7 +150,7 @@ public class Engine implements EngineService, RequireDataService{
     engineClock.cancel();
   }
   
-  public void testChocBatterie(){
+  public void batteryCollision(){
       if (data.getBatteryEnnemiePosition().x-5 < data.getHeroesPosition().x && data.getBatteryEnnemiePosition().x+25 > data.getHeroesPosition().x){
       	if(data.getBatteryEnnemiePosition().y < data.getHeroesPosition().y+10 && data.getBatteryEnnemiePosition().y > data.getHeroesPosition().y-30){
       		changeBatteryEnnemiePosition();
@@ -266,7 +267,7 @@ public class Engine implements EngineService, RequireDataService{
     int tempRandom = (Math.random() <= 0.5) ? 1 : 2;
 	switch (tempRandom){
 	  case 1:
-		 data.addPhantom(new Position(100,100),"Down");
+		 data.addPhantom(new Position(100,100),"Right");
 	    break;
 	  case 2:
 		data.addPhantom(new Position(440,440),"Down");
