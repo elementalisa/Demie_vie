@@ -137,12 +137,17 @@ public class Engine implements EngineService, RequireDataService{
   }
   
   public void testChocBatterie(){
-        if (data.getBatteryEnnemiePosition().x-5 < data.getHeroesPosition().x && data.getBatteryEnnemiePosition().x+25 > data.getHeroesPosition().x){
-        	if(data.getBatteryEnnemiePosition().y < data.getHeroesPosition().y+50 && data.getBatteryEnnemiePosition().y > data.getHeroesPosition().y-30){
-        		  data.setBatteryEnnemiePosition(new Position(50, 300));
+      if (data.getBatteryEnnemiePosition().x-5 < data.getHeroesPosition().x && data.getBatteryEnnemiePosition().x+25 > data.getHeroesPosition().x){
+      	if(data.getBatteryEnnemiePosition().y < data.getHeroesPosition().y+10 && data.getBatteryEnnemiePosition().y > data.getHeroesPosition().y-30){
+      		changeBatteryEnnemiePosition();
+      	}
+      }
+      if (data.getBatteryHealPosition().x-5 < data.getHeroesPosition().x && data.getBatteryHealPosition().x+25 > data.getHeroesPosition().x){
+        	if(data.getBatteryHealPosition().y < data.getHeroesPosition().y+10 && data.getBatteryHealPosition().y > data.getHeroesPosition().y-30){
+        		changeBatteryHealPosition();
         	}
         }
-  }
+}
   
   public void testContactZoneRadiation(){
 	  for (PhantomService p:data.getPhantoms()){}
@@ -222,7 +227,6 @@ public class Engine implements EngineService, RequireDataService{
   }
 
   private void heroesMoveLeft(){
-	  changeBatteryHealPosition();
 	  if(data.getHeroesPosition().x >= 20){
 		  //if(data.getHeroesPosition().equals(Viewer.class.getMethod(sc, parameterTypes))){
 			  data.setHeroesPosition(new Position(data.getHeroesPosition().x-10,data.getHeroesPosition().y));
@@ -231,7 +235,7 @@ public class Engine implements EngineService, RequireDataService{
   }
   
   private void heroesMoveRight(){
-	  changeBatteryEnnemiePosition();
+	  
 	  if(data.getHeroesPosition().x <= 1080){
 		  data.setHeroesPosition(new Position(data.getHeroesPosition().x+10,data.getHeroesPosition().y));
 	  }
