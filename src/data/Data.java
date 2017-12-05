@@ -16,23 +16,28 @@ import specifications.WallService;
 import data.ia.MoveLeftPhantom;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Data implements DataService{
 	
   //private Heroes hercules;
   Position heroesPosition;
-  Position ennemiePosition;
+  Position ennemieBattPosition;
+  Position healBattPosition;
   int stepNumber;
   ArrayList<PhantomService> phantoms;
   ArrayList<Wall> walls;
   int heroesResistance;
+  ArrayList<Position> positionBattEnnemieList;
+  ArrayList<Position> positionHealEnnemieList;
 
   public Data(){}
 
   @Override
   public void init(){
     //hercules = new Heroes;
-	ennemiePosition = new Position(15, 5);
+	ennemieBattPosition = new Position(25, 25);
+	healBattPosition = new Position(25, 660);
     heroesPosition = new Position(HardCodedParameters.heroesStartX,HardCodedParameters.heroesStartY);
     phantoms = new ArrayList<PhantomService>();
     walls = new ArrayList<Wall>();
@@ -119,12 +124,12 @@ public class Data implements DataService{
 
 @Override
 public Position getBatteryEnnemiePosition() {
-	return ennemiePosition;
+	return ennemieBattPosition;
 }
 
 @Override
 public void setBatteryEnnemiePosition(Position p) {
-	this.ennemiePosition = p;
+	this.ennemieBattPosition = p;
 	
 }
 @Override
@@ -135,6 +140,48 @@ public int getHeroesResistance() {
 @Override
 public int setHeroesResistance(int i) {
 	return heroesResistance = i;
+}
+@Override
+public ArrayList<Position> getAllBatterysEnnemiePosition() {
+	positionBattEnnemieList = new ArrayList<Position>();
+	Position position1 = new Position(25,25);
+	Position position2 = new Position(1000,100);
+	Position position3 = new Position(250,450);
+	Position position4 = new Position(1000,450);
+	Position position5 = new Position(420,650);
+	positionBattEnnemieList.add(position1);
+	positionBattEnnemieList.add(position2);
+	positionBattEnnemieList.add(position3);
+	positionBattEnnemieList.add(position4);
+	positionBattEnnemieList.add(position5);
+	return positionBattEnnemieList;
+}
+
+@Override
+public ArrayList<Position> getAllBatterysHealPosition() {
+	positionHealEnnemieList = new ArrayList<Position>();
+	Position position1 = new Position(25,25);
+	Position position2 = new Position(600,150);
+	Position position3 = new Position(25,450);
+	Position position4 = new Position(800,25);
+	Position position5 = new Position(800,675);
+	positionHealEnnemieList.add(position1);
+	positionHealEnnemieList.add(position2);
+	positionHealEnnemieList.add(position3);
+	positionHealEnnemieList.add(position4);
+	positionHealEnnemieList.add(position5);
+	return positionHealEnnemieList;
+}
+
+@Override
+public Position getBatteryHealPosition() {
+	return healBattPosition;
+}
+
+@Override
+public void setBatteryHealPosition(Position p) {
+	this.healBattPosition = p;
+	
 }
 
 

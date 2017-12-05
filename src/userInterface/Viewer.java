@@ -35,8 +35,14 @@ public class Viewer implements ViewerService, RequireReadService{
   private ImageView heroesAvatar;
   private Image heroesSpriteSheet;
   private Image ennemieSpriteSheet;
-  private Image pile;
-  private ImageView pileView;
+  private Image pileRouge;
+  private Image pileVerte;
+  private Image greenGate;
+  private Image greenGate2;
+  private ImageView greenGateView;
+  private ImageView greenGateView2;
+  private ImageView pileRougeView;
+  private ImageView pileVerteView;
   private ArrayList<Rectangle2D> heroesAvatarViewports;
   private ArrayList<Rectangle2D> ennemieAvatarViewports;
   private ArrayList<Integer> heroesAvatarXModifiers;
@@ -123,12 +129,34 @@ public class Viewer implements ViewerService, RequireReadService{
   @Override
   public Parent getPanel(){
 	  
-    pile = new Image("file:src/images/pile-rouge-2.png");
-    pileView = new ImageView(pile);
-    pileView.setTranslateX(data.getBatteryEnnemiePosition().x);
-    pileView.setTranslateY(data.getBatteryEnnemiePosition().y);
-    pileView.setFitHeight(25);
-    pileView.setFitWidth(19);
+    pileRouge = new Image("file:src/images/pile-rouge-2.png");
+    pileRougeView = new ImageView(pileRouge);
+    pileRougeView.setTranslateX(data.getBatteryEnnemiePosition().x);
+    pileRougeView.setTranslateY(data.getBatteryEnnemiePosition().y);
+    pileRougeView.setFitHeight(25);
+    pileRougeView.setFitWidth(21);
+    
+    pileVerte = new Image("file:src/images/pile-verte-2.png");
+    pileVerteView = new ImageView(pileVerte);
+    pileVerteView.setTranslateX(data.getBatteryHealPosition().x);
+    pileVerteView.setTranslateY(data.getBatteryHealPosition().y);
+    pileVerteView.setFitHeight(25);
+    pileVerteView.setFitWidth(21);
+    
+    
+    greenGate = new Image("file:src/images/portal_green_2.png");
+    greenGateView = new ImageView(greenGate);
+    greenGateView.setTranslateX(84);
+    greenGateView.setTranslateY(80);
+    greenGateView.setFitHeight(35);
+    greenGateView.setFitWidth(35);
+    
+    greenGate2 = new Image("file:src/images/portal_green_2.png");
+    greenGateView2 = new ImageView(greenGate2);
+    greenGateView2.setTranslateX(425);
+    greenGateView2.setTranslateY(420);
+    greenGateView2.setFitHeight(35);
+    greenGateView2.setFitWidth(35);
 
 	Image camembert_img = new Image("file:src/images/briquesplus.png");
     //Yucky hard-conding
@@ -296,7 +324,7 @@ public class Viewer implements ViewerService, RequireReadService{
     
     Group panel = new Group();
     panel.getChildren().addAll(map,obstacle1,obstacle2,obstacle2b,obstacle3,obstacle3b,
-    		obstacle4,obstacle5,obstacle5b,obstacle6,obstacle4a,obstacle7,obstacle7b,obstacle8,obstacle9, obstacle10,obstacle11,obstacle12,greets,heroesAvatar, pileView);
+    		obstacle4,obstacle5,obstacle5b,obstacle6,obstacle4a,obstacle7,obstacle7b,obstacle8,obstacle9, obstacle10,obstacle11,obstacle12,greets,heroesAvatar, pileRougeView, pileVerteView, greenGateView, greenGateView2);
 
     for (PhantomService p:data.getPhantoms()){
    

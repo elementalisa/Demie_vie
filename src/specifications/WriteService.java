@@ -16,4 +16,6 @@ public interface WriteService {
   public void initWalls();
   public void setBatteryEnnemiePosition(Position p);
 int setHeroesResistance(int i);
+  public void setBatteryHealPosition(Position p);
+  
 }

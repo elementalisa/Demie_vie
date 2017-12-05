@@ -19,6 +19,7 @@ import specifications.PhantomService;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Engine implements EngineService, RequireDataService{
@@ -28,6 +29,8 @@ public class Engine implements EngineService, RequireDataService{
   private User.COMMAND command;
   private Random gen;
   private boolean startMove;
+  private int batteryEnnemieIncr;
+  private int batteryHealIncr;
 
   public Engine(){}
 
@@ -38,6 +41,8 @@ public class Engine implements EngineService, RequireDataService{
   
   @Override
   public void init(){
+	  batteryEnnemieIncr = 0;
+	  batteryHealIncr = 0;
     engineClock = new Timer();
     command = User.COMMAND.NONE;
     gen = new Random();
@@ -57,7 +62,7 @@ public class Engine implements EngineService, RequireDataService{
 				// TODO Auto-generated method stub
 				spawnPhantom();
 			}
-		}, 0,10000);
+		}, 0,20000);
     engineClock.schedule(new TimerTask(){
       public void run() {
         //System.out.println("Game step #"+data.getStepNumber()+": checked.");
@@ -217,6 +222,7 @@ public class Engine implements EngineService, RequireDataService{
   }
 
   private void heroesMoveLeft(){
+	  changeBatteryHealPosition();
 	  if(data.getHeroesPosition().x >= 20){
 		  //if(data.getHeroesPosition().equals(Viewer.class.getMethod(sc, parameterTypes))){
 			  data.setHeroesPosition(new Position(data.getHeroesPosition().x-10,data.getHeroesPosition().y));
@@ -225,6 +231,7 @@ public class Engine implements EngineService, RequireDataService{
   }
   
   private void heroesMoveRight(){
+	  changeBatteryEnnemiePosition();
 	  if(data.getHeroesPosition().x <= 1080){
 		  data.setHeroesPosition(new Position(data.getHeroesPosition().x+10,data.getHeroesPosition().y));
 	  }
@@ -379,5 +386,27 @@ public class Engine implements EngineService, RequireDataService{
 	  }else{
 		  p.setPosition(new Position(p.getPosition().x,p.getPosition().y+10));
 	  }
+  }
+  
+  public void changeBatteryEnnemiePosition(){
+	  ArrayList<Position> positionTpm = data.getAllBatterysEnnemiePosition();
+	  if(batteryEnnemieIncr >= positionTpm.size() -1){
+		  batteryEnnemieIncr =0;
+	  }else{
+		  batteryEnnemieIncr++; 
+	  }
+	  Position newPosTpm = positionTpm.get(batteryEnnemieIncr);
+	  data.setBatteryEnnemiePosition(newPosTpm);
+  }
+  
+  public void changeBatteryHealPosition(){
+	  ArrayList<Position> positionTpm = data.getAllBatterysHealPosition();
+	  if(batteryHealIncr >= positionTpm.size() -1){
+		  batteryHealIncr =0;
+	  }else{
+		  batteryHealIncr++; 
+	  }
+	  Position newPosTpm = positionTpm.get(batteryHealIncr);
+	  data.setBatteryHealPosition(newPosTpm);
   }
 }
