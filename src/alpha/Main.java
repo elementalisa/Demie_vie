@@ -7,28 +7,19 @@
 package alpha;
 
 import tools.HardCodedParameters;
-import tools.User;
-
 import specifications.DataService;
 import specifications.EngineService;
-import specifications.StartService;
 import specifications.ViewerService;
-import specifications.AlgorithmService;
-
 import data.Data;
 import engine.Engine;
 import userInterface.Viewer;
-import userInterface.start;
+
 //import algorithm.RandomWalker;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
-import javafx.event.EventHandler;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 
 public class Main extends Application{
   //---HARD-CODED-PARAMETERS---//

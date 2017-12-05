@@ -9,8 +9,6 @@ package engine;
 import tools.HardCodedParameters;
 import tools.User;
 import tools.Wall;
-import userInterface.Viewer;
-import userInterface.start;
 import tools.Position;
 
 import specifications.EngineService;

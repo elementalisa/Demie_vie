@@ -16,20 +16,32 @@ import specifications.RequireReadService;
 
 
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 
 import javafx.scene.paint.ImagePattern;
 
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 import javafx.scene.text.Font;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.VBox;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 
 import java.util.ArrayList;
@@ -47,12 +59,19 @@ public class Viewer implements ViewerService, RequireReadService{
   private ArrayList<Integer> ennemieAvatarXModifiers;
   private ArrayList<Integer> ennemieAvatarYModifiers;
   private int heroesAvatarViewportIndex;
-  Button btn1 ;
+  Button btn_start ;
+  Button btn_regle ;
+  Button btn_pause ;
+  Button btn_quite ;
+  Button btn_info ;
+  Button btn_son ;
   Group panel; 
+  String color = "#808080";  
   private static int pnl;
   EventHandler<MouseEvent> mouseHandler;
   private int ennemieAvatarViewportIndex;
-
+  private ImageView bg;
+	private Image img;
   public Viewer(){}
 
   @Override
@@ -72,11 +91,34 @@ public class Viewer implements ViewerService, RequireReadService{
     
     heroesAvatarXModifiers = new ArrayList<Integer>();
     heroesAvatarYModifiers = new ArrayList<Integer>();
-    btn1 = new Button("START");
-    btn1.setPrefSize(180, 80);
-    btn1.setTranslateX(450);
-    btn1.setTranslateY(400);
-    btn1.setTextFill(Color.RED);
+    //-----Bouton regles de jeu
+    btn_regle = new Button("Règles de jeux");
+    btn_regle.setPrefSize(150, 60);
+    btn_regle.setTranslateX(800);
+    btn_regle.setTranslateY(220);
+    btn_regle.setTextFill(Color.BLACK);
+    btn_regle.setStyle("-fx-background-color: \r\n" + 
+    		"        linear-gradient(#f2f2f2, #d6d6d6),\r\n" + 
+    		"        linear-gradient(#fcfcfc 0%, #d9d9d9 20%, #d6d6d6 100%),\r\n" + 
+    		"        linear-gradient(#dddddd 0%, #f6f6f6 50%);\r\n" + 
+    		"    -fx-background-radius: 8,7,6;\r\n" + 
+    		"    -fx-background-insets: 0,1,2;\r\n" + 
+    		"    -fx-text-fill: black;\r\n" + 
+    		"    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );");
+    //-----Bouton Start
+    btn_start = new Button("Nouveau jeux");
+    btn_start.setPrefSize(150, 60);
+    btn_start.setTranslateX(180);
+    btn_start.setTranslateY(220);
+    btn_start.setTextFill(Color.BLACK);
+    btn_start.setStyle("-fx-background-color: \r\n" + 
+    		"        linear-gradient(#f2f2f2, #d6d6d6),\r\n" + 
+    		"        linear-gradient(#fcfcfc 0%, #d9d9d9 20%, #d6d6d6 100%),\r\n" + 
+    		"        linear-gradient(#dddddd 0%, #f6f6f6 50%);\r\n" + 
+    		"    -fx-background-radius: 8,7,6;\r\n" + 
+    		"    -fx-background-insets: 0,1,2;\r\n" + 
+    		"    -fx-text-fill: black;\r\n" + 
+    		"    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );");
     pnl=0;
     ennemieAvatarXModifiers = new ArrayList<Integer>();
     ennemieAvatarYModifiers = new ArrayList<Integer>();
@@ -133,19 +175,47 @@ public class Viewer implements ViewerService, RequireReadService{
 
   @Override
   public Parent getPanel(){
-	  
-	  Rectangle map1 = new Rectangle(HardCodedParameters.defaultWidth-50,-200+HardCodedParameters.defaultHeight);
+	  Rectangle map1 = new Rectangle(HardCodedParameters.defaultWidth-10,-100+HardCodedParameters.defaultHeight);
 	   
-	    map1.setFill(Color.WHITE);
+	   // map1.setFill(Color.WHITE);
 	    map1.setStroke(Color.DIMGRAY);
 	    map1.setStrokeWidth(5);
 	    map1.setArcWidth(20);
-
-  map1.setTranslateX(5);
+	    map1.setArcHeight(20);
+	    map1.setTranslateX(5);
 	    map1.setTranslateY(5);
-	    map1.setFill(Color.DIMGRAY);
+	    img = new Image("file:src/images/interface.png");
+	    bg =new ImageView(img);
+	 
+	    btn_start.setOnMousePressed(mouseHandler);
 	   
-	  btn1.setOnMousePressed(mouseHandler);
+
+	     
+
+
+	      
+	    // ----------Afficher POPUP --------------------
+	    
+	    
+	 btn_regle.setOnAction(
+	            new EventHandler<ActionEvent>() {
+	                @Override
+	                public void handle(ActionEvent event) {
+	                    final Stage dialog = new Stage();
+	                    dialog.initModality(Modality.NONE);
+	                    Window primaryStage = null;
+	                  
+						dialog.initOwner(primaryStage);
+	                    VBox dialogVbox = new VBox(20);
+	                    dialogVbox.getChildren().add(new Text("Comment jouer....."));
+	                    Scene dialogScene = new Scene(dialogVbox, 900, 600);
+	                    dialog.setScene(dialogScene);
+	                    dialog.show();
+	                }
+	             });
+	    //  ------------*-------------
+	    
+	    
 	   
 	 // EventHandler<MouseEvent> 
 	  mouseHandler = new EventHandler<MouseEvent>() {
@@ -162,13 +232,14 @@ public class Viewer implements ViewerService, RequireReadService{
 	  Text text1 = new Text(120, 220, "Bienvenue au jeux de plateforme de Survie");
       text1.setFont(new Font(45));
       text1.setFill(Color.BLACK);
-      
+      Text t = new Text();
+      t.setText("This is a text sample");
       
      
 	    Group panel1 = new Group();
-	    panel1.getChildren().addAll(map1,btn1,text1);
+	    panel1.getChildren().addAll(map1,bg,btn_start,btn_regle);
 	    
-	   // return panel1;
+	  
 		
 
 Image camembert_img = new Image("file:src/images/briquesplus.png");
@@ -288,16 +359,144 @@ Image camembert_img = new Image("file:src/images/briquesplus.png");
     
     Text greets = new Text(-100+HardCodedParameters.defaultWidth/2.,-40+HardCodedParameters.defaultHeight, "Round 1");
     greets.setFont(new Font(50));
-   
+    //btn pause
+    btn_pause = new Button("Pause");
+    btn_pause.setPrefSize(140, 55);
+    //btn_pause.setTranslateX(180);
+    //btn_pause.setTranslateY(220);
+    btn_pause.setTextFill(Color.BLACK);
+    btn_pause.setTranslateX(20);
+    btn_pause.setTranslateY(820);
+    btn_pause.setStyle("-fx-background-color: \r\n" + 
+    		"        linear-gradient(#686868 0%, #232723 25%, #373837 75%, #757575 100%),\r\n" + 
+    		"        linear-gradient(#020b02, #3a3a3a),\r\n" + 
+    		"        linear-gradient(#9d9e9d 0%, #6b6a6b 20%, #343534 80%, #242424 100%),\r\n" + 
+    		"        linear-gradient(#8a8a8a 0%, #6b6a6b 20%, #343534 80%, #262626 100%),\r\n" + 
+    		"        linear-gradient(#777777 0%, #606060 50%, #505250 51%, #2a2b2a 100%);\r\n" + 
+    		"    -fx-background-insets: 0,1,4,5,6;\r\n" + 
+    		"    -fx-background-radius: 9,8,5,4,3;\r\n" + 
+    		"    -fx-padding: 15 30 15 30;\r\n" + 
+    		"    -fx-font-family: \"Helvetica\";\r\n" + 
+    		"    -fx-font-size: 18px;\r\n" + 
+    		"    -fx-font-weight: bold;\r\n" + 
+    		"    -fx-text-fill: white;\r\n" + 
+    		"    -fx-effect: dropshadow( three-pass-box , rgba(255,255,255,0.2) , 1, 0.0 , 0 , 1);");
+  //btn quite
+    btn_quite = new Button("Quiter");
+    btn_quite.setPrefSize(140, 55);
+   // btn_quite.setTranslateX(180);
+   // btn_quite.setTranslateY(220);
+    btn_quite.setTextFill(Color.BLACK);
+    btn_quite.setTranslateX(180);
+    btn_quite.setTranslateY(820);
+    btn_quite.setStyle("-fx-background-color: \r\n" + 
+    		"        linear-gradient(#686868 0%, #232723 25%, #373837 75%, #757575 100%),\r\n" + 
+    		"        linear-gradient(#020b02, #3a3a3a),\r\n" + 
+    		"        linear-gradient(#9d9e9d 0%, #6b6a6b 20%, #343534 80%, #242424 100%),\r\n" + 
+    		"        linear-gradient(#8a8a8a 0%, #6b6a6b 20%, #343534 80%, #262626 100%),\r\n" + 
+    		"        linear-gradient(#777777 0%, #606060 50%, #505250 51%, #2a2b2a 100%);\r\n" + 
+    		"    -fx-background-insets: 0,1,4,5,6;\r\n" + 
+    		"    -fx-background-radius: 9,8,5,4,3;\r\n" + 
+    		"    -fx-padding: 15 30 15 30;\r\n" + 
+    		"    -fx-font-family: \"Helvetica\";\r\n" + 
+    		"    -fx-font-size: 18px;\r\n" + 
+    		"    -fx-font-weight: bold;\r\n" + 
+    		"    -fx-text-fill: white;\r\n" + 
+    		"    -fx-effect: dropshadow( three-pass-box , rgba(255,255,255,0.2) , 1, 0.0 , 0 , 1);");
+  //btn son
+    btn_son = new Button("Son");
+    btn_son.setPrefSize(140, 55);
+   // btn_son.setTranslateX(340);
+   // btn_son.setTranslateY(220);
+    btn_son.setTextFill(Color.BLACK);
+    btn_son.setTranslateX(340);
+    btn_son.setTranslateY(820);
+    btn_son.setStyle("-fx-background-color: \r\n" + 
+    		"        linear-gradient(#686868 0%, #232723 25%, #373837 75%, #757575 100%),\r\n" + 
+    		"        linear-gradient(#020b02, #3a3a3a),\r\n" + 
+    		"        linear-gradient(#9d9e9d 0%, #6b6a6b 20%, #343534 80%, #242424 100%),\r\n" + 
+    		"        linear-gradient(#8a8a8a 0%, #6b6a6b 20%, #343534 80%, #262626 100%),\r\n" + 
+    		"        linear-gradient(#777777 0%, #606060 50%, #505250 51%, #2a2b2a 100%);\r\n" + 
+    		"    -fx-background-insets: 0,1,4,5,6;\r\n" + 
+    		"    -fx-background-radius: 9,8,5,4,3;\r\n" + 
+    		"    -fx-padding: 15 30 15 30;\r\n" + 
+    		"    -fx-font-family: \"Helvetica\";\r\n" + 
+    		"    -fx-font-size: 18px;\r\n" + 
+    		"    -fx-font-weight: bold;\r\n" + 
+    		"    -fx-text-fill: white;\r\n" + 
+    		"    -fx-effect: dropshadow( three-pass-box , rgba(255,255,255,0.2) , 1, 0.0 , 0 , 1);");
+ 
+  //btn info
+    btn_info = new Button("Infos");
+    btn_info.setPrefSize(140, 55);
+   // btn_info.setTranslateX(180);
+   // btn_info.setTranslateY(220);
+    btn_info.setTextFill(Color.BLACK);
+    btn_info.setTranslateX(500);
+    btn_info.setTranslateY(820);
+    btn_info.setStyle("-fx-background-color: \r\n" + 
+    		"        linear-gradient(#686868 0%, #232723 25%, #373837 75%, #757575 100%),\r\n" + 
+    		"        linear-gradient(#020b02, #3a3a3a),\r\n" + 
+    		"        linear-gradient(#9d9e9d 0%, #6b6a6b 20%, #343534 80%, #242424 100%),\r\n" + 
+    		"        linear-gradient(#8a8a8a 0%, #6b6a6b 20%, #343534 80%, #262626 100%),\r\n" + 
+    		"        linear-gradient(#777777 0%, #606060 50%, #505250 51%, #2a2b2a 100%);\r\n" + 
+    		"    -fx-background-insets: 0,1,4,5,6;\r\n" + 
+    		"    -fx-background-radius: 9,8,5,4,3;\r\n" + 
+    		"    -fx-padding: 15 30 15 30;\r\n" + 
+    		"    -fx-font-family: \"Helvetica\";\r\n" + 
+    		"    -fx-font-size: 18px;\r\n" + 
+    		"    -fx-font-weight: bold;\r\n" + 
+    		"    -fx-text-fill: white;\r\n" + 
+    		"    -fx-effect: dropshadow( three-pass-box , rgba(255,255,255,0.2) , 1, 0.0 , 0 , 1);");
+ 
+    
+    
     // console log
-    Rectangle map2 = new Rectangle(260,700);
+   // Rectangle map2 = new Rectangle(260,700);
+    TextArea map2 = new TextArea();
     map2.setTranslateX(1100);
     map2.setTranslateY(5);
-    map2.setFill(Color.rgb(215, 217, 224));
-    map2.setStroke(Color.DIMGRAY);
-    map2.setStrokeWidth(5);
-    map2.setArcWidth(18);
-    map2.setArcHeight(18);
+   // map2.setFill(Color.rgb(215, 217, 224));
+   // map2.setStroke(Color.DIMGRAY);
+   // map2.setStrokeWidth(5);
+  //  map2.setArcWidth(18);
+   /// map2.setArcHeight(18);
+    /***************************/
+    
+    
+    
+  
+
+   
+
+    //Text Box 1
+    
+    map2.setPrefWidth(260.0);
+    map2.maxWidth(100.0);
+    map2.setPrefHeight(700.0);
+    map2.maxHeight(700.0);
+    map2.setStyle("-fx-control-inner-background:#000000; -fx-font-family: Consolas; -fx-highlight-fill: #00ff00; -fx-highlight-text-fill: #000000; -fx-text-fill: #00ff00;-fx-border-color: DIMGRAY; -fx-border-width: 6; -fx-border-radius: 5;");
+   map2.appendText("je suis une console \n\n\n");
+   map2.appendText("tourner à gauche  \n");
+   for(int i=0; i<4;i++) {
+	   
+	   map2.appendText(i + "Tourner à gauche... \n");
+	   map2.appendText(i + "Marchevers le haut \n");
+	   map2.appendText(i + "Tourner à Droite... \n");
+	   map2.appendText(i + "Marche vers le le bas...!  \n");
+   }
+
+   
+    
+    
+    
+    
+    
+    
+    
+    
+    /*******************************/
+    
    
     int index=heroesAvatarViewportIndex/spriteSlowDownRate;
     heroesAvatar.setViewport(heroesAvatarViewports.get(index));
@@ -309,7 +508,7 @@ Image camembert_img = new Image("file:src/images/briquesplus.png");
     
     Group panel = new Group();
     panel.getChildren().addAll(map,obstacle1,obstacle2,obstacle2b,obstacle3,obstacle3b,
-    		obstacle4,obstacle5,obstacle5b,obstacle6,obstacle4a,obstacle7,obstacle7b,greets,map2,heroesAvatar);
+    		obstacle4,obstacle5,obstacle5b,obstacle6,obstacle4a,obstacle7,obstacle7b,greets,map2,heroesAvatar,btn_pause,btn_quite,btn_info,btn_son);
 
     for (PhantomService p:data.getPhantoms()){
    
