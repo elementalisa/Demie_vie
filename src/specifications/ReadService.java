@@ -17,4 +17,5 @@ public interface ReadService {
   public ArrayList<PhantomService> getPhantoms();
   public ArrayList<Wall> getWalls();
   public Position getBatteryEnnemiePosition();
+int getHeroesResistance();
 }

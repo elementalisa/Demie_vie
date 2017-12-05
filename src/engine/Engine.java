@@ -63,7 +63,8 @@ public class Engine implements EngineService, RequireDataService{
         //System.out.println("Game step #"+data.getStepNumber()+": checked.");
     	 //System.out.println(data.getWalls().size() + "SIZE !");
     	//System.out.println("Hero X position : " + data.getHeroesPosition().x + "Hero Y position : " + data.getHeroesPosition().y);
-    	testChoc();
+    	testChocBatterie();
+    	testContactZoneRadiation();
         if (command==User.COMMAND.LEFT){
 	    	if(!wallCollisionLeft()){
 	    		heroesMoveLeft();
@@ -130,13 +131,24 @@ public class Engine implements EngineService, RequireDataService{
     engineClock.cancel();
   }
   
-  public void testChoc(){
+  public void testChocBatterie(){
         if (data.getBatteryEnnemiePosition().x-5 < data.getHeroesPosition().x && data.getBatteryEnnemiePosition().x+25 > data.getHeroesPosition().x){
         	if(data.getBatteryEnnemiePosition().y < data.getHeroesPosition().y+50 && data.getBatteryEnnemiePosition().y > data.getHeroesPosition().y-30){
         		  data.setBatteryEnnemiePosition(new Position(50, 100));
         	}
         }
   }
+  
+  public void testContactZoneRadiation(){
+	  for (int i = 0; i<data.getPhantoms().size(); i++){
+	        if (data.getPhantoms().get(i).getPosition().x-50 < data.getHeroesPosition().x && data.getPhantoms().get(i).getPosition().x+50 < data.getHeroesPosition().x){
+	        	if(data.getPhantoms().get(i).getPosition().y < data.getHeroesPosition().y+50 && data.getPhantoms().get(i).getPosition().y > data.getHeroesPosition().y-60){
+		            data.setHeroesResistance(data.getHeroesResistance()-1);
+		            System.out.println(data.getHeroesResistance());
+	        	}
+	        }
+	      }
+}
   
   @Override
   public void setHeroesCommand(User.COMMAND c){

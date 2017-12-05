@@ -25,6 +25,7 @@ public class Data implements DataService{
   int stepNumber;
   ArrayList<PhantomService> phantoms;
   ArrayList<Wall> walls;
+  int heroesResistance;
 
   public Data(){}
 
@@ -37,6 +38,7 @@ public class Data implements DataService{
     walls = new ArrayList<Wall>();
     initWalls();
     stepNumber = 0;
+    heroesResistance = 200;
   }
 
   @Override
@@ -124,6 +126,15 @@ public Position getBatteryEnnemiePosition() {
 public void setBatteryEnnemiePosition(Position p) {
 	this.ennemiePosition = p;
 	
+}
+@Override
+public int getHeroesResistance() {
+	return heroesResistance;
+}
+
+@Override
+public int setHeroesResistance(int i) {
+	return heroesResistance = i;
 }
 
 
