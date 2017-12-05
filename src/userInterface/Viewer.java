@@ -52,6 +52,14 @@ public class Viewer implements ViewerService, RequireReadService{
   private ImageView heroesAvatar;
   private Image heroesSpriteSheet;
   private Image ennemieSpriteSheet;
+  private Image pileRouge;
+  private Image pileVerte;
+  private Image greenGate;
+  private Image greenGate2;
+  private ImageView greenGateView;
+  private ImageView greenGateView2;
+  private ImageView pileRougeView;
+  private ImageView pileVerteView;
   private ArrayList<Rectangle2D> heroesAvatarViewports;
   private ArrayList<Rectangle2D> ennemieAvatarViewports;
   private ArrayList<Integer> heroesAvatarXModifiers;
@@ -85,6 +93,9 @@ public class Viewer implements ViewerService, RequireReadService{
     heroesSpriteSheet = new Image("file:src/images/sprite-hero.png");
     heroesAvatar = new ImageView(heroesSpriteSheet);
     ennemieSpriteSheet = new Image("file:src/images/sprite-ennemie.png");
+
+
+    
     
     heroesAvatarViewports = new ArrayList<Rectangle2D>();
     ennemieAvatarViewports = new ArrayList<Rectangle2D>();
@@ -92,7 +103,7 @@ public class Viewer implements ViewerService, RequireReadService{
     heroesAvatarXModifiers = new ArrayList<Integer>();
     heroesAvatarYModifiers = new ArrayList<Integer>();
     //-----Bouton regles de jeu
-    btn_regle = new Button("Règles de jeux");
+    btn_regle = new Button("Rï¿½gles de jeux");
     btn_regle.setPrefSize(150, 60);
     btn_regle.setTranslateX(800);
     btn_regle.setTranslateY(220);
@@ -189,6 +200,35 @@ public class Viewer implements ViewerService, RequireReadService{
 	 
 	    btn_start.setOnMousePressed(mouseHandler);
 	   
+	  
+    pileRouge = new Image("file:src/images/pile-rouge-2.png");
+    pileRougeView = new ImageView(pileRouge);
+    pileRougeView.setTranslateX(data.getBatteryEnnemiePosition().x);
+    pileRougeView.setTranslateY(data.getBatteryEnnemiePosition().y);
+    pileRougeView.setFitHeight(25);
+    pileRougeView.setFitWidth(21);
+    
+    pileVerte = new Image("file:src/images/pile-verte-2.png");
+    pileVerteView = new ImageView(pileVerte);
+    pileVerteView.setTranslateX(data.getBatteryHealPosition().x);
+    pileVerteView.setTranslateY(data.getBatteryHealPosition().y);
+    pileVerteView.setFitHeight(25);
+    pileVerteView.setFitWidth(21);
+    
+    
+    greenGate = new Image("file:src/images/portal_green_2.png");
+    greenGateView = new ImageView(greenGate);
+    greenGateView.setTranslateX(84);
+    greenGateView.setTranslateY(80);
+    greenGateView.setFitHeight(35);
+    greenGateView.setFitWidth(35);
+    
+    greenGate2 = new Image("file:src/images/portal_green_2.png");
+    greenGateView2 = new ImageView(greenGate2);
+    greenGateView2.setTranslateX(425);
+    greenGateView2.setTranslateY(420);
+    greenGateView2.setFitHeight(35);
+    greenGateView2.setFitWidth(35);
 
 	     
 
@@ -320,7 +360,7 @@ Image camembert_img = new Image("file:src/images/briquesplus.png");
     obstacle6.setFill(Color.WHITE);
     obstacle6.setStroke(Color.DIMGRAY);
     obstacle6.setStrokeWidth(0.1);
-    obstacle6.setTranslateX(650);
+    obstacle6.setTranslateX(660);
     obstacle6.setTranslateY(60);
     
     Rectangle obstacle4a = new Rectangle(80,80);
@@ -343,19 +383,69 @@ Image camembert_img = new Image("file:src/images/briquesplus.png");
     obstacle7b.setTranslateX(920);
     obstacle7b.setTranslateY(280);
     
+    
+    Rectangle obstacle8 = new Rectangle(80,40);
+    obstacle8.setFill(Color.WHITE);
+    obstacle8.setStroke(Color.DIMGRAY);
+    obstacle8.setStrokeWidth(0.1);
+    obstacle8.setTranslateX(250);
+    obstacle8.setTranslateY(7);
+    
+    Rectangle obstacle9 = new Rectangle(60,40);
+    obstacle9.setFill(Color.WHITE);
+    obstacle9.setStroke(Color.DIMGRAY);
+    obstacle9.setStrokeWidth(0.1);
+    obstacle9.setTranslateX(950);
+    obstacle9.setTranslateY(7);
+    
+    Rectangle obstacle10 = new Rectangle(50,400);
+    obstacle10.setFill(Color.WHITE);
+    obstacle10.setStroke(Color.DIMGRAY);
+    obstacle10.setStrokeWidth(0.1);
+    obstacle10.setTranslateX(1043);
+    obstacle10.setTranslateY(200);
+    
+    Rectangle obstacle11 = new Rectangle(20,40);
+    obstacle11.setFill(Color.WHITE);
+    obstacle11.setStroke(Color.DIMGRAY);
+    obstacle11.setStrokeWidth(0.1);
+    obstacle11.setTranslateX(500);
+    obstacle11.setTranslateY(663);
+    
+    Rectangle obstacle12 = new Rectangle(20,20);
+    obstacle12.setFill(Color.WHITE);
+    obstacle12.setStroke(Color.DIMGRAY);
+    obstacle12.setStrokeWidth(0.1);
+    obstacle12.setTranslateX(8);
+    obstacle12.setTranslateY(220);
+    
 
-    obstacle1.setFill(new ImagePattern(camembert_img, 1, 1, 0.7, 0.9, false));
-    obstacle2.setFill(new ImagePattern(camembert_img, 1, 1, 0.7, 0.9, false));
-    obstacle2b.setFill(new ImagePattern(camembert_img, 1, 1, 0.7, 0.9, false));
-    obstacle3.setFill(new ImagePattern(camembert_img, 1, 1, 0.7, 0.9, false));
-    obstacle3b.setFill(new ImagePattern(camembert_img, 1, 1, 0.7, 0.9, false));
-    obstacle4.setFill(new ImagePattern(camembert_img, 1, 1, 0.7, 0.9, false));
-    obstacle4a.setFill(new ImagePattern(camembert_img, 1, 1, 0.7, 0.9, false));
-    obstacle5.setFill(new ImagePattern(camembert_img, 1, 1, 0.7, 0.9, false));
-    obstacle5b.setFill(new ImagePattern(camembert_img, 1, 1, 0.7, 0.9, false));
-    obstacle6.setFill(new ImagePattern(camembert_img, 1, 1, 0.7, 0.9, false));
-    obstacle7.setFill(new ImagePattern(camembert_img, 1, 1, 0.7, 0.9, false));
-    obstacle7b.setFill(new ImagePattern(camembert_img, 1, 1, 0.7, 0.9, false));
+    Rectangle obstacle13 = new Rectangle(20,20);
+    obstacle13.setFill(Color.WHITE);
+    obstacle13.setStroke(Color.DIMGRAY);
+    obstacle13.setStrokeWidth(0.1);
+    obstacle13.setTranslateX(180);
+    obstacle13.setTranslateY(531);
+    
+
+    obstacle1.setFill(new ImagePattern(brique, 1, 1, 0.7, 0.9, false));
+    obstacle2.setFill(new ImagePattern(brique, 1, 1, 0.7, 0.9, false));
+    obstacle2b.setFill(new ImagePattern(brique, 1, 1, 0.7, 0.9, false));
+    obstacle3.setFill(new ImagePattern(brique, 1, 1, 0.7, 0.9, false));
+    obstacle3b.setFill(new ImagePattern(brique, 1, 1, 0.7, 0.9, false));
+    obstacle4.setFill(new ImagePattern(brique, 1, 1, 0.7, 0.9, false));
+    obstacle4a.setFill(new ImagePattern(brique, 1, 1, 0.7, 0.9, false));
+    obstacle5.setFill(new ImagePattern(brique, 1, 1, 0.7, 0.9, false));
+    obstacle5b.setFill(new ImagePattern(brique, 1, 1, 0.7, 0.9, false));
+    obstacle6.setFill(new ImagePattern(brique, 1, 1, 0.7, 0.9, false));
+    obstacle7.setFill(new ImagePattern(brique, 1, 1, 0.7, 0.9, false));
+    obstacle7b.setFill(new ImagePattern(brique, 1, 1, 0.7, 0.9, false));
+    obstacle8.setFill(new ImagePattern(brique, 1, 1, 0.7, 0.9, false));
+    obstacle9.setFill(new ImagePattern(brique, 1, 1, 0.7, 0.9, false));
+    obstacle10.setFill(new ImagePattern(brique, 1, 1, 0.7, 0.9, false));
+    obstacle11.setFill(new ImagePattern(brique, 1, 1, 0.7, 0.9, false));
+    obstacle12.setFill(new ImagePattern(brique, 1, 1, 0.7, 0.9, false));
+    obstacle13.setFill(new ImagePattern(brique, 1, 1, 0.7, 0.9, false));
     
     Text greets = new Text(-100+HardCodedParameters.defaultWidth/2.,-40+HardCodedParameters.defaultHeight, "Round 1");
     greets.setFont(new Font(50));
@@ -477,12 +567,12 @@ Image camembert_img = new Image("file:src/images/briquesplus.png");
     map2.maxHeight(700.0);
     map2.setStyle("-fx-control-inner-background:#000000; -fx-font-family: Consolas; -fx-highlight-fill: #00ff00; -fx-highlight-text-fill: #000000; -fx-text-fill: #00ff00;-fx-border-color: DIMGRAY; -fx-border-width: 6; -fx-border-radius: 5;");
    map2.appendText("je suis une console \n\n\n");
-   map2.appendText("tourner à gauche  \n");
+   map2.appendText("tourner ï¿½ gauche  \n");
    for(int i=0; i<4;i++) {
 	   
-	   map2.appendText(i + "Tourner à gauche... \n");
+	   map2.appendText(i + "Tourner ï¿½ gauche... \n");
 	   map2.appendText(i + "Marchevers le haut \n");
-	   map2.appendText(i + "Tourner à Droite... \n");
+	   map2.appendText(i + "Tourner ï¿½ Droite... \n");
 	   map2.appendText(i + "Marche vers le le bas...!  \n");
    }
 
@@ -508,12 +598,14 @@ Image camembert_img = new Image("file:src/images/briquesplus.png");
     
     Group panel = new Group();
     panel.getChildren().addAll(map,obstacle1,obstacle2,obstacle2b,obstacle3,obstacle3b,
+    		obstacle4,obstacle5,obstacle5b,obstacle6,obstacle4a,obstacle7,obstacle7b,obstacle8,
+    		obstacle9, obstacle10,obstacle11,obstacle12,obstacle13,greets,heroesAvatar, pileRougeView, pileVerteView, greenGateView, greenGateView2);
     		obstacle4,obstacle5,obstacle5b,obstacle6,obstacle4a,obstacle7,obstacle7b,greets,map2,heroesAvatar,btn_pause,btn_quite,btn_info,btn_son);
 
     for (PhantomService p:data.getPhantoms()){
    
     	//ENNEMIE
-      ImageView ennemieAvatar;
+    	ImageView ennemieAvatar;
     	int ennemieIndex=ennemieAvatarViewportIndex/spriteSlowDownRate;
     	ennemieAvatar = new ImageView(ennemieSpriteSheet);
         ennemieAvatar.setViewport(heroesAvatarViewports.get(ennemieIndex));
@@ -522,8 +614,18 @@ Image camembert_img = new Image("file:src/images/briquesplus.png");
   	  	ennemieAvatar.setTranslateX(p.getPosition().x+(-ennemieAvatarViewports.get(ennemieIndex).getWidth()/2.+0.5*ennemieAvatarXModifiers.get(ennemieIndex)));
   	  	ennemieAvatar.setTranslateY(p.getPosition().y+(-ennemieAvatarViewports.get(ennemieIndex).getHeight()/2.+0.5*ennemieAvatarXModifiers.get(ennemieIndex)));
   	  	ennemieAvatarViewportIndex=(ennemieAvatarViewportIndex+1)%(ennemieAvatarViewports.size()*spriteSlowDownRate);
-  	  
+
   	  	panel.getChildren().add(ennemieAvatar);
+  	  Circle cercleDanger = new Circle();
+  	cercleDanger.setCenterX(p.getPosition().x);
+  	cercleDanger.setCenterY(p.getPosition().y);
+  	cercleDanger.setRadius(50);
+  	cercleDanger.setFill(Color.RED);
+  	cercleDanger.setStroke(Color.YELLOW);
+  	cercleDanger.setStrokeWidth(5);
+  	cercleDanger.setOpacity(0.2);
+  	  
+  	  	panel.getChildren().add(cercleDanger);
     }
 
     if(pnl==0)
