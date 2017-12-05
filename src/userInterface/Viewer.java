@@ -319,7 +319,7 @@ public class Viewer implements ViewerService, RequireReadService{
   	cercleDanger.setFill(Color.RED);
   	cercleDanger.setStroke(Color.YELLOW);
   	cercleDanger.setStrokeWidth(5);
-  	cercleDanger.setOpacity(0.2);
+  	cercleDanger.setOpacity(0.05);
   	  
   	  	panel.getChildren().add(cercleDanger);
     }

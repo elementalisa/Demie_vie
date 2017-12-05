@@ -134,15 +134,16 @@ public class Engine implements EngineService, RequireDataService{
   public void testChocBatterie(){
         if (data.getBatteryEnnemiePosition().x-5 < data.getHeroesPosition().x && data.getBatteryEnnemiePosition().x+25 > data.getHeroesPosition().x){
         	if(data.getBatteryEnnemiePosition().y < data.getHeroesPosition().y+50 && data.getBatteryEnnemiePosition().y > data.getHeroesPosition().y-30){
-        		  data.setBatteryEnnemiePosition(new Position(50, 100));
+        		  data.setBatteryEnnemiePosition(new Position(50, 300));
         	}
         }
   }
   
   public void testContactZoneRadiation(){
+	  for (PhantomService p:data.getPhantoms()){}
 	  for (int i = 0; i<data.getPhantoms().size(); i++){
-	        if (data.getPhantoms().get(i).getPosition().x-50 < data.getHeroesPosition().x && data.getPhantoms().get(i).getPosition().x+50 < data.getHeroesPosition().x){
-	        	if(data.getPhantoms().get(i).getPosition().y < data.getHeroesPosition().y+50 && data.getPhantoms().get(i).getPosition().y > data.getHeroesPosition().y-60){
+	        if (data.getPhantoms().get(i).getPosition().x-60 < data.getHeroesPosition().x && data.getPhantoms().get(i).getPosition().x+60 > data.getHeroesPosition().x){
+	        	if(data.getPhantoms().get(i).getPosition().y-60 < data.getHeroesPosition().y && data.getPhantoms().get(i).getPosition().y+60 > data.getHeroesPosition().y){
 		            data.setHeroesResistance(data.getHeroesResistance()-1);
 		            System.out.println(data.getHeroesResistance());
 	        	}
