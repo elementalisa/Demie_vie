@@ -52,7 +52,7 @@ public class Engine implements EngineService, RequireDataService{
 	command = User.COMMAND.NONE;
 	gen = new Random();
 	data.initWalls();
-	spawn = 2000;
+	spawn = 20000;
 	scoreIteration = 0;
 	niveauIteration = 1;
   }
@@ -272,7 +272,7 @@ public class Engine implements EngineService, RequireDataService{
 		 data.addPhantom(new Position(100,100),"Right");
 	    break;
 	  case 2:
-		data.addPhantom(new Position(440,440),"Down");
+		data.addPhantom(new Position(440,440),"Right");
 	    break;
 	}
   }
