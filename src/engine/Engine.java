@@ -25,6 +25,7 @@ import java.util.Random;
 public class Engine implements EngineService, RequireDataService{
   private Timer engineClock;
   private Timer engineClockSpwanEnnemie;
+  private Timer engineClockNiveau;
   private DataService data;
   private User.COMMAND command;
   private Random gen;
@@ -47,10 +48,11 @@ public class Engine implements EngineService, RequireDataService{
 	batteryEnnemieIncr = 0;
 	batteryHealIncr = 0;
 	engineClock = new Timer();
+	engineClockNiveau = new Timer();
 	command = User.COMMAND.NONE;
 	gen = new Random();
 	data.initWalls();
-	spawn = 20000;
+	spawn = 2000;
 	scoreIteration = 0;
 	niveauIteration = 1;
   }
@@ -67,7 +69,7 @@ public class Engine implements EngineService, RequireDataService{
 		}
 	}, 0,spawn);
 	
-	engineClockSpwanEnnemie.schedule(new TimerTask() {
+	  	engineClockNiveau.schedule(new TimerTask() {
 		@Override
 		public void run() {
 			niveauIteration ++;
