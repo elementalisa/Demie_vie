@@ -93,7 +93,7 @@ public class Data implements DataService{
 	  Wall wall9 = new Wall(new WallPosition(950, 1010, 7, 50));
 	  Wall wall10 = new Wall(new WallPosition(1040, 1090, 200, 600));
 	  Wall wall11 = new Wall(new WallPosition(500, 520, 660, 700));
-	  Wall wall12 = new Wall(new WallPosition(8, 28, 220, 240));
+	  Wall wall12 = new Wall(new WallPosition(10, 20, 220, 240));
 	  Wall wall13 = new Wall(new WallPosition(180, 200, 530, 550));
 	  
 	  
