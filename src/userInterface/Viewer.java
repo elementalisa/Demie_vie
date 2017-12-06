@@ -19,7 +19,9 @@ import specifications.RequireReadService;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.scene.effect.Lighting;
 import javafx.scene.paint.Color;
 
@@ -34,6 +36,7 @@ import javafx.scene.text.Font;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
@@ -69,7 +72,8 @@ public class Viewer implements ViewerService, RequireReadService{
   private int ennemieAvatarViewportIndex;
   private Button buttonStart;
   private Button buttonRegle;
-  EventHandler<MouseEvent> mouseHandler;
+  EventHandler<MouseEvent> mouseStartHandler;
+  EventHandler<MouseEvent> mouseRegleHandler;
   public Viewer(){}
   String panelTpm;
 
@@ -161,7 +165,7 @@ public class Viewer implements ViewerService, RequireReadService{
     		"    -fx-text-fill: black;\r\n" + 
     		"    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );");
     
-    buttonRegle = new Button("Rï¿½gles de jeux");
+    buttonRegle = new Button("Règles du jeux");
     buttonRegle.setPrefSize(150, 60);
     buttonRegle.setTranslateX(800);
     buttonRegle.setTranslateY(220);
@@ -181,18 +185,45 @@ public class Viewer implements ViewerService, RequireReadService{
 	  
     Group panel = new Group();
     Group panelStart = new Group();
+    
+    TextArea textAreaConsole = new TextArea();
+    textAreaConsole.setTranslateX(1100);
+    textAreaConsole.setTranslateY(5);
+    textAreaConsole.setPrefWidth(260.0);
+    textAreaConsole.maxWidth(100.0);
+    textAreaConsole.setPrefHeight(700.0);
+    textAreaConsole.maxHeight(700.0);
+
 	  
-	buttonStart.setOnMousePressed(mouseHandler);
-	mouseHandler = new EventHandler<MouseEvent>() {
+	buttonStart.setOnMousePressed(mouseStartHandler);
+	mouseStartHandler = new EventHandler<MouseEvent>() {
 		@Override
-		public void handle(MouseEvent e) {
-			if(e.getEventType() == MouseEvent.MOUSE_PRESSED){
+		public void handle(MouseEvent event) {
+			if(event.getEventType() == MouseEvent.MOUSE_PRESSED){
 				dataW.setIsStart(true);
 				panelTpm = "Game";
 			}
 		}
 	};
 	
+	buttonRegle.setOnMousePressed(mouseRegleHandler);
+	mouseRegleHandler = new EventHandler<MouseEvent>() {
+		@Override
+		public void handle(MouseEvent event) {
+			if(event.getEventType() == MouseEvent.MOUSE_PRESSED){
+                final Stage dialog = new Stage();
+                dialog.initModality(Modality.NONE);
+                Window primaryStage = null;
+                
+				dialog.initOwner(primaryStage);
+                VBox dialogVbox = new VBox(20);
+                dialogVbox.getChildren().add(new Text("Comment jouer....."));
+                Scene dialogScene = new Scene(dialogVbox, 900, 600);
+                dialog.setScene(dialogScene);
+                dialog.show();
+			}
+		}
+	};
 //	  mouseHandler = new EventHandler<MouseEvent>() {
 //		  
 //	        @Override
@@ -236,9 +267,12 @@ public class Viewer implements ViewerService, RequireReadService{
     
 
 	Image brique = new Image("file:src/images/briquesplus.png");
+	Image backImage = new Image("file:src/images/backgroundStart2.jpg");
+	//Image backImage = new Image("file:src/images/backgroundStart.png");
     //Yucky hard-conding
 	Rectangle map = new Rectangle(HardCodedParameters.defaultWidth-10,-100+HardCodedParameters.defaultHeight);
 	Rectangle mapStart = new Rectangle(HardCodedParameters.defaultWidth-10,-100+HardCodedParameters.defaultHeight);
+	mapStart.setFill(new ImagePattern(backImage));
 	
     map.setFill(Color.WHITE);
     map.setStroke(Color.DIMGRAY);
@@ -417,10 +451,12 @@ public class Viewer implements ViewerService, RequireReadService{
     heroesAvatar.setTranslateY(data.getHeroesPosition().y+(-heroesAvatarViewports.get(index).getHeight()/2.+0.5*heroesAvatarYModifiers.get(index)));
     heroesAvatarViewportIndex=(heroesAvatarViewportIndex+1)%(heroesAvatarViewports.size()*spriteSlowDownRate);
    
+    Group panelTextArea = new Group();
+    panelTextArea.getChildren().addAll(textAreaConsole);
     panel.getChildren().addAll(map,obstacle1,obstacle2,obstacle2b,obstacle3,obstacle3b,
     		obstacle4,obstacle5,obstacle5b,obstacle6,obstacle4a,obstacle7,obstacle7b,obstacle8,
-    		obstacle9, obstacle10,obstacle11,obstacle12,obstacle13,greets,heroesAvatar, pileRougeView, pileVerteView, greenGateView, greenGateView2);
-    panelStart.getChildren().addAll(mapStart, buttonStart, buttonRegle);
+    		obstacle9, obstacle10,obstacle11,obstacle12,obstacle13,greets,heroesAvatar, pileRougeView, pileVerteView, greenGateView, greenGateView2, panelTextArea);
+    panelStart.getChildren().addAll(textAreaConsole, mapStart, buttonStart, buttonRegle);
     for (PhantomService p:data.getPhantoms()){
    
     	//ENNEMIE
