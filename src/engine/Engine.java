@@ -72,6 +72,7 @@ public class Engine implements EngineService, RequireDataService{
 					@Override
 					public void run() {
 						// TODO Auto-generated method stub
+					data.setLog("un ennemie est apparu. \n");
 					spawnPhantom();
 				}
 				}, 0,spawn);
@@ -163,6 +164,7 @@ public class Engine implements EngineService, RequireDataService{
   	  			int randomTpm = gen.nextInt(sizetpm);
   	  			PhantomService ennemie = data.getPhantoms().get(randomTpm);
   	  			data.getPhantoms().remove(ennemie);
+  	  			data.setLog("Batterie Ennemie récupéré. \nEnnemie éliminé. \n");
   			}else{
   				
   			}
@@ -173,6 +175,7 @@ public class Engine implements EngineService, RequireDataService{
         		changeBatteryHealPosition();
         		data.setHeroesResistance(data.getHeroesResistance()+50);
   				data.setScore(data.getScore()+20);
+  				data.setLog("Batterie Heal récupéré. \n");
         	}
         }
 }
@@ -232,7 +235,7 @@ public class Engine implements EngineService, RequireDataService{
 
   private void heroesMoveLeft(){
 	  if(data.getHeroesPosition().x >= 20){
-			  data.setHeroesPosition(new Position(data.getHeroesPosition().x-10,data.getHeroesPosition().y));
+			data.setHeroesPosition(new Position(data.getHeroesPosition().x-10,data.getHeroesPosition().y));
 	  }
   }
   

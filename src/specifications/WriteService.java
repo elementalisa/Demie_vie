@@ -20,5 +20,6 @@ public interface WriteService {
   int setScore(int i);
   public void setNiveau(int i);
   public void setIsStart(boolean s);
+  public void setLog(String s);
   
 }

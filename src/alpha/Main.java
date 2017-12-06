@@ -75,7 +75,6 @@ public class Main extends Application{
     stage.setOnShown(new EventHandler<WindowEvent>() {
       @Override
         public void handle(WindowEvent event) {
-    	  System.out.println("OlAh!");
           engine.start();
         }
     });

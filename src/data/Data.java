@@ -33,6 +33,7 @@ public class Data implements DataService{
   ArrayList<Position> positionBattEnnemieList;
   ArrayList<Position> positionHealEnnemieList;
   public boolean isStart;
+  public String log;
 
   public Data(){}
 
@@ -50,6 +51,7 @@ public class Data implements DataService{
     score = 0;
     niveau = 1;
     isStart = false;
+    log = "";
   }
 
   public void setIsStart(boolean s){
@@ -216,6 +218,16 @@ public int getNiveau() {
 @Override
 public void setNiveau(int i) {
 	this.niveau = i;
+}
+
+@Override
+public String getLog() {
+	return log;
+}
+
+@Override
+public void setLog(String s) {
+	this.log = s;
 }
 
 

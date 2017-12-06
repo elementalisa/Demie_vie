@@ -197,7 +197,10 @@ public class Viewer implements ViewerService, RequireReadService{
     textAreaConsole.setPrefHeight(700.0);
     textAreaConsole.maxHeight(700.0);
     textAreaConsole.setStyle("-fx-control-inner-background:#000000; -fx-font-family: Consolas; -fx-highlight-fill: #00ff00; -fx-highlight-text-fill: #000000; -fx-text-fill: #00ff00;-fx-border-color: DIMGRAY; -fx-border-width: 6; -fx-border-radius: 5;");
-    textAreaConsole.appendText("OkOkOk \n");
+    if(!(data.getLog().isEmpty())){
+    	textAreaConsole.appendText(data.getLog());
+    	dataW.setLog("");
+    }else{}
 	  
 	buttonStart.setOnMousePressed(mouseStartHandler);
 	mouseStartHandler = new EventHandler<MouseEvent>() {
@@ -465,7 +468,6 @@ public class Viewer implements ViewerService, RequireReadService{
    
     Group panelTextArea = new Group();
     textAreaConsole.setFocusTraversable(false);
-    System.out.println("Ok --> " + textAreaConsole.isFocusTraversable());
     panelTextArea.getChildren().add(textAreaConsole);
     
     panel.getChildren().addAll(panelTextArea, map,obstacle1,obstacle2,obstacle2b,obstacle3,obstacle3b,

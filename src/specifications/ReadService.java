@@ -25,4 +25,5 @@ int getHeroesResistance();
   int getScore();
   int getNiveau();
   public boolean getIsStart();
+  public String getLog();
 }
