@@ -32,6 +32,7 @@ public class Data implements DataService{
   int niveau;
   ArrayList<Position> positionBattEnnemieList;
   ArrayList<Position> positionHealEnnemieList;
+  public boolean Music;
   public boolean isStart;
   public String log;
 
@@ -49,6 +50,7 @@ public class Data implements DataService{
     stepNumber = 0;
     heroesResistance = 200;
     score = 0;
+    Music = true;
     niveau = 1;
     isStart = false;
     log = "";
@@ -166,6 +168,15 @@ public int getScore() {
 @Override
 public int setScore(int i) {
 	return score = i;
+}
+@Override
+public boolean getMusic() {
+	return Music;
+}
+
+@Override
+public boolean setMusic(boolean b) {
+	return Music = b;
 }
 @Override
 public ArrayList<Position> getAllBatterysEnnemiePosition() {

@@ -19,6 +19,13 @@ import specifications.PhantomService;
 
 import java.util.Timer;
 import java.util.TimerTask;
+
+import javax.print.DocFlavor.URL;
+
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -62,7 +69,9 @@ public class Engine implements EngineService, RequireDataService{
 
   @Override
   public void start(){
-	 
+	  final java.net.URL resource = getClass().getResource("/images/Pixel_song.mp3");
+	  final Media media = new Media(resource.toString());
+	  final MediaPlayer mediaPlayer = new MediaPlayer(media);
 	launcherClock.schedule(new TimerTask() {
 		
 		@Override
@@ -89,7 +98,23 @@ public class Engine implements EngineService, RequireDataService{
 				
 			    engineClock.schedule(new TimerTask(){
 			      public void run() {
-		
+			    		if(data.getMusic() == true){
+						mediaPlayer.setOnEndOfMedia(new Runnable() {
+						       public void run() {
+						    	   mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+						    	   mediaPlayer.play();
+
+						    	   mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+
+						    	   mediaPlayer.play();
+						       }
+						   });
+
+				    	   mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+
+				    	   mediaPlayer.play();
+
+			    		}
 			    	data.setScore(data.getScore()+1);
 			    	System.out.println("Score" + data.getScore());
 			    	batteryCollision();

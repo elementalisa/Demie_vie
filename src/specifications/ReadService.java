@@ -26,4 +26,5 @@ int getHeroesResistance();
   int getNiveau();
   public boolean getIsStart();
   public String getLog();
+boolean getMusic();
 }

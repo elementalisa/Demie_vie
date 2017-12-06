@@ -21,5 +21,6 @@ public interface WriteService {
   public void setNiveau(int i);
   public void setIsStart(boolean s);
   public void setLog(String s);
+public boolean setMusic(boolean b);
   
 }
