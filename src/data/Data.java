@@ -32,6 +32,7 @@ public class Data implements DataService{
   int niveau;
   ArrayList<Position> positionBattEnnemieList;
   ArrayList<Position> positionHealEnnemieList;
+  public boolean isStart;
 
   public Data(){}
 
@@ -48,8 +49,16 @@ public class Data implements DataService{
     heroesResistance = 200;
     score = 0;
     niveau = 1;
+    isStart = false;
   }
 
+  public void setIsStart(boolean s){
+	  this.isStart = s;
+  }
+  
+  public boolean getIsStart(){
+	  return this.isStart;
+  }
   @Override
   public Position getHeroesPosition(){ return heroesPosition; }
 

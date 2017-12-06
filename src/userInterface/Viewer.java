@@ -9,6 +9,7 @@ package userInterface;
 import tools.HardCodedParameters;
 
 import specifications.ViewerService;
+import specifications.WriteService;
 import sun.rmi.runtime.Log;
 import specifications.PhantomService;
 import specifications.ReadService;
@@ -18,10 +19,8 @@ import specifications.RequireReadService;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.effect.Lighting;
 import javafx.scene.paint.Color;
 
 import javafx.scene.paint.ImagePattern;
@@ -35,20 +34,20 @@ import javafx.scene.text.Font;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.VBox;
-import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 
 import java.util.ArrayList;
 
+import com.sun.xml.internal.ws.api.pipe.Engine;
+
+import alpha.Main;
+
 public class Viewer implements ViewerService, RequireReadService{
   private static final int spriteSlowDownRate=HardCodedParameters.spriteSlowDownRate;
   private ReadService data;
+  private WriteService dataW;
   private ImageView heroesAvatar;
   private Image heroesSpriteSheet;
   private Image ennemieSpriteSheet;
@@ -68,31 +67,22 @@ public class Viewer implements ViewerService, RequireReadService{
   private ArrayList<Integer> ennemieAvatarYModifiers;
   private int heroesAvatarViewportIndex;
   private int ennemieAvatarViewportIndex;
-  ///////////////////////////////////////////
-  Button btn_start ;
-  Button btn_regle ;
-  Button btn_pause ;
-  Button btn_quite ;
-  Button btn_info ;
-  Button btn_son ;
-  Group panel; 
-  String color = "#808080";
-  private static int pnl;
-  private ImageView bg;
-    private Image img;
+  private Button buttonStart;
+  private Button buttonRegle;
   EventHandler<MouseEvent> mouseHandler;
-
   public Viewer(){}
+  String panelTpm;
 
   @Override
-  public void bindReadService(ReadService service){
+  public void bindReadService(ReadService service, WriteService serviceR){
     data=service;
+    dataW=serviceR;
   }
 
   @Override
   public void init(){
 	//-----Bouton regles de jeu
-	    btn_regle = new Button("Règles de jeux");
+	    btn_regle = new Button("Rï¿½gles de jeux");
 	    btn_regle.setPrefSize(150, 60);
 	    btn_regle.setTranslateX(800);
 	    btn_regle.setTranslateY(220);
@@ -126,7 +116,7 @@ public class Viewer implements ViewerService, RequireReadService{
     heroesSpriteSheet = new Image("file:src/images/sprite-hero.png");
     heroesAvatar = new ImageView(heroesSpriteSheet);
     ennemieSpriteSheet = new Image("file:src/images/sprite-ennemie.png");
-
+    panelTpm = "Start";
 
     
     
@@ -185,43 +175,64 @@ public class Viewer implements ViewerService, RequireReadService{
     ennemieAvatarXModifiers.add(0);ennemieAvatarYModifiers.add(0);
     ennemieAvatarXModifiers.add(0);ennemieAvatarYModifiers.add(0);
     ennemieAvatarXModifiers.add(0);ennemieAvatarYModifiers.add(0);
+    
+    buttonStart = new Button("Start");
+    buttonStart.setPrefSize(150, 60);
+    buttonStart.setTranslateX(180);
+    buttonStart.setTranslateY(220);
+    buttonStart.setTextFill(Color.BLACK);
+    buttonStart.setStyle("-fx-background-color: \r\n" + 
+    		"        linear-gradient(#f2f2f2, #d6d6d6),\r\n" + 
+    		"        linear-gradient(#fcfcfc 0%, #d9d9d9 20%, #d6d6d6 100%),\r\n" + 
+    		"        linear-gradient(#dddddd 0%, #f6f6f6 50%);\r\n" + 
+    		"    -fx-background-radius: 8,7,6;\r\n" + 
+    		"    -fx-background-insets: 0,1,2;\r\n" + 
+    		"    -fx-text-fill: black;\r\n" + 
+    		"    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );");
+    
+    buttonRegle = new Button("Rï¿½gles de jeux");
+    buttonRegle.setPrefSize(150, 60);
+    buttonRegle.setTranslateX(800);
+    buttonRegle.setTranslateY(220);
+    buttonRegle.setTextFill(Color.BLACK);
+    buttonRegle.setStyle("-fx-background-color: \r\n" + 
+    		"        linear-gradient(#f2f2f2, #d6d6d6),\r\n" + 
+    		"        linear-gradient(#fcfcfc 0%, #d9d9d9 20%, #d6d6d6 100%),\r\n" + 
+    		"        linear-gradient(#dddddd 0%, #f6f6f6 50%);\r\n" + 
+    		"    -fx-background-radius: 8,7,6;\r\n" + 
+    		"    -fx-background-insets: 0,1,2;\r\n" + 
+    		"    -fx-text-fill: black;\r\n" + 
+    		"    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );");
   }
 
   @Override
   public Parent getPanel(){
 	  
-	  /////////////////////////////////////////////////////////////////
-	  Rectangle map1 = new Rectangle(HardCodedParameters.defaultWidth-10,-100+HardCodedParameters.defaultHeight);
-
-       map1.setStroke(Color.DIMGRAY);
-       map1.setStrokeWidth(5);
-       map1.setArcWidth(20);
-       map1.setArcHeight(20);
-       map1.setTranslateX(5);
-       map1.setTranslateY(5);
-       img = new Image("file:src/images/interface.png");
-       bg =new ImageView(img);
-
-       btn_start.setOnMousePressed(mouseHandler);
-       
-    // EventHandler<MouseEvent> 
-       mouseHandler = new EventHandler<MouseEvent>() {
-
-             @Override
-             public void handle(MouseEvent mouseEvent) {
-                 if (mouseEvent.getEventType() == MouseEvent.MOUSE_PRESSED) {
-
-                     pnl=1;
-                 }
-             }
-           };
-
-        // console log
-           Text greets2 = new Text(1100,50, "VOILA");
-
-       ///////////////////////////////////////////////////
-           Group panel1 = new Group();
-             panel1.getChildren().addAll(map1,bg,btn_start,btn_regle);
+    Group panel = new Group();
+    Group panelStart = new Group();
+	  
+	buttonStart.setOnMousePressed(mouseHandler);
+	mouseHandler = new EventHandler<MouseEvent>() {
+		@Override
+		public void handle(MouseEvent e) {
+			if(e.getEventType() == MouseEvent.MOUSE_PRESSED){
+				dataW.setIsStart(true);
+				panelTpm = "Game";
+			}
+		}
+	};
+	
+//	  mouseHandler = new EventHandler<MouseEvent>() {
+//		  
+//	        @Override
+//	        public void handle(MouseEvent mouseEvent) {
+//	        	if (mouseEvent.getEventType() == MouseEvent.MOUSE_PRESSED) {
+//		          
+//	        		pnl=1;
+//	        	}
+//	        }
+//	      };
+//	 
 	  
     pileRouge = new Image("file:src/images/pile-rouge-2.png");
     pileRougeView = new ImageView(pileRouge);
@@ -255,7 +266,9 @@ public class Viewer implements ViewerService, RequireReadService{
 
 	Image brique = new Image("file:src/images/briquesplus.png");
     //Yucky hard-conding
-    Rectangle map = new Rectangle(HardCodedParameters.defaultWidth-10,-100+HardCodedParameters.defaultHeight);
+	Rectangle map = new Rectangle(HardCodedParameters.defaultWidth-10,-100+HardCodedParameters.defaultHeight);
+	Rectangle mapStart = new Rectangle(HardCodedParameters.defaultWidth-10,-100+HardCodedParameters.defaultHeight);
+	
     map.setFill(Color.WHITE);
     map.setStroke(Color.DIMGRAY);
     map.setStrokeWidth(5);
@@ -265,6 +278,13 @@ public class Viewer implements ViewerService, RequireReadService{
     map.setTranslateY(5);
 	Image back_img = new Image("file:src/images/background.png");
     map.setFill(new ImagePattern(back_img, 1, 1, 0.7, 0.9, false));
+    
+    mapStart.setStroke(Color.DIMGRAY);
+    mapStart.setStrokeWidth(5);
+    mapStart.setArcWidth(20);
+    mapStart.setArcHeight(20);
+    mapStart.setTranslateX(5);
+    mapStart.setTranslateY(5);
     
     Rectangle obstacle1 = new Rectangle(100,120);
     obstacle1.setFill(Color.WHITE);
@@ -425,13 +445,11 @@ public class Viewer implements ViewerService, RequireReadService{
     heroesAvatar.setTranslateX(data.getHeroesPosition().x+(-heroesAvatarViewports.get(index).getWidth()/2.+0.5*heroesAvatarXModifiers.get(index)));
     heroesAvatar.setTranslateY(data.getHeroesPosition().y+(-heroesAvatarViewports.get(index).getHeight()/2.+0.5*heroesAvatarYModifiers.get(index)));
     heroesAvatarViewportIndex=(heroesAvatarViewportIndex+1)%(heroesAvatarViewports.size()*spriteSlowDownRate);
-    
-    Group panel = new Group();
+   
     panel.getChildren().addAll(map,obstacle1,obstacle2,obstacle2b,obstacle3,obstacle3b,
     		obstacle4,obstacle5,obstacle5b,obstacle6,obstacle4a,obstacle7,obstacle7b,obstacle8,
-    		obstacle9, obstacle10,obstacle11,obstacle12,obstacle13,greets,heroesAvatar, pileRougeView, pileVerteView, greenGateView, greenGateView2,
-    		greets2);
-
+    		obstacle9, obstacle10,obstacle11,obstacle12,obstacle13,greets,heroesAvatar, pileRougeView, pileVerteView, greenGateView, greenGateView2);
+    panelStart.getChildren().addAll(mapStart, buttonStart, buttonRegle);
     for (PhantomService p:data.getPhantoms()){
    
     	//ENNEMIE
@@ -457,12 +475,12 @@ public class Viewer implements ViewerService, RequireReadService{
   	  
   	  	panel.getChildren().add(cercleDanger);
     }
-
-    if(pnl==0){
-    	return panel1;
-    	}
-    else {
+    
+    if(panelTpm == "Start"){
+    	return panelStart;
+    }else{
     	return panel;
-    	}
+    }
+    
   }
 }
