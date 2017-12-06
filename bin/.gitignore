@@ -1,5 +1,10 @@
 /data/
+<<<<<<< HEAD
 /userInterface/
+=======
+/engine/
+/images/
+>>>>>>> parent of 9eac211... Merge branch 'Julien' into Developpement
 /specifications/
 /engine/
 /images/

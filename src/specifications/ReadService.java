@@ -10,18 +10,10 @@ import tools.Position;
 import tools.Wall;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public interface ReadService {
   public Position getHeroesPosition();
   public int getStepNumber();
   public ArrayList<PhantomService> getPhantoms();
   public ArrayList<Wall> getWalls();
-  public Position getBatteryEnnemiePosition();
-int getHeroesResistance();
-  public ArrayList<Position> getAllBatterysEnnemiePosition();
-  public ArrayList<Position> getAllBatterysHealPosition();
-  public Position getBatteryHealPosition();
-  int getScore();
-  int getNiveau();
 }
