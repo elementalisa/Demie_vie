@@ -67,7 +67,6 @@ public class Engine implements EngineService, RequireDataService{
 		
 		@Override
 		public void run() {
-			System.out.println("Hello");
 			if(data.getIsStart() == true) {
 			  	engineClockSpwanEnnemie.schedule(new TimerTask() {
 					@Override
@@ -148,6 +147,9 @@ public class Engine implements EngineService, RequireDataService{
   @Override
   public void stop(){
     engineClock.cancel();
+    launcherClock.cancel();
+    engineClockNiveau.cancel();
+    engineClockSpwanEnnemie.cancel();
   }
   
   public void batteryCollision(){

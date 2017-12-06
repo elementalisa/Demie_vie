@@ -43,6 +43,8 @@ import javafx.geometry.Rectangle2D;
 
 import java.util.ArrayList;
 
+import javax.swing.JScrollPane;
+
 import com.sun.xml.internal.ws.api.pipe.Engine;
 
 import alpha.Main;
@@ -76,6 +78,7 @@ public class Viewer implements ViewerService, RequireReadService{
   EventHandler<MouseEvent> mouseRegleHandler;
   public Viewer(){}
   String panelTpm;
+  TextArea textAreaConsole = new TextArea();
 
   @Override
   public void bindReadService(ReadService service, WriteService serviceR){
@@ -86,7 +89,7 @@ public class Viewer implements ViewerService, RequireReadService{
   @Override
   public void init(){
 	//-----Bouton regles de jeu
-	    
+	textAreaConsole.setFocusTraversable(false);
     //Yucky hard-conding
     heroesSpriteSheet = new Image("file:src/images/sprite-hero.png");
     heroesAvatar = new ImageView(heroesSpriteSheet);
@@ -178,22 +181,23 @@ public class Viewer implements ViewerService, RequireReadService{
     		"    -fx-background-insets: 0,1,2;\r\n" + 
     		"    -fx-text-fill: black;\r\n" + 
     		"    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );");
+    textAreaConsole.setFocusTraversable(false);
   }
 
   @Override
   public Parent getPanel(){
-	  
     Group panel = new Group();
     Group panelStart = new Group();
     
-    TextArea textAreaConsole = new TextArea();
+   
     textAreaConsole.setTranslateX(1100);
     textAreaConsole.setTranslateY(5);
-    textAreaConsole.setPrefWidth(260.0);
+//    textAreaConsole.setPrefWidth(260.0);
     textAreaConsole.maxWidth(100.0);
     textAreaConsole.setPrefHeight(700.0);
     textAreaConsole.maxHeight(700.0);
-
+    textAreaConsole.setStyle("-fx-control-inner-background:#000000; -fx-font-family: Consolas; -fx-highlight-fill: #00ff00; -fx-highlight-text-fill: #000000; -fx-text-fill: #00ff00;-fx-border-color: DIMGRAY; -fx-border-width: 6; -fx-border-radius: 5;");
+    textAreaConsole.appendText("OkOkOk \n");
 	  
 	buttonStart.setOnMousePressed(mouseStartHandler);
 	mouseStartHandler = new EventHandler<MouseEvent>() {
@@ -272,6 +276,7 @@ public class Viewer implements ViewerService, RequireReadService{
     //Yucky hard-conding
 	Rectangle map = new Rectangle(HardCodedParameters.defaultWidth-10,-100+HardCodedParameters.defaultHeight);
 	Rectangle mapStart = new Rectangle(HardCodedParameters.defaultWidth-10,-100+HardCodedParameters.defaultHeight);
+	Rectangle mapLog = new Rectangle(300,-100+HardCodedParameters.defaultHeight);
 	mapStart.setFill(new ImagePattern(backImage));
 	
     map.setFill(Color.WHITE);
@@ -290,6 +295,13 @@ public class Viewer implements ViewerService, RequireReadService{
     mapStart.setArcHeight(20);
     mapStart.setTranslateX(5);
     mapStart.setTranslateY(5);
+    
+    mapLog.setStroke(Color.DIMGRAY);
+    mapLog.setStrokeWidth(5);
+    mapLog.setArcWidth(20);
+    mapLog.setArcHeight(20);
+    mapLog.setTranslateX(1100);
+    mapLog.setTranslateY(5);
     
     Rectangle obstacle1 = new Rectangle(100,120);
     obstacle1.setFill(Color.WHITE);
@@ -452,11 +464,14 @@ public class Viewer implements ViewerService, RequireReadService{
     heroesAvatarViewportIndex=(heroesAvatarViewportIndex+1)%(heroesAvatarViewports.size()*spriteSlowDownRate);
    
     Group panelTextArea = new Group();
-    panelTextArea.getChildren().addAll(textAreaConsole);
-    panel.getChildren().addAll(map,obstacle1,obstacle2,obstacle2b,obstacle3,obstacle3b,
+    textAreaConsole.setFocusTraversable(false);
+    System.out.println("Ok --> " + textAreaConsole.isFocusTraversable());
+    panelTextArea.getChildren().add(textAreaConsole);
+    
+    panel.getChildren().addAll(panelTextArea, map,obstacle1,obstacle2,obstacle2b,obstacle3,obstacle3b,
     		obstacle4,obstacle5,obstacle5b,obstacle6,obstacle4a,obstacle7,obstacle7b,obstacle8,
-    		obstacle9, obstacle10,obstacle11,obstacle12,obstacle13,greets,heroesAvatar, pileRougeView, pileVerteView, greenGateView, greenGateView2, panelTextArea);
-    panelStart.getChildren().addAll(textAreaConsole, mapStart, buttonStart, buttonRegle);
+    		obstacle9, obstacle10,obstacle11,obstacle12,obstacle13,greets,heroesAvatar, pileRougeView, pileVerteView, greenGateView, greenGateView2);
+    panelStart.getChildren().addAll(mapStart, buttonStart, buttonRegle);
     for (PhantomService p:data.getPhantoms()){
    
     	//ENNEMIE
