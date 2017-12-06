@@ -82,35 +82,6 @@ public class Viewer implements ViewerService, RequireReadService{
   @Override
   public void init(){
 	//-----Bouton regles de jeu
-	    btn_regle = new Button("R�gles de jeux");
-	    btn_regle.setPrefSize(150, 60);
-	    btn_regle.setTranslateX(800);
-	    btn_regle.setTranslateY(220);
-	    btn_regle.setTextFill(Color.BLACK);
-	    btn_regle.setStyle("-fx-background-color: \r\n" + 
-	            "        linear-gradient(#f2f2f2, #d6d6d6),\r\n" + 
-	            "        linear-gradient(#fcfcfc 0%, #d9d9d9 20%, #d6d6d6 100%),\r\n" + 
-	            "        linear-gradient(#dddddd 0%, #f6f6f6 50%);\r\n" + 
-	            "    -fx-background-radius: 8,7,6;\r\n" + 
-	            "    -fx-background-insets: 0,1,2;\r\n" + 
-	            "    -fx-text-fill: black;\r\n" + 
-	            "    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );");
-	    //-----Bouton Start
-	    btn_start = new Button("Nouveau jeux");
-	    btn_start.setPrefSize(150, 60);
-	    btn_start.setTranslateX(180);
-	    btn_start.setTranslateY(220);
-	    btn_start.setTextFill(Color.BLACK);
-	    btn_start.setStyle("-fx-background-color: \r\n" + 
-	            "        linear-gradient(#f2f2f2, #d6d6d6),\r\n" + 
-	            "        linear-gradient(#fcfcfc 0%, #d9d9d9 20%, #d6d6d6 100%),\r\n" + 
-	            "        linear-gradient(#dddddd 0%, #f6f6f6 50%);\r\n" + 
-	            "    -fx-background-radius: 8,7,6;\r\n" + 
-	            "    -fx-background-insets: 0,1,2;\r\n" + 
-	            "    -fx-text-fill: black;\r\n" + 
-	            "    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );");
-	    ////////////////////////////////////////////////////////////
-	    pnl=0;
 	    
     //Yucky hard-conding
     heroesSpriteSheet = new Image("file:src/images/sprite-hero.png");
