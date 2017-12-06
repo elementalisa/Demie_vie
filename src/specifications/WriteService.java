@@ -19,6 +19,5 @@ public interface WriteService {
   public void setBatteryHealPosition(Position p);
   int setScore(int i);
   public void setNiveau(int i);
-  public void setIsStart(boolean s);
   
 }

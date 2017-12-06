@@ -47,7 +47,7 @@ public class Main extends Application{
     viewer = new Viewer();
 
     ((Engine)engine).bindDataService(data);
-    ((Viewer)viewer).bindReadService(data, data);
+    ((Viewer)viewer).bindReadService(data);
 
     data.init();
     engine.init();
@@ -75,7 +75,6 @@ public class Main extends Application{
     stage.setOnShown(new EventHandler<WindowEvent>() {
       @Override
         public void handle(WindowEvent event) {
-    	  System.out.println("OlAh!");
           engine.start();
         }
     });
