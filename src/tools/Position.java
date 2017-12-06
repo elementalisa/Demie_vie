@@ -8,8 +8,15 @@ package tools;
 
 public class Position {
   public double x,y;
+  public String dep;
   public Position(double x, double y){
     this.x=x;
     this.y=y;
+  }
+  
+  public Position(double x, double y, String dep){
+	    this.x=x;
+	    this.y=y;
+	    this.dep = dep;
   }
 }

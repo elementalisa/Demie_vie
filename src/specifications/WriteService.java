@@ -7,15 +7,17 @@
 package specifications;
 
 import tools.Position;
-import tools.Sound;
-
-import java.util.ArrayList;
 
 public interface WriteService {
   public void setHeroesPosition(Position p);
   public void setStepNumber(int n);
   public void addPhantom(Position p);
-  public void setPhantoms(ArrayList<PhantomService> phantoms);
-  public void setSoundEffect(Sound.SOUND s);
-  public void addScore(int score);
+  public void addPhantom(Position p, String d);
+  public void initWalls();
+  public void setBatteryEnnemiePosition(Position p);
+  int setHeroesResistance(int i);
+  public void setBatteryHealPosition(Position p);
+  int setScore(int i);
+  public void setNiveau(int i);
+  
 }

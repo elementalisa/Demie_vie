@@ -13,5 +13,8 @@ public interface PhantomService{
 
   public Position getPosition();
   public MOVE getAction();
+  public String getDep();
   public void setPosition(Position p);
+  public void setDep(String dep);
+  
 }

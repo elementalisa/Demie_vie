@@ -7,18 +7,21 @@
 package specifications;
 
 import tools.Position;
-import tools.Sound;
+import tools.Wall;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface ReadService {
   public Position getHeroesPosition();
-  public double getHeroesWidth();
-  public double getHeroesHeight();
-  public double getPhantomWidth();
-  public double getPhantomHeight();
   public int getStepNumber();
-  public int getScore();
   public ArrayList<PhantomService> getPhantoms();
-  public Sound.SOUND getSoundEffect();
+  public ArrayList<Wall> getWalls();
+  public Position getBatteryEnnemiePosition();
+int getHeroesResistance();
+  public ArrayList<Position> getAllBatterysEnnemiePosition();
+  public ArrayList<Position> getAllBatterysHealPosition();
+  public Position getBatteryHealPosition();
+  int getScore();
+  int getNiveau();
 }

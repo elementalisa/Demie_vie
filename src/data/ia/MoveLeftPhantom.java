@@ -12,8 +12,14 @@ import specifications.PhantomService;
 
 public class MoveLeftPhantom implements PhantomService{
   private Position position;
+  private String dep;
 
   public MoveLeftPhantom(Position p){ position=p; }
+  
+  public MoveLeftPhantom(Position p, String d){
+	  position = p;
+	  dep = d;
+  }
 
   @Override
   public Position getPosition() { return position; }
@@ -23,4 +29,16 @@ public class MoveLeftPhantom implements PhantomService{
 
   @Override
   public void setPosition(Position p) { position=p; }
+
+	@Override
+	public String getDep() {
+		// TODO Auto-generated method stub
+		return dep;
+	}
+	
+	@Override
+	public void setDep(String dep) {
+		this.dep =dep;
+		
+	}
 }
