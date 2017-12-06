@@ -24,5 +24,4 @@ int getHeroesResistance();
   public Position getBatteryHealPosition();
   int getScore();
   int getNiveau();
-  public boolean getIsStart();
 }

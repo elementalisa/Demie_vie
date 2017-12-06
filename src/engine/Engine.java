@@ -26,7 +26,6 @@ public class Engine implements EngineService, RequireDataService{
   private Timer engineClock;
   private Timer engineClockSpwanEnnemie;
   private Timer engineClockNiveau;
-  private Timer launcherClock;
   private DataService data;
   private User.COMMAND command;
   private Random gen;
@@ -50,8 +49,6 @@ public class Engine implements EngineService, RequireDataService{
 	batteryHealIncr = 0;
 	engineClock = new Timer();
 	engineClockNiveau = new Timer();
-	launcherClock = new Timer();
-	engineClockSpwanEnnemie = new Timer();
 	command = User.COMMAND.NONE;
 	gen = new Random();
 	data.initWalls();
@@ -62,87 +59,92 @@ public class Engine implements EngineService, RequireDataService{
 
   @Override
   public void start(){
-	 
-	launcherClock.schedule(new TimerTask() {
-		
+	  
+	engineClockSpwanEnnemie = new Timer();
+	  	engineClockSpwanEnnemie.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+			spawnPhantom();
+		}
+	}, 0,spawn);
+	
+	  	engineClockNiveau.schedule(new TimerTask() {
 		@Override
 		public void run() {
-			System.out.println("Hello");
-			if(data.getIsStart() == true) {
-			  	engineClockSpwanEnnemie.schedule(new TimerTask() {
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-					spawnPhantom();
-				}
-				}, 0,spawn);
-				
-				  	engineClockNiveau.schedule(new TimerTask() {
-					@Override
-					public void run() {
-						niveauIteration ++;
-						data.setNiveau(niveauIteration);
-						System.out.println("NIVEAU = " + niveauIteration);
-					}
-				}, 0,10000);
-				
-				
-			    engineClock.schedule(new TimerTask(){
-			      public void run() {
-		
-			    	data.setScore(data.getScore()+1);
-			    	System.out.println("Score" + data.getScore());
-			    	batteryCollision();
-			    	testContactZoneRadiation();
-			    	if(data.getHeroesResistance() >=300){
-						data.setHeroesResistance(300);
-					}
-			        if (command==User.COMMAND.LEFT){
-				    	if(!wallCollisionLeft()){
-				    		heroesMoveLeft();
-				    	}
-			        }
-			        if (command==User.COMMAND.RIGHT){
-			        	if(!wallCollisionRight()){
-			        	heroesMoveRight();
-			        	}
-			        }
-			        if (command==User.COMMAND.UP){
-			        	if(!wallCollisionUp()){
-			        	heroesMoveUp();
-			        	}
-			        }
-			        if (command==User.COMMAND.DOWN){
-			        	if(!wallCollisionDown()){
-			        		heroesMoveDown();
-			        	}
-			        }
-			        //System.out.println("Game step #"+data.getStepNumber()+": checked.");
-			        //if (gen.nextInt(100)<3) spawnPhantom();
-		
-			        for (PhantomService p:data.getPhantoms()){
-			        	
-			    		//moveRight(p);
-			        	if(p.getDep() == "Right"){
-			        		moveRight(p);
-			        	}else if(p.getDep() == "Up"){
-			        		moveUp(p);
-			        	}else if(p.getDep() == "Down"){
-			        		moveDown(p);
-			        	}else if(p.getDep() == "Left"){
-			        		moveLeft(p);
-			        	}
-			        }
-		
-			        command = User.COMMAND.NONE;
-			        //System.out.println(" X " + data.getHeroesPosition().x + " Y : " + data.getHeroesPosition().y);
-			        data.setStepNumber(data.getStepNumber()+1);
-			      }
-			    },0,90);
-				data.setIsStart(false);
-			}
+			niveauIteration ++;
+			data.setNiveau(niveauIteration);
+			System.out.println("NIVEAU = " + niveauIteration);
 		}
-	}, 0, 1000);
+	}, 0,10000);
+	
+	
+    engineClock.schedule(new TimerTask(){
+      public void run() {
+
+    	data.setScore(data.getScore()+1);
+    	System.out.println("Score" + data.getScore());
+    	batteryCollision();
+    	testContactZoneRadiation();
+    	if(data.getHeroesResistance() >=300){
+			data.setHeroesResistance(300);
+		}
+        if (command==User.COMMAND.LEFT){
+	    	if(!wallCollisionLeft()){
+	    		heroesMoveLeft();
+	    	}
+        }
+        if (command==User.COMMAND.RIGHT){
+        	if(!wallCollisionRight()){
+        	heroesMoveRight();
+        	}
+        }
+        if (command==User.COMMAND.UP){
+        	if(!wallCollisionUp()){
+        	heroesMoveUp();
+        	}
+        }
+        if (command==User.COMMAND.DOWN){
+        	if(!wallCollisionDown()){
+        		heroesMoveDown();
+        	}
+        }
+        //System.out.println("Game step #"+data.getStepNumber()+": checked.");
+        //if (gen.nextInt(100)<3) spawnPhantom();
+
+        for (PhantomService p:data.getPhantoms()){
+        	
+    		//moveRight(p);
+        	if(p.getDep() == "Right"){
+        		moveRight(p);
+        	}else if(p.getDep() == "Up"){
+        		moveUp(p);
+        	}else if(p.getDep() == "Down"){
+        		moveDown(p);
+        	}else if(p.getDep() == "Left"){
+        		moveLeft(p);
+        	}
+//        	switch (gen.nextInt(4)){
+//            case 0:
+//              moveRight(p);
+//              break;
+//            case 1:
+//              moveLeft(p);
+//              break;
+//            case 2:
+//              moveDown(p);
+//              break;
+//            default:
+//              moveUp(p);
+//              break;
+//          }
+        }
+
+        command = User.COMMAND.NONE;
+        //System.out.println(" X " + data.getHeroesPosition().x + " Y : " + data.getHeroesPosition().y);
+        data.setStepNumber(data.getStepNumber()+1);
+      }
+    },0,90);
   }
 
   @Override
