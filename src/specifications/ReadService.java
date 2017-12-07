@@ -27,6 +27,4 @@ int getHeroesResistance();
   public boolean getIsStart();
   public String getLog();
 boolean getMusic();
-boolean getGameOver();
-boolean getReplay();
 }
