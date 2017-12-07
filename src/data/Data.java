@@ -33,6 +33,8 @@ public class Data implements DataService{
   ArrayList<Position> positionBattEnnemieList;
   ArrayList<Position> positionHealEnnemieList;
   public boolean Music;
+  public boolean GameOver;
+  public boolean Replay;
   public boolean isStart;
   public String log;
 
@@ -48,9 +50,11 @@ public class Data implements DataService{
     walls = new ArrayList<Wall>();
     initWalls();
     stepNumber = 0;
-    heroesResistance = 200;
+    heroesResistance = 2;
     score = 0;
     Music = true;
+    GameOver = false;
+    Replay = false;
     niveau = 1;
     isStart = false;
     log = "";
@@ -178,6 +182,27 @@ public boolean getMusic() {
 public boolean setMusic(boolean b) {
 	return Music = b;
 }
+
+@Override
+public boolean getGameOver() {
+	return GameOver;
+}
+
+@Override
+public boolean setGameOver(boolean b) {
+	return GameOver = b;
+}
+
+@Override
+public boolean getReplay() {
+	return Replay;
+}
+
+@Override
+public boolean setReplay(boolean b) {
+	return Replay = b;
+}
+
 @Override
 public ArrayList<Position> getAllBatterysEnnemiePosition() {
 	positionBattEnnemieList = new ArrayList<Position>();
