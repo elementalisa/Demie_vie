@@ -69,6 +69,8 @@ public class Engine implements EngineService, RequireDataService{
 
   @Override
   public void start(){
+	  data.setReplay(false);
+	  data.setGameOver(false);
 	  final java.net.URL resource = getClass().getResource("/images/Pixel_song.mp3");
 	  final Media media = new Media(resource.toString());
 	  final MediaPlayer mediaPlayer = new MediaPlayer(media);
@@ -97,6 +99,12 @@ public class Engine implements EngineService, RequireDataService{
 				
 			    engineClock.schedule(new TimerTask(){
 			      public void run() {
+			    	  if(data.getReplay()){
+			    		  System.out.println("Replay");
+			    		  stop();
+			    		  init();
+			    		  start();
+			    	  }
 			    		if(data.getMusic() == true){
 						mediaPlayer.setOnEndOfMedia(new Runnable() {
 						       public void run() {
@@ -113,11 +121,18 @@ public class Engine implements EngineService, RequireDataService{
 
 				    	   mediaPlayer.play();
 
+			    		}else{
+			    			mediaPlayer.stop();
 			    		}
 			    	data.setScore(data.getScore()+1);
 			    	System.out.println("Score" + data.getScore());
 			    	batteryCollision();
 			    	testContactZoneRadiation();
+			    	if(data.getHeroesResistance()<=0){
+			    		data.setGameOver(true);
+			    	}else{
+			    	}
+			    	
 			    	if(data.getHeroesResistance() >=300){
 						data.setHeroesResistance(300);
 					}

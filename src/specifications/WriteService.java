@@ -22,5 +22,7 @@ public interface WriteService {
   public void setIsStart(boolean s);
   public void setLog(String s);
 public boolean setMusic(boolean b);
+boolean setGameOver(boolean b);
+boolean setReplay(boolean b);
   
 }

@@ -73,11 +73,13 @@ public class Viewer implements ViewerService, RequireReadService{
   private int heroesAvatarViewportIndex;
   private int ennemieAvatarViewportIndex;
   private Button buttonStart;
+  private Button buttonReplay;
   private Button buttonRegle;
   private Button buttonSon;
   EventHandler<MouseEvent> mouseStartHandler;
   EventHandler<MouseEvent> mouseRegleHandler;
   EventHandler<MouseEvent> mouseSonHandler;
+  EventHandler<MouseEvent> mouseReplaytHandler;
   public Viewer(){}
   String panelTpm;
   TextArea textAreaConsole = new TextArea();
@@ -170,7 +172,23 @@ public class Viewer implements ViewerService, RequireReadService{
     		"    -fx-text-fill: black;\r\n" + 
     		"    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );");
     
-    buttonRegle = new Button("Rï¿½gles du jeux");
+    buttonReplay = new Button("Nouvelle partie");
+    buttonReplay.setPrefSize(150, 60);
+    buttonReplay.setTranslateX(280);
+    buttonReplay.setTranslateY(420);
+    buttonReplay.setTextFill(Color.BLACK);
+    buttonReplay.setStyle("-fx-background-color: \r\n" + 
+    		"        linear-gradient(#f2f2f2, #d6d6d6),\r\n" + 
+    		"        linear-gradient(#fcfcfc 0%, #d9d9d9 20%, #d6d6d6 100%),\r\n" + 
+    		"        linear-gradient(#dddddd 0%, #f6f6f6 50%);\r\n" + 
+    		"    -fx-background-radius: 8,7,6;\r\n" + 
+    		"    -fx-background-insets: 0,1,2;\r\n" + 
+    		"    -fx-text-fill: black;\r\n" + 
+    		"    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );");
+    
+
+    
+    buttonRegle = new Button("Règles du jeux");
     buttonRegle.setPrefSize(150, 60);
     buttonRegle.setTranslateX(800);
     buttonRegle.setTranslateY(220);
@@ -219,7 +237,7 @@ public class Viewer implements ViewerService, RequireReadService{
     	dataW.setLog("");
     }else{}
 	  
-	buttonStart.setOnMousePressed(mouseStartHandler);
+    buttonStart.setOnMousePressed(mouseStartHandler);
 	mouseStartHandler = new EventHandler<MouseEvent>() {
 		@Override
 		public void handle(MouseEvent event) {
@@ -229,6 +247,8 @@ public class Viewer implements ViewerService, RequireReadService{
 			}
 		}
 	};
+	
+	
 
 	buttonRegle.setOnMousePressed(mouseRegleHandler);
 	mouseRegleHandler = new EventHandler<MouseEvent>() {
@@ -266,8 +286,10 @@ public class Viewer implements ViewerService, RequireReadService{
 		@Override
 		public void handle(MouseEvent event) {
 			if(event.getEventType() == MouseEvent.MOUSE_PRESSED){
-                if(data.getMusic()==true){
-                	//data.se
+                if(data.getMusic()){
+                	dataW.setMusic(false);
+                }else{
+                	dataW.setMusic(true);
                 }
 			}
 		}
@@ -316,12 +338,17 @@ public class Viewer implements ViewerService, RequireReadService{
 
 	Image brique = new Image("file:src/images/briquesplus.png");
 	Image backImage = new Image("file:src/images/backgroundStart2.jpg");
+	Image GameOver = new Image("file:src/images/gameover.jpg");
 	//Image backImage = new Image("file:src/images/backgroundStart.png");
     //Yucky hard-conding
 	Rectangle map = new Rectangle(HardCodedParameters.defaultWidth-10,-100+HardCodedParameters.defaultHeight);
 	Rectangle mapStart = new Rectangle(HardCodedParameters.defaultWidth-10,-100+HardCodedParameters.defaultHeight);
 	Rectangle mapLog = new Rectangle(300,-100+HardCodedParameters.defaultHeight);
 	mapStart.setFill(new ImagePattern(backImage));
+	
+
+	Rectangle FenetreGameOver = new Rectangle(1500,800);
+	FenetreGameOver.setFill(new ImagePattern(GameOver));
 	
     map.setFill(Color.WHITE);
     map.setStroke(Color.DIMGRAY);
@@ -539,6 +566,7 @@ public class Viewer implements ViewerService, RequireReadService{
   	cercleDanger.setOpacity(0.2);
   	  
   	  	panel.getChildren().add(cercleDanger);
+  	  	
     }
     if(data.getGameOver()){
     	panel.getChildren().removeAll();
