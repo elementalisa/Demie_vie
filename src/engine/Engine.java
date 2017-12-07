@@ -75,7 +75,6 @@ public class Engine implements EngineService, RequireDataService{
 	  final Media media = new Media(resource.toString());
 	  final MediaPlayer mediaPlayer = new MediaPlayer(media);
 	launcherClock.schedule(new TimerTask() {
-		
 		@Override
 		public void run() {
 			if(data.getIsStart() == true) {

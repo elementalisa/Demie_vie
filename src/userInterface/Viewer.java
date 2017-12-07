@@ -7,7 +7,7 @@
 package userInterface;
 
 import tools.HardCodedParameters;
-
+import tools.Position;
 import specifications.ViewerService;
 import specifications.WriteService;
 import sun.rmi.runtime.Log;
@@ -274,8 +274,10 @@ public class Viewer implements ViewerService, RequireReadService{
 		@Override
 		public void handle(MouseEvent event) {
 			if(event.getEventType() == MouseEvent.MOUSE_PRESSED){
-                	dataW.setReplay(true);
-                	System.out.println("Replay viwer");
+				dataW.setHeroesResistance(2);
+				data.getPhantoms().clear();
+				dataW.setHeroesPosition(new Position(40,50));
+                	dataW.setGameOver(false);
 			}
 		}
 	};
@@ -567,7 +569,7 @@ public class Viewer implements ViewerService, RequireReadService{
   	  	
     }
     if(data.getGameOver()){
-    	System.out.println("azertyuiop");
+    	panel.getChildren().removeAll();
   	  	panel.getChildren().addAll(FenetreGameOver,buttonReplay);
   	  	}else{
   	  		panel.getChildren().removeAll(FenetreGameOver,buttonReplay);
