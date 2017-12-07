@@ -205,8 +205,8 @@ public class Viewer implements ViewerService, RequireReadService{
     
     buttonSon = new Button("Activer/Desactiver Son");
     buttonSon.setPrefSize(190, 60);
-    buttonSon.setTranslateX(340);
-    buttonSon.setTranslateY(720);
+    buttonSon.setTranslateX(20);
+    buttonSon.setTranslateY(760);
     buttonSon.setTextFill(Color.BLACK);
     buttonSon.setStyle("-fx-background-color: \r\n" + 
     		"        linear-gradient(#f2f2f2, #d6d6d6),\r\n" + 
@@ -274,9 +274,12 @@ public class Viewer implements ViewerService, RequireReadService{
 		@Override
 		public void handle(MouseEvent event) {
 			if(event.getEventType() == MouseEvent.MOUSE_PRESSED){
-				dataW.setHeroesResistance(2);
+				dataW.setHeroesResistance(200);
 				data.getPhantoms().clear();
-				dataW.setHeroesPosition(new Position(40,50));
+				dataW.setHeroesPosition(new Position(80,200));
+				dataW.setMusic(true);
+				dataW.setScore(0);
+				dataW.setNiveau(0);
                 	dataW.setGameOver(false);
 			}
 		}
@@ -339,15 +342,17 @@ public class Viewer implements ViewerService, RequireReadService{
 	Image brique = new Image("file:src/images/briquesplus.png");
 	Image backImage = new Image("file:src/images/backgroundStart2.jpg");
 	Image GameOver = new Image("file:src/images/gameover.jpg");
+	Image TitreImage = new Image("file:src/images/Demie-vie.png");
 	//Image backImage = new Image("file:src/images/backgroundStart.png");
     //Yucky hard-conding
 	Rectangle map = new Rectangle(HardCodedParameters.defaultWidth-10,-100+HardCodedParameters.defaultHeight);
 	Rectangle mapStart = new Rectangle(HardCodedParameters.defaultWidth-10,-100+HardCodedParameters.defaultHeight);
 	Rectangle mapLog = new Rectangle(300,-100+HardCodedParameters.defaultHeight);
 	mapStart.setFill(new ImagePattern(backImage));
-	
+	Rectangle Titre = new Rectangle(HardCodedParameters.defaultWidth+210,-100+HardCodedParameters.defaultHeight);
+	Titre.setFill(new ImagePattern(TitreImage));
 
-	Rectangle FenetreGameOver = new Rectangle(1500,800);
+	Rectangle FenetreGameOver = new Rectangle(1500,840);
 	FenetreGameOver.setFill(new ImagePattern(GameOver));
 	
     map.setFill(Color.WHITE);
@@ -523,8 +528,12 @@ public class Viewer implements ViewerService, RequireReadService{
     obstacle12.setFill(new ImagePattern(brique, 1, 1, 0.7, 0.9, false));
     obstacle13.setFill(new ImagePattern(brique, 1, 1, 0.7, 0.9, false));
     
-    Text greets = new Text(-100+HardCodedParameters.defaultWidth/2.,-40+HardCodedParameters.defaultHeight, "Round 1");
-    greets.setFont(new Font(50));
+    Text greets = new Text(30,730, "Resistance :"+data.getHeroesResistance());
+    greets.setFont(new Font(20));
+    Text textScore = new Text(290,730, "Score :"+data.getScore());
+    textScore.setFont(new Font(20));
+    Text textNiveau = new Text(180,730, "Niveau :"+data.getNiveau());
+    textNiveau.setFont(new Font(20));
     
     int index=heroesAvatarViewportIndex/spriteSlowDownRate;
     heroesAvatar.setViewport(heroesAvatarViewports.get(index));
@@ -540,8 +549,8 @@ public class Viewer implements ViewerService, RequireReadService{
     
     panel.getChildren().addAll(panelTextArea, map,obstacle1,obstacle2,obstacle2b,obstacle3,obstacle3b,
     		obstacle4,obstacle5,obstacle5b,obstacle6,obstacle4a,obstacle7,obstacle7b,obstacle8,
-    		obstacle9, obstacle10,obstacle11,obstacle12,obstacle13,greets,buttonSon,heroesAvatar, pileRougeView, pileVerteView, greenGateView, greenGateView2);
-    panelStart.getChildren().addAll(mapStart, buttonStart, buttonRegle);
+    		obstacle9, obstacle10,obstacle11,obstacle12,obstacle13,greets,textScore,textNiveau,buttonSon,heroesAvatar, pileRougeView, pileVerteView, greenGateView, greenGateView2);
+    panelStart.getChildren().addAll(mapStart,Titre, buttonStart, buttonRegle);
     for (PhantomService p:data.getPhantoms()){
    
     	//ENNEMIE

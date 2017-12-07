@@ -62,7 +62,7 @@ public class Engine implements EngineService, RequireDataService{
 	command = User.COMMAND.NONE;
 	gen = new Random();
 	data.initWalls();
-	spawn = 20000;
+	spawn = 1000;
 	scoreIteration = 0;
 	niveauIteration = 1;
   }
@@ -81,9 +81,12 @@ public class Engine implements EngineService, RequireDataService{
 			  	engineClockSpwanEnnemie.schedule(new TimerTask() {
 					@Override
 					public void run() {
-						// TODO Auto-generated method stub
-					data.setLog("un ennemie est apparu. \n");
-					spawnPhantom();
+					
+	                if (gen.nextInt(100)<65*data.getNiveau()/10){
+	                	spawnPhantom();
+						data.setLog("un ennemie est apparu. \n");
+	                }
+
 				}
 				}, 0,spawn);
 				
@@ -91,20 +94,15 @@ public class Engine implements EngineService, RequireDataService{
 					@Override
 					public void run() {
 						niveauIteration ++;
+						spawn-=5000;
 						data.setNiveau(niveauIteration);
 						System.out.println("NIVEAU = " + niveauIteration);
 					}
-				}, 0,10000);
+				}, 0,50000);
 				
 				
 			    engineClock.schedule(new TimerTask(){
 			      public void run() {
-			    	  if(data.getReplay()){
-			    		  System.out.println("Replay");
-			    		  stop();
-			    		  init();
-			    		  start();
-			    	  }
 			    		if(data.getMusic() == true){
 						mediaPlayer.setOnEndOfMedia(new Runnable() {
 						       public void run() {
@@ -125,10 +123,10 @@ public class Engine implements EngineService, RequireDataService{
 			    			mediaPlayer.stop();
 			    		}
 			    	data.setScore(data.getScore()+1);
-			    	System.out.println("Score" + data.getScore());
 			    	batteryCollision();
 			    	testContactZoneRadiation();
 			    	if(data.getHeroesResistance()<=0){
+			    		data.setMusic(false);
 			    		data.setGameOver(true);
 			    	}else{
 			    	}
@@ -223,7 +221,7 @@ public class Engine implements EngineService, RequireDataService{
 	  for (int i = 0; i<data.getPhantoms().size(); i++){
 	        if (data.getPhantoms().get(i).getPosition().x-60 < data.getHeroesPosition().x && data.getPhantoms().get(i).getPosition().x+60 > data.getHeroesPosition().x){
 	        	if(data.getPhantoms().get(i).getPosition().y-60 < data.getHeroesPosition().y && data.getPhantoms().get(i).getPosition().y+60 > data.getHeroesPosition().y){
-		            data.setHeroesResistance(data.getHeroesResistance()-1);
+		            data.setHeroesResistance(data.getHeroesResistance()-3);
 	        	}
 	        }
 	      }

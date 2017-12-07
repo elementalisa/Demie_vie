@@ -29,4 +29,5 @@ int getHeroesResistance();
 boolean getMusic();
 boolean getGameOver();
 boolean getReplay();
+int getSpawn();
 }

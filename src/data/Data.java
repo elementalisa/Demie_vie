@@ -37,6 +37,7 @@ public class Data implements DataService{
   public boolean Replay;
   public boolean isStart;
   public String log;
+  public int spawn;
 
   public Data(){}
 
@@ -50,7 +51,7 @@ public class Data implements DataService{
     walls = new ArrayList<Wall>();
     initWalls();
     stepNumber = 0;
-    heroesResistance = 2;
+    heroesResistance = 200;
     score = 0;
     Music = true;
     GameOver = false;
@@ -58,6 +59,7 @@ public class Data implements DataService{
     niveau = 1;
     isStart = false;
     log = "";
+    spawn = 20000;
   }
 
   public void setIsStart(boolean s){
@@ -201,6 +203,16 @@ public boolean getReplay() {
 @Override
 public boolean setReplay(boolean b) {
 	return Replay = b;
+}
+
+@Override
+public int getSpawn() {
+	return spawn;
+}
+
+@Override
+public int setSpawn(int b) {
+	return spawn = b;
 }
 
 @Override

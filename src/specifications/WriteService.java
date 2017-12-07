@@ -24,5 +24,6 @@ public interface WriteService {
 public boolean setMusic(boolean b);
 boolean setGameOver(boolean b);
 boolean setReplay(boolean b);
+int setSpawn(int b);
   
 }
