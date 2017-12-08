@@ -285,6 +285,7 @@ public class Viewer implements ViewerService, RequireReadService{
                 dialogVbox.getChildren().add(new Text("\nBatteries Verte :"));
                 dialogVbox.getChildren().add(new Text("\tServent à restaurer la resistance du heros de 50 jusqu'à un maximum de 300"));
                 dialogVbox.getChildren().add(new Text("\tServent à gagner en score que la vie augment ou pas."));
+                dialogVbox.getChildren().add(new Text("\t\t\tAttention à la zone de danger (marquer en rouge autour des ennemis) qui baisse la resistance du heros"));
                 Scene dialogScene = new Scene(dialogVbox, 900, 600);
                 dialog.setScene(dialogScene);
                 dialog.show();
