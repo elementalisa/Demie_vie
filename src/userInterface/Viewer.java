@@ -76,9 +76,11 @@ public class Viewer implements ViewerService, RequireReadService{
   private Button buttonReplay;
   private Button buttonRegle;
   private Button buttonSon;
+  private Button buttonQuitter;
   EventHandler<MouseEvent> mouseStartHandler;
   EventHandler<MouseEvent> mouseRegleHandler;
   EventHandler<MouseEvent> mouseSonHandler;
+  EventHandler<MouseEvent> mouseQuitterHandler;
   EventHandler<MouseEvent> mouseReplaytHandler;
   public Viewer(){}
   String panelTpm;
@@ -158,7 +160,7 @@ public class Viewer implements ViewerService, RequireReadService{
     ennemieAvatarXModifiers.add(0);ennemieAvatarYModifiers.add(0);
     ennemieAvatarXModifiers.add(0);ennemieAvatarYModifiers.add(0);
     
-    buttonStart = new Button("Start");
+    buttonStart = new Button("Commencer");
     buttonStart.setPrefSize(150, 60);
     buttonStart.setTranslateX(180);
     buttonStart.setTranslateY(220);
@@ -205,10 +207,24 @@ public class Viewer implements ViewerService, RequireReadService{
     
     buttonSon = new Button("Activer/Desactiver Son");
     buttonSon.setPrefSize(190, 60);
-    buttonSon.setTranslateX(20);
+    buttonSon.setTranslateX(100);
     buttonSon.setTranslateY(760);
     buttonSon.setTextFill(Color.BLACK);
     buttonSon.setStyle("-fx-background-color: \r\n" + 
+    		"        linear-gradient(#f2f2f2, #d6d6d6),\r\n" + 
+    		"        linear-gradient(#fcfcfc 0%, #d9d9d9 20%, #d6d6d6 100%),\r\n" + 
+    		"        linear-gradient(#dddddd 0%, #f6f6f6 50%);\r\n" + 
+    		"    -fx-background-radius: 8,7,6;\r\n" + 
+    		"    -fx-background-insets: 0,1,2;\r\n" + 
+    		"    -fx-text-fill: black;\r\n" + 
+    		"    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );");
+    textAreaConsole.setFocusTraversable(false);
+    buttonQuitter = new Button("Quitter");
+    buttonQuitter.setPrefSize(80, 60);
+    buttonQuitter.setTranslateX(20);
+    buttonQuitter.setTranslateY(760);
+    buttonQuitter.setTextFill(Color.BLACK);
+    buttonQuitter.setStyle("-fx-background-color: \r\n" + 
     		"        linear-gradient(#f2f2f2, #d6d6d6),\r\n" + 
     		"        linear-gradient(#fcfcfc 0%, #d9d9d9 20%, #d6d6d6 100%),\r\n" + 
     		"        linear-gradient(#dddddd 0%, #f6f6f6 50%);\r\n" + 
@@ -262,6 +278,13 @@ public class Viewer implements ViewerService, RequireReadService{
 				dialog.initOwner(primaryStage);
                 VBox dialogVbox = new VBox(20);
                 dialogVbox.getChildren().add(new Text("Comment jouer....."));
+                dialogVbox.getChildren().add(new Text("\t\t Regles"));
+                dialogVbox.getChildren().add(new Text("\nBatteries Rouge :"));
+                dialogVbox.getChildren().add(new Text("\tServent à eliminer un ennemie aleatoirement si il y en a."));
+                dialogVbox.getChildren().add(new Text("\tServent à gagner en score qu'un ennemie soit tue ou pas."));
+                dialogVbox.getChildren().add(new Text("\nBatteries Verte :"));
+                dialogVbox.getChildren().add(new Text("\tServent à restaurer la resistance du heros de 50 jusqu'à un maximum de 300"));
+                dialogVbox.getChildren().add(new Text("\tServent à gagner en score que la vie augment ou pas."));
                 Scene dialogScene = new Scene(dialogVbox, 900, 600);
                 dialog.setScene(dialogScene);
                 dialog.show();
@@ -280,7 +303,7 @@ public class Viewer implements ViewerService, RequireReadService{
 				dataW.setMusic(true);
 				dataW.setScore(0);
 				dataW.setNiveau(0);
-                	dataW.setGameOver(false);
+                dataW.setGameOver(false);
 			}
 		}
 	};
@@ -294,6 +317,15 @@ public class Viewer implements ViewerService, RequireReadService{
                 }else{
                 	dataW.setMusic(true);
                 }
+			}
+		}
+	};
+	
+	buttonQuitter.setOnMousePressed(mouseQuitterHandler);
+	mouseQuitterHandler = new EventHandler<MouseEvent>() {
+		@Override
+		public void handle(MouseEvent event) {
+			if(event.getEventType() == MouseEvent.MOUSE_PRESSED){
 			}
 		}
 	};
@@ -549,7 +581,7 @@ public class Viewer implements ViewerService, RequireReadService{
     
     panel.getChildren().addAll(panelTextArea, map,obstacle1,obstacle2,obstacle2b,obstacle3,obstacle3b,
     		obstacle4,obstacle5,obstacle5b,obstacle6,obstacle4a,obstacle7,obstacle7b,obstacle8,
-    		obstacle9, obstacle10,obstacle11,obstacle12,obstacle13,greets,textScore,textNiveau,buttonSon,heroesAvatar, pileRougeView, pileVerteView, greenGateView, greenGateView2);
+    		obstacle9, obstacle10,obstacle11,obstacle12,obstacle13,greets,textScore,textNiveau,buttonSon,buttonQuitter,heroesAvatar, pileRougeView, pileVerteView, greenGateView, greenGateView2);
     panelStart.getChildren().addAll(mapStart,Titre, buttonStart, buttonRegle);
     for (PhantomService p:data.getPhantoms()){
    
