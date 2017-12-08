@@ -37,6 +37,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
@@ -44,6 +45,7 @@ import javafx.geometry.Rectangle2D;
 import java.util.ArrayList;
 
 import javax.swing.JScrollPane;
+import javax.xml.ws.Dispatch;
 
 import com.sun.xml.internal.ws.api.pipe.Engine;
 
@@ -327,6 +329,7 @@ public class Viewer implements ViewerService, RequireReadService{
 		@Override
 		public void handle(MouseEvent event) {
 			if(event.getEventType() == MouseEvent.MOUSE_PRESSED){
+				Platform.exit();
 			}
 		}
 	};
